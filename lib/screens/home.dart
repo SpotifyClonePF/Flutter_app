@@ -19,25 +19,25 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Colors.blueGrey.shade300,
-                Colors.black,
-                Colors.black,
-                Colors.black,
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
-          ),
-          child: Column(
-            children: [
-              createAppBar('Good morning')
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Colors.blueGrey.shade300,
+              Colors.black,
+              Colors.black,
+              Colors.black,
             ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
           ),
-        )
+        ),
+        child: Column(
+          children: [
+            createAppBar('Good morning')
+          ],
+        ),
+      )
     );
   }
 }
