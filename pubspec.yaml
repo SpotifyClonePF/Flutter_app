@@ -1,4 +1,4 @@
-name: spotify_clone
+name: Sound2U
 description: A new Flutter project.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -37,6 +37,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   audioplayers: ^0.20.1
+  flutter_native_splash: ^2.2.19
 
 dev_dependencies:
   flutter_test:
@@ -51,6 +52,18 @@ dev_dependencies:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
+
+flutter_native_splash:
+  color: "#f7f6f1"
+  color_dark: "#272727"
+  image: assets/icons/logo.png
+  image_dark: assets/icons/logo.png
+
+  android_12:
+    image: assets/icons/logo.png
+    icon_background_color: "#f7f6f1"
+    image_dark: assets/icons/logo.png
+    icon_backpround_color_dark: "#272727"
 
 # The following section is specific to Flutter packages.
 flutter:
