@@ -45,18 +45,56 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(40.0),
+                padding: const EdgeInsets.all(50.0),
                 child: Form(
                   child: Column(
                     children: [
                       TextFormField(
-                        decoration: const InputDecoration(
-                            labelText: "Username",fillColor: MyColors.lightWhite, icon: Icon(Icons.person), iconColor: MyColors.darkGray),
+                        decoration: InputDecoration(
+                          labelText: "Username",
+                          labelStyle: const TextStyle(color: MyColors.darkGray),
+                          /*icon: Padding(
+                            padding: EdgeInsets.only(top: 20),
+                            child: Icon(Icons.person, size: 35),
+                          ),*/
+                          prefixIcon: Container(
+                            margin: const EdgeInsets.only(right: 10, top: 5),
+                            child: const Icon(Icons.person, size: 35, color: MyColors.darkGray,),
+                          ),
+                          iconColor: MyColors.darkGray,
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: MyColors.darkGray),
+                          ),
+                          /*
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: MyColors.pink),
+                          ),
+                          */
+                        ),
                       ),
                       TextFormField(
                         obscureText: true,
-                        decoration: const InputDecoration(
-                            labelText: "Password", icon: Icon(Icons.lock), iconColor: MyColors.darkGray),
+                        decoration: InputDecoration(
+                          labelText: "Password",
+                          labelStyle: const TextStyle(color: MyColors.darkGray),
+                          /*icon: Padding(
+                            padding: EdgeInsets.only(top: 20),
+                            child: Icon(Icons.lock, size: 35),
+                          ),*/
+                          prefixIcon: Container(
+                            margin: const EdgeInsets.only(right: 10, top: 5),
+                            child: const Icon(Icons.lock, size: 35, color: MyColors.darkGray,),
+                          ),
+                          iconColor: MyColors.darkGray,
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: MyColors.darkGray),
+                          ),
+                          /*
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: MyColors.pink),
+                          ),
+                          */
+                        ),
                       ),
                       const SizedBox(
                         height: 50,
@@ -66,6 +104,9 @@ class _LoginPageState extends State<LoginPage> {
                           Navigator.pushNamed(context, '/home'); // Cambiar a pushReplacementNamed
                         },
                         style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
                           backgroundColor: const Color(0xFFD3D1D1),
                           padding: const EdgeInsets.symmetric(
                             horizontal: 50,
