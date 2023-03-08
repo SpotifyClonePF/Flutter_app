@@ -1,0 +1,9 @@
+
+Uso de la carpeta 'widgets':
+
+    - En esta carpeta se encuentran los archivos que se usan para crear los widgets de la
+      aplicación y pueden ser usados en cualquier parte de la aplicación.
+
+        Por ejemplo:
+            - Un widget 'navbar' que se usa en la parte superior de la aplicación repetidamente
+            entre screens.

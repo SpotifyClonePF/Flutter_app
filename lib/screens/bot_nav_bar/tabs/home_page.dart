@@ -10,7 +10,7 @@ class Home extends StatelessWidget {
       title: Text(message),
       actions: const [
         Padding(
-          padding: EdgeInsets.only(right: 10),
+          padding: EdgeInsets.only(right: 15),
           child: Icon(Icons.settings),
         )],
     );
@@ -23,13 +23,9 @@ class Home extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Colors.blueGrey.shade300,
-              Colors.black,
-              Colors.black,
-              Colors.black,
+              Colors.grey.shade800,
+              Colors.grey.shade900,
             ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
           ),
         ),
         child: Column(
