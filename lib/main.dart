@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'screens/routes.dart';
+import 'styles/colors.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,6 +18,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarColor: MyColors.lightBlack,
+    ));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Sound2U',

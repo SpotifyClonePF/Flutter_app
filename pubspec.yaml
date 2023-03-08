@@ -56,13 +56,13 @@ dev_dependencies:
 flutter_native_splash:
   color: "#f7f6f1"
   color_dark: "#272727"
-  image: assets/icons/logo.png
-  image_dark: assets/icons/logo.png
+  image: assets/icons/logo_prueba.png
+  image_dark: assets/icons/logo_prueba.png
 
   android_12:
-    image: assets/icons/logo.png
+    image: assets/icons/logo_prueba.png
     icon_background_color: "#f7f6f1"
-    image_dark: assets/icons/logo.png
+    image_dark: assets/icons/logo_prueba.png
     icon_backpround_color_dark: "#272727"
 
 # The following section is specific to Flutter packages.
@@ -76,6 +76,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/icons/logo.png
+    - assets/icons/logo_prueba.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

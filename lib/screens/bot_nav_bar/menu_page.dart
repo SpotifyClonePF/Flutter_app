@@ -1,3 +1,4 @@
+import 'package:Sound2U/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'tabs/home_page.dart';
 import 'tabs/page2_page.dart';
@@ -25,6 +26,7 @@ class _MenuPageState extends State<MenuPage> {
     return Scaffold(
       body: _tabs[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: MyColors.lightBlack,
         currentIndex: _currentIndex,
         onTap: (int index) {
           setState(() {
@@ -34,17 +36,19 @@ class _MenuPageState extends State<MenuPage> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Home',
+            label: 'Home'
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.music_note),
-            label: 'Page 2',
+            label: 'Page 2'
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
-            label: 'Settings',
+            label: 'Settings'
           ),
         ],
+        selectedItemColor: MyColors.orange,
+        unselectedItemColor: MyColors.white,
       ),
     );
   }
