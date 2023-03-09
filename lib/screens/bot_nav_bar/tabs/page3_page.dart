@@ -6,10 +6,28 @@ class Page3 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: MyColors.darkGray,
       body: Center(
-        child: Text('Page 3', style: TextStyle(fontSize: 50, color: MyColors.white)),
+        child: Container(
+          height: 400,
+          margin: const EdgeInsets.only(right: 200),
+          width: MediaQuery.of(context).size.width / 2,
+          decoration: const BoxDecoration(
+            color: Colors.blue,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30),
+              topRight: Radius.circular(30),
+            ),
+          ),
+          child: const Align(
+            alignment: Alignment.topCenter,
+            child: Padding(
+              padding: EdgeInsets.only(top: 20),
+              child: Text("LOGIN", style: TextStyle(fontSize: 30)),
+            ),
+          ),
+        ),
       ),
     );
   }

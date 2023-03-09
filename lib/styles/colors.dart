@@ -10,4 +10,8 @@ class MyColors {
   static const Color white = Color(0xFFFFFFFF);
   static const Color lightWhite = Color(0xFFE1D9D9);
   static const Color lightBlue = Color(0xFFD0F5ED);
+  static const graOrange = LinearGradient(colors: [
+    Color(0xFFE5681A),
+    Color(0xffd5b740),
+  ]);
 }

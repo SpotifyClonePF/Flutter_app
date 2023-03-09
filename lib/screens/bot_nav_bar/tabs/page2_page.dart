@@ -6,11 +6,45 @@ class Page2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: MyColors.darkGray,
-      body: Center(
-        child: Text('Page 2', style: TextStyle(fontSize: 50, color: MyColors.white)),
+      body: Stack(
+        children: <Widget>[
+          // Segundo container
+          Positioned(
+            top: MediaQuery.of(context).size.height / 4,
+            left: 0,
+            right: 0,
+            height: MediaQuery.of(context).size.height / 4,
+            child: Container(
+              color: Colors.green,
+              child: const Center(
+                child: Text("Segundo Container"),
+              ),
+            ),
+          ),
+          // Primer container
+          Positioned(
+            top: MediaQuery.of(context).size.height / 4 - MediaQuery.of(context).size.height / 16,
+            left: 0,
+            right: MediaQuery.of(context).size.width / 2,
+            height: 50,
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Colors.blue,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30),
+                  topRight: Radius.circular(30),
+                ),
+              ),
+              child: const Center(
+                child: Text("LOGIN"),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 }
+

@@ -56,15 +56,11 @@ dev_dependencies:
 flutter_native_splash:
   #color: "#f7f6f1"
   color: "#FFA500"
-  color_dark: "#272727"
+  color_dark: "#FFA500"
   image: assets/icons/logo_prueba.png
   image_dark: assets/icons/logo_prueba.png
-
-  android_12:
-    image: assets/icons/logo_prueba.png
-    icon_background_color: "#f7f6f1"
-    image_dark: assets/icons/logo_prueba.png
-    icon_backpround_color_dark: "#272727"
+  scale: 100
+  alignment: center
 
 # The following section is specific to Flutter packages.
 flutter:

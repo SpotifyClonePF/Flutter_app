@@ -9,7 +9,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   final _passwordController = TextEditingController();
   bool _obscureText = true;
 
@@ -50,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             const SizedBox(
-              height: 70,
+              height: 40,
             ),
             Center(
               child: Image.asset(
@@ -60,165 +59,222 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             const SizedBox(
-              height: 50,
+              height: 20,
             ),
-            Container(
-              height: screenHeight,
-              decoration: const BoxDecoration(
-                color: Color(0xFFE19507),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(50),
-                  topRight: Radius.circular(50),
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(50.0),
-                child: Form(
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        decoration: InputDecoration(
-                          labelText: "Username",
-                          labelStyle: const TextStyle(color: MyColors.darkGray),
-                          prefixIcon: Container(
-                            margin: const EdgeInsets.only(right: 10, top: 5),
-                            child: const Icon(
-                              Icons.person,
-                              size: 35,
-                              color: MyColors.darkGray,
-                            ),
-                          ),
-                          iconColor: MyColors.darkGray,
-                          focusedBorder: const UnderlineInputBorder(
-                            borderSide: BorderSide(color: MyColors.darkGray),
-                          ),
-                          enabledBorder: const UnderlineInputBorder(
-                            borderSide: BorderSide(color: MyColors.darkGray),
-                          ),
-                        ),
-                      ),
-                      TextFormField(
-                        controller: _passwordController,
-                        obscureText: _obscureText,
-                        decoration: InputDecoration(
-                          labelText: "Password",
-                          labelStyle: const TextStyle(color: MyColors.darkGray),
-                          prefixIcon: Container(
-                            margin: const EdgeInsets.only(right: 10, top: 5),
-                            child: const Icon(
-                              Icons.lock,
-                              size: 35,
-                              color: MyColors.darkGray,
-                            ),
-                          ),
-                          suffixIcon: Container(
-                            margin: const EdgeInsets.only(top: 10),
-                            child: IconButton(
-                              icon: Icon(
-                                _obscureText
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
-                                color: MyColors.darkGray,
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  _obscureText = !_obscureText;
-                                });
-                              },
-                            ),
-                          ),
-                          iconColor: MyColors.darkGray,
-                          focusedBorder: const UnderlineInputBorder(
-                            borderSide: BorderSide(color: MyColors.darkGray),
-                          ),
-                          enabledBorder: const UnderlineInputBorder(
-                            borderSide: BorderSide(color: MyColors.darkGray),
+            Stack(
+              children: [
+                // Segundo container
+                Container(
+                  height: 400,
+                  width: MediaQuery.of(context).size.width / 2,
+                  decoration: const BoxDecoration(
+                    color: MyColors.black,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30),
+                      topRight: Radius.circular(30),
+                    ),
+                  ),
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 15),
+                      child: ShaderMask(
+                        shaderCallback: (bounds) => const LinearGradient(
+                          colors: [
+                            Color(0xFFE5681A),
+                            Color(0xffd5b740),
+                          ],
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                        ).createShader(bounds),
+                        child: const Text(
+                          "LOGIN",
+                          style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        height: 50,
-                      ),
-                      Wrap(
-                        spacing: 40,
-                        children: [
-                          _buildSocialButton(Image.asset(
-                              'assets/icons/google_redondo.png',
-                              width: 35),
-                              const Color(0xFFFFFFFF)),
-                          _buildSocialButton(Image.asset(
-                              'assets/icons/twitter.png',
-                              width: 50),
-                              const Color(0xFF03A9F4)),
-                          _buildSocialButton(Image.asset(
-                              'assets/icons/faceboook.png',
-                              width: 60) ,
-                              const Color(0xFF4A6EA9)),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 50,
-                      ),
-                      Wrap(
-                        alignment: WrapAlignment.center,
-                        spacing: 10,
-                        children: [
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.pushNamed(context,
-                                  '/home'); // Cambiar a pushReplacementNamed
-                            },
-                            style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              backgroundColor: MyColors.darkGray,
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 20,
-                                vertical: 15,
-                              ),
-                              textStyle: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.normal,
-                              ),
-                              elevation: 2,
-                            ),
-                            child: const Text("LISTEN IN",
-                                style: TextStyle(
-                                    color: MyColors.orange,
-                                    fontWeight: FontWeight.bold)),
-                          ),
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.pushNamed(context,
-                                  '/home'); // Cambiar a pushReplacementNamed
-                            },
-                            style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              backgroundColor: const Color(0xFFE19507),
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 18,
-                                vertical: 15,
-                              ),
-                              textStyle: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.normal,
-                              ),
-                              elevation: 0,
-                            ),
-                            child: const Text("SIGN UP",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold)),
-                          ),
-                        ],
-                      ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
+                // Primer container
+                Container(
+                  margin: const EdgeInsets.only(top: 60),
+                  height: screenHeight,
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Color(0xFFE5681A),
+                        Color(0xffd5b740),
+                      ],
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                    ),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(50),
+                      topRight: Radius.circular(50),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(50.0),
+                    child: Form(
+                      child: Column(
+                        children: [
+                          TextFormField(
+                            decoration: InputDecoration(
+                              labelText: "Username",
+                              labelStyle:
+                                  const TextStyle(color: MyColors.darkGray),
+                              prefixIcon: Container(
+                                margin:
+                                    const EdgeInsets.only(right: 10, top: 5),
+                                child: const Icon(
+                                  Icons.person,
+                                  size: 35,
+                                  color: MyColors.darkGray,
+                                ),
+                              ),
+                              iconColor: MyColors.darkGray,
+                              focusedBorder: const UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: MyColors.darkGray),
+                              ),
+                              enabledBorder: const UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: MyColors.darkGray),
+                              ),
+                            ),
+                          ),
+                          TextFormField(
+                            controller: _passwordController,
+                            obscureText: _obscureText,
+                            decoration: InputDecoration(
+                              labelText: "Password",
+                              labelStyle:
+                                  const TextStyle(color: MyColors.darkGray),
+                              prefixIcon: Container(
+                                margin:
+                                    const EdgeInsets.only(right: 10, top: 5),
+                                child: const Icon(
+                                  Icons.lock,
+                                  size: 35,
+                                  color: MyColors.darkGray,
+                                ),
+                              ),
+                              suffixIcon: Container(
+                                margin: const EdgeInsets.only(top: 10),
+                                child: IconButton(
+                                  icon: Icon(
+                                    _obscureText
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
+                                    color: MyColors.darkGray,
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      _obscureText = !_obscureText;
+                                    });
+                                  },
+                                ),
+                              ),
+                              iconColor: MyColors.darkGray,
+                              focusedBorder: const UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: MyColors.darkGray),
+                              ),
+                              enabledBorder: const UnderlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: MyColors.darkGray),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 40,
+                          ),
+                          Wrap(
+                            spacing: 40,
+                            children: [
+                              _buildSocialButton(
+                                  Image.asset('assets/icons/google_redondo.png',
+                                      width: 35),
+                                  const Color(0xFFFFFFFF)),
+                              _buildSocialButton(
+                                  Image.asset('assets/icons/twitter.png',
+                                      width: 50),
+                                  const Color(0xFF03A9F4)),
+                              _buildSocialButton(
+                                  Image.asset('assets/icons/faceboook.png',
+                                      width: 60),
+                                  const Color(0xFF4A6EA9)),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 40,
+                          ),
+                          Wrap(
+                            alignment: WrapAlignment.center,
+                            spacing: 10,
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.pushNamed(context,
+                                      '/home'); // Cambiar a pushReplacementNamed
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  backgroundColor: MyColors.black,
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 20,
+                                    vertical: 15,
+                                  ),
+                                  textStyle: const TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                  elevation: 2,
+                                ),
+                                child: const Text("LISTEN IN",
+                                    style: TextStyle(
+                                        color: MyColors.orange,
+                                        fontWeight: FontWeight.bold)),
+                              ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.pushNamed(context,
+                                      '/home'); // Cambiar a pushReplacementNamed
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                  backgroundColor: Colors.transparent,
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 18,
+                                    vertical: 15,
+                                  ),
+                                  textStyle: const TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                  elevation: 0,
+                                ),
+                                child: const Text("SIGN UP",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold)),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
