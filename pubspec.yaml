@@ -78,6 +78,12 @@ flutter:
   assets:
     - assets/icons/logo.png
     - assets/icons/logo_prueba.png
+    - assets/icons/google.png
+    - assets/icons/google_redondo.png
+    - assets/icons/facebook.png
+    - assets/icons/faceboook.png
+    - assets/icons/facebook_redondo.png
+    - assets/icons/twitter.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
