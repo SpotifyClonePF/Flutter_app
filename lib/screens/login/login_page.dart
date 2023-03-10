@@ -1,5 +1,6 @@
 import 'package:Sound2U/styles/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:dotted_line/dotted_line.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -118,7 +119,8 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(50.0),
+                    padding: const EdgeInsets.only(top: 30, bottom: 50,
+                    left: 50, right: 50),
                     child: Form(
                       child: Column(
                         children: [
@@ -146,6 +148,9 @@ class _LoginPageState extends State<LoginPage> {
                                     BorderSide(color: MyColors.darkGray),
                               ),
                             ),
+                          ),
+                          const SizedBox(
+                            height: 15,
                           ),
                           TextFormField(
                             controller: _passwordController,
@@ -190,8 +195,157 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                           ),
-                          const SizedBox(
-                            height: 40,
+                          Container(
+                            margin: const EdgeInsets.only(top: 15),
+                            alignment: Alignment.topRight,
+                            child: const Text(
+                              "Forgot Password?",
+                              style: TextStyle(
+                                color: Color(0xBD222223),
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 40, bottom: 40),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                DottedLine(
+                                  dashColor: Color(0xBD222223),
+                                  lineLength: 6,
+                                  dashLength: 3.5,
+                                  lineThickness: 10,
+                                ),
+                                DottedLine(
+                                  dashColor: Color(0xBD222223),
+                                  lineLength: 6,
+                                  dashLength: 3.4,
+                                  lineThickness: 20,
+                                ),
+                                DottedLine(
+                                  dashColor: Color(0xBD222223),
+                                  lineLength: 6,
+                                  dashLength: 3.4,
+                                  lineThickness: 30,
+                                ),
+                                DottedLine(
+                                  dashColor: Color(0xBD222223),
+                                  lineLength: 6,
+                                  dashLength: 3.4,
+                                  lineThickness: 20,
+                                ),
+                                DottedLine(
+                                  dashColor: Color(0xBD222223),
+                                  lineLength: 6,
+                                  dashLength: 3.4,
+                                  lineThickness: 10,
+
+                                  /// MEDIO
+                                ),
+                                DottedLine(
+                                  dashColor: Color(0xBD222223),
+                                  lineLength: 6,
+                                  dashLength: 3.4,
+                                  lineThickness: 16,
+                                ),
+                                DottedLine(
+                                  dashColor: Color(0xBD222223),
+                                  lineLength: 6,
+                                  dashLength: 3.4,
+                                  lineThickness: 20,
+                                ),
+                                DottedLine(
+                                  dashColor: Color(0xBD222223),
+                                  lineLength: 6,
+                                  dashLength: 3.4,
+                                  lineThickness: 30,
+                                ),
+                                DottedLine(
+                                  dashColor: Color(0xBD222223),
+                                  lineLength: 6,
+                                  dashLength: 3.4,
+                                  lineThickness: 20,
+                                ),
+                                DottedLine(
+                                  dashColor: Color(0xBD222223),
+                                  lineLength: 6,
+                                  dashLength: 3.4,
+                                  lineThickness: 10,
+                                ),
+                                Text(
+                                  '    OR CONTINUE WITH     ',
+                                  style: TextStyle(
+                                    color: Color(0xBD222223),
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                DottedLine(
+                                  dashColor: Color(0xBD222223),
+                                  lineLength: 6,
+                                  dashLength: 3.5,
+                                  lineThickness: 10,
+                                ),
+                                DottedLine(
+                                  dashColor: Color(0xBD222223),
+                                  lineLength: 6,
+                                  dashLength: 3.4,
+                                  lineThickness: 20,
+                                ),
+                                DottedLine(
+                                  dashColor: Color(0xBD222223),
+                                  lineLength: 6,
+                                  dashLength: 3.4,
+                                  lineThickness: 30,
+                                ),
+                                DottedLine(
+                                  dashColor: Color(0xBD222223),
+                                  lineLength: 6,
+                                  dashLength: 3.4,
+                                  lineThickness: 20,
+                                ),
+                                DottedLine(
+                                  dashColor: Color(0xBD222223),
+                                  lineLength: 6,
+                                  dashLength: 3.4,
+                                  lineThickness: 10,
+
+                                  /// MEDIO
+                                ),
+                                DottedLine(
+                                  dashColor: Color(0xBD222223),
+                                  lineLength: 6,
+                                  dashLength: 3.4,
+                                  lineThickness: 16,
+                                ),
+                                DottedLine(
+                                  dashColor: Color(0xBD222223),
+                                  lineLength: 6,
+                                  dashLength: 3.4,
+                                  lineThickness: 20,
+                                ),
+                                DottedLine(
+                                  dashColor: Color(0xBD222223),
+                                  lineLength: 6,
+                                  dashLength: 3.4,
+                                  lineThickness: 30,
+                                ),
+                                DottedLine(
+                                  dashColor: Color(0xBD222223),
+                                  lineLength: 6,
+                                  dashLength: 3.4,
+                                  lineThickness: 20,
+                                ),
+                                DottedLine(
+                                  dashColor: Color(0xBD222223),
+                                  lineLength: 6,
+                                  dashLength: 3.4,
+                                  lineThickness: 10,
+                                ),
+                              ],
+                            ),
                           ),
                           Wrap(
                             spacing: 40,
