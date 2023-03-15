@@ -21,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _buildSocialButton(Widget icon, Color color) {
     return Transform.scale(
-      scale: 1.1,
+      scale: 1.05,
       child: FloatingActionButton(
         backgroundColor: color,
         shape: RoundedRectangleBorder(
@@ -50,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             const SizedBox(
-              height: 40,
+              height: 20,
             ),
             Center(
               child: Image.asset(
@@ -60,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: 0,
             ),
             Stack(
               children: [
@@ -119,8 +119,8 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 30, bottom: 50,
-                    left: 50, right: 50),
+                    padding: const EdgeInsets.only(
+                        top: 20, bottom: 50, left: 40, right: 40),
                     child: Form(
                       child: Column(
                         children: [
@@ -195,20 +195,32 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                           ),
-                          Container(
-                            margin: const EdgeInsets.only(top: 15),
-                            alignment: Alignment.topRight,
-                            child: const Text(
-                              "Forgot Password?",
-                              style: TextStyle(
-                                color: Color(0xBD222223),
-                                fontSize: 12,
-                                fontWeight: FontWeight.bold,
+                          GestureDetector(
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return const AlertDialog(
+                                    title: Text("bro..."),
+                                  );
+                                },
+                              );
+                            },
+                            child: Container(
+                              margin: const EdgeInsets.only(top: 15),
+                              alignment: Alignment.topRight,
+                              child: const Text(
+                                "Forgot Password?",
+                                style: TextStyle(
+                                  color: Color(0xBD222223),
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(top: 40, bottom: 40),
+                            padding: const EdgeInsets.only(top: 30, bottom: 30),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: const [
@@ -365,11 +377,11 @@ class _LoginPageState extends State<LoginPage> {
                             ],
                           ),
                           const SizedBox(
-                            height: 40,
+                            height: 30,
                           ),
                           Wrap(
                             alignment: WrapAlignment.center,
-                            spacing: 10,
+                            spacing: 40,
                             children: [
                               ElevatedButton(
                                 onPressed: () {

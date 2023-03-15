@@ -1,3 +1,4 @@
+import 'package:Sound2U/screens/login/login_prueba.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'screens/routes.dart';
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
 
   // Routes
   final _routes = {
-    '/': (context) => const LoginPage(),
+    '/': (context) => const Login(),
     '/home': (context) => const MenuPage(),
   };
 

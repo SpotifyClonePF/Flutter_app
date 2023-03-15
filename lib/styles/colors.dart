@@ -14,4 +14,5 @@ class MyColors {
     Color(0xFFE5681A),
     Color(0xffd5b740),
   ]);
+  static const Color mainGreen = Color(0xFF47BCC6);
 }
