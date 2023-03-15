@@ -16,6 +16,15 @@ class LoginState extends State<Login> {
 
   String _email = '';
   String _password = '';
+  final bool _obscureText = true;
+
+  final _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   void _submitForm(BuildContext context) {
     if (_formKey.currentState!.validate()) {
@@ -34,26 +43,36 @@ class LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColors.white,
+      backgroundColor: MyColors.black,
       body: Center(
         child: LayoutBuilder(
           builder: (context, constraints) => SizedBox(
             width: 450,
             height: constraints.maxHeight > 800
-                ? MediaQuery.of(context).size.height
+                ? MediaQuery.of(context).size.height * 0.9
                 : null,
             child: Container(
               color: MyColors.orange,
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(50),
               child: Form(
                 key: _formKey,
                 //autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
+                    const Text(
+                      'Start sharing \nyour music',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 40,
+                        fontWeight: FontWeight.bold,
+                        height: 1.1,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const Divider(color: Colors.transparent, height: 30),
                     InputText(
                       label: 'Email',
-                      hint: 'Email',
                       icon: const Icon(Icons.email),
                       keyboard: TextInputType.emailAddress,
                       onChanged: (data) {
@@ -68,9 +87,12 @@ class LoginState extends State<Login> {
                     const Divider(color: Colors.transparent, height: 20),
                     InputText(
                       label: 'Password',
-                      hint: 'Password',
                       obscureText: true,
-                      icon: const Icon(Icons.lock_outline),
+                      showPassword: true,
+                      icon: Icon(
+                        _obscureText ? Icons.visibility : Icons.visibility_off,
+                        color: MyColors.darkGray,
+                      ),
                       onChanged: (data) {
                         _password = data;
                       },
@@ -81,10 +103,63 @@ class LoginState extends State<Login> {
                         return null;
                       },
                     ),
+                    const Divider(color: Colors.transparent, height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            const Text(
+                              'Remember me',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 16,
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 3.5),
+                              child: Checkbox(
+                                value: false,
+                                onChanged: (value) {
+                                  //setState(() => _rememberMe = value!);
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                        InkWell(
+                          onTap: () {
+                            //Navigator.pushNamed(context, '/forgot-password');
+                          },
+                          child: const Text(
+                            'Forgot password?',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                     const Divider(color: Colors.transparent, height: 20),
                     ElevatedButton(
                       onPressed: () => _submitForm(context),
-                      child: const Text('Login'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: MyColors.black,
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 18,
+                          horizontal: 40,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        textStyle: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      child: const Text('Listen in'),
                     ),
                   ],
                 ),

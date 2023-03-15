@@ -1,15 +1,39 @@
-import 'package:Sound2U/screens/login/login_prueba.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'screens/login/login_prueba.dart';
 import 'screens/routes.dart';
 import 'styles/colors.dart';
+import 'package:window_manager/window_manager.dart';
 
-void main() {
-  runApp(MyApp());
+void main() async {
+
+  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+    WidgetsFlutterBinding.ensureInitialized();
+    await windowManager.ensureInitialized();
+
+    WindowOptions windowOptions = const WindowOptions(
+      center: false,
+      backgroundColor: Colors.transparent,
+      minimumSize: Size(500, 500),
+    );
+    windowManager.waitUntilReadyToShow(windowOptions, () async {
+      await windowManager.show();
+      await windowManager.focus();
+    });
+  }
+
+  runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  MyApp({super.key});
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
 
   // Routes
   final _routes = {
