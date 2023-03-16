@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'screens/login/Loginnn.dart';
 import 'screens/login/login_prueba.dart';
 import 'screens/routes.dart';
 import 'styles/colors.dart';
@@ -16,7 +15,7 @@ void main() async {
     WindowOptions windowOptions = const WindowOptions(
       center: false,
       backgroundColor: Colors.transparent,
-      minimumSize: Size(500, 500),
+      minimumSize: Size(650, 650),
     );
     windowManager.waitUntilReadyToShow(windowOptions, () async {
       await windowManager.show();

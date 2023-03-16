@@ -34,15 +34,21 @@ class _InputTextState extends State<InputText> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 0),
+      height: 45,
       child: TextFormField(
         keyboardType: widget.keyboard,
         obscureText: !showPassword && widget.obscureText,
-        cursorColor: Colors.black,
+        cursorColor: Colors.grey,
+        style: const TextStyle(
+          color: Colors.grey,
+          fontSize: 15.0,
+        ),
         decoration: InputDecoration(
+          fillColor: Colors.grey,
           hintText: widget.hint,
           labelText: widget.label,
           labelStyle: const TextStyle(
-            color: Colors.black,
+            color: Colors.grey,
             fontSize: 15.0,
           ),
           suffixIcon: widget.showPassword
@@ -52,29 +58,43 @@ class _InputTextState extends State<InputText> {
                       showPassword = !showPassword;
                     });
                   },
-                  child: Icon(
-                    showPassword ? Icons.visibility_off : Icons.visibility,
-                    color: Colors.black,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 10),
+                    child: Icon(
+                      showPassword ? Icons.visibility_off : Icons.visibility,
+                      color: Colors.grey,
+                    ),
                   ),
                 )
-              : Icon(
-                  widget.icon.icon,
-                  color: Colors.black,
-          ),
-          suffixIconColor: Colors.black,
+              : Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: Icon(
+                    widget.icon.icon,
+                    color: Colors.grey,
+                  ),
+                ),
+          suffixIconColor: Colors.grey,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20.0),
+            borderRadius: BorderRadius.circular(10.0),
           ),
           enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.black, width: 2),
-            borderRadius: BorderRadius.circular(20.0),
+            borderSide: const BorderSide(color: Colors.grey, width: 2),
+            borderRadius: BorderRadius.circular(10.0),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.black, width: 2),
-            borderRadius: BorderRadius.circular(20.0),
+            borderSide: const BorderSide(color: Colors.grey, width: 2),
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.red, width: 2),
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          errorStyle: const TextStyle(
+            color: Colors.red,
+            fontSize: 15.0,
           ),
           hintStyle: const TextStyle(
-            color: Colors.black,
+            color: Colors.grey,
             fontSize: 15.0,
           ),
         ),
