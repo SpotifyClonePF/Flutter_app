@@ -53,7 +53,7 @@ class _InputTextState extends State<InputText> {
                     });
                   },
                   child: Icon(
-                    showPassword ? Icons.visibility : Icons.visibility_off,
+                    showPassword ? Icons.visibility_off : Icons.visibility,
                     color: Colors.black,
                   ),
                 )

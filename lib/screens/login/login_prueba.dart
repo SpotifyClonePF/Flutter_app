@@ -13,12 +13,15 @@ class LoginState extends State<Login> {
   //final _emailController = TextEditingController();
   //final _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-
+  final ScrollController _scrollController = ScrollController();
+  bool _isScrollbarVisible = true;
   String _email = '';
   String _password = '';
   final bool _obscureText = true;
 
   final _passwordController = TextEditingController();
+
+  late bool _isChecked = false;
 
   @override
   void dispose() {
@@ -46,169 +49,307 @@ class LoginState extends State<Login> {
       backgroundColor: MyColors.black,
       body: Center(
         child: LayoutBuilder(
-          builder: (context, constraints) => SizedBox(
+            builder: (BuildContext context, BoxConstraints constraints) {
+          _isScrollbarVisible =
+              constraints.maxHeight < MediaQuery.of(context).size.height;
+          return SizedBox(
             width: 450,
-            height: constraints.maxHeight > 800
-                ? MediaQuery.of(context).size.height * 0.9
+            height: _isScrollbarVisible && constraints.maxHeight > 800
+                ? MediaQuery.of(context).size.height
                 : null,
-            child: Container(
-              color: MyColors.orange,
-              padding: const EdgeInsets.all(50),
-              child: Form(
-                key: _formKey,
-                //autovalidateMode: AutovalidateMode.onUserInteraction,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Start sharing \nyour music',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 40,
-                        fontWeight: FontWeight.bold,
-                        height: 1.1,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    const Divider(color: Colors.transparent, height: 30),
-                    InputText(
-                      label: 'Email',
-                      icon: const Icon(Icons.email),
-                      keyboard: TextInputType.emailAddress,
-                      onChanged: (data) {
-                        _email = data;
-                      },
-                      validator: (data) => data == null || data.isEmpty
-                          ? 'Por favor ingrese su correo electrónico'
-                          : !data.contains('@') || !data.contains('.')
-                              ? 'Por favor ingrese un correo electrónico válido'
-                              : null,
-                    ),
-                    const Divider(color: Colors.transparent, height: 20),
-                    InputText(
-                      label: 'Password',
-                      obscureText: true,
-                      showPassword: true,
-                      icon: Icon(
-                        _obscureText ? Icons.visibility : Icons.visibility_off,
-                        color: MyColors.darkGray,
-                      ),
-                      onChanged: (data) {
-                        _password = data;
-                      },
-                      validator: (data) {
-                        if (data!.trim().length < 8) {
-                          return 'Invalid password';
-                        }
-                        return null;
-                      },
-                    ),
-                    const Divider(color: Colors.transparent, height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: SingleChildScrollView(
+              controller: _scrollController,
+              child: Container(
+                color: Colors.deepPurple[300],
+                padding: const EdgeInsets.all(40),
+                child: Form(
+                  key: _formKey,
+                  //autovalidateMode: AutovalidateMode.onUserInteraction,
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        const Divider(color: Colors.transparent, height: 20),
+                        const Text(
+                          'Start sharing \nyour music',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 40,
+                            fontWeight: FontWeight.bold,
+                            height: 1.1,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        const Divider(color: Colors.transparent, height: 40),
+                        InputText(
+                          label: 'Email',
+                          icon: const Icon(Icons.email),
+                          keyboard: TextInputType.emailAddress,
+                          onChanged: (data) {
+                            _email = data;
+                          },
+                          validator: (data) => data == null || data.isEmpty
+                              ? 'Por favor ingrese su correo electrónico'
+                              : !data.contains('@') || !data.contains('.')
+                                  ? 'Por favor ingrese un correo electrónico válido'
+                                  : null,
+                        ),
+                        const Divider(color: Colors.transparent, height: 20),
+                        InputText(
+                          label: 'Password',
+                          obscureText: true,
+                          showPassword: true,
+                          icon: Icon(
+                            _obscureText
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            color: MyColors.darkGray,
+                          ),
+                          onChanged: (data) {
+                            _password = data;
+                          },
+                          validator: (data) {
+                            if (data!.trim().length < 8) {
+                              return 'Invalid password';
+                            }
+                            return null;
+                          },
+                        ),
+                        const Divider(color: Colors.transparent, height: 0),
                         Row(
-                          children: [
-                            const Text(
-                              'Remember me',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Text(
+                                  'Remember me',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Checkbox(
+                                  value: _isChecked,
+                                  activeColor: Colors.deepPurple,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _isChecked = value!;
+                                    });
+                                  },
+                                ),
+                              ],
+                            ),
+                            Container(
+                              alignment: Alignment.centerRight,
+                              child: InkWell(
+                                onTap: () {
+                                  //Navigator.pushNamed(context, '/forgot-password');
+                                },
+                                child: const Text(
+                                  'Forgot password?',
+                                  style: TextStyle(
+                                    color: Colors.black54,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 3.5),
-                              child: Checkbox(
-                                value: false,
-                                onChanged: (value) {
-                                  //setState(() => _rememberMe = value!);
-                                },
+                            // Agrega aquí cualquier otro widget que quieras incluir a la derecha del CheckboxListTile
+                          ],
+                        ),
+                        const Divider(color: Colors.transparent, height: 10),
+                        InkWell(
+                          onTap: () => _submitForm(context),
+                          child: Container(
+                            padding: const EdgeInsets.all(20),
+                            decoration: const BoxDecoration(
+                              color: Colors.deepPurple,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(12)),
+                            ),
+                            child: const Center(
+                              child: Text(
+                                "Listen in",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const Divider(color: Colors.transparent, height: 25),
+                        const Text(
+                          'OR CONTINUE WITH',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const Divider(color: Colors.transparent, height: 25),
+                        // Buttons social media
+                        InkWell(
+                          onTap: () => _submitForm(context),
+                          child: Container(
+                            padding: const EdgeInsets.all(15),
+                            decoration: const BoxDecoration(
+                              color: Colors.transparent,
+                              border: Border(
+                                top:
+                                    BorderSide(width: 1.0, color: Colors.black),
+                                left:
+                                    BorderSide(width: 1.0, color: Colors.black),
+                                right:
+                                    BorderSide(width: 1.0, color: Colors.black),
+                                bottom:
+                                    BorderSide(width: 1.0, color: Colors.black),
+                              ),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(25)),
+                            ),
+                            child: const Center(
+                              child: Text(
+                                "Google",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const Divider(color: Colors.transparent, height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              flex: 7,
+                              child: InkWell(
+                                onTap: () => _submitForm(context),
+                                child: Container(
+                                  padding: const EdgeInsets.all(15),
+                                  decoration: const BoxDecoration(
+                                    color: Colors.transparent,
+                                    border: Border(
+                                      top: BorderSide(
+                                          width: 1.0, color: Colors.black),
+                                      left: BorderSide(
+                                          width: 1.0, color: Colors.black),
+                                      right: BorderSide(
+                                          width: 1.0, color: Colors.black),
+                                      bottom: BorderSide(
+                                          width: 1.0, color: Colors.black),
+                                    ),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(25)),
+                                  ),
+                                  child: const Center(
+                                    child: Text(
+                                      "Twitter",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const Expanded(
+                              flex: 1,
+                              child: SizedBox(),
+                            ),
+                            Expanded(
+                              flex: 7,
+                              child: InkWell(
+                                onTap: () => _submitForm(context),
+                                child: Container(
+                                  padding: const EdgeInsets.all(15),
+                                  decoration: const BoxDecoration(
+                                    color: Colors.transparent,
+                                    border: Border(
+                                      top: BorderSide(
+                                          width: 1.0, color: Colors.black),
+                                      left: BorderSide(
+                                          width: 1.0, color: Colors.black),
+                                      right: BorderSide(
+                                          width: 1.0, color: Colors.black),
+                                      bottom: BorderSide(
+                                          width: 1.0, color: Colors.black),
+                                    ),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(25)),
+                                  ),
+                                  child: const Center(
+                                    child: Text(
+                                      "Facebook",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18),
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                           ],
                         ),
-                        InkWell(
-                          onTap: () {
-                            //Navigator.pushNamed(context, '/forgot-password');
-                          },
-                          child: const Text(
-                            'Forgot password?',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
+                        const Divider(color: Colors.transparent, height: 30),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text("Don't have an account?",
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            const SizedBox(width: 10),
+                            InkWell(
+                              onTap: () {
+                                print("Sign up");
+                              },
+                              child: const Text("Sign up",
+                                  style: TextStyle(
+                                      color: Colors.blue,
+                                      fontWeight: FontWeight.bold)),
                             ),
-                          ),
-                        )
+                          ],
+                        ),
                       ],
                     ),
-                    const Divider(color: Colors.transparent, height: 20),
-                    ElevatedButton(
-                      onPressed: () => _submitForm(context),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: MyColors.black,
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 18,
-                          horizontal: 40,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        textStyle: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      child: const Text('Listen in'),
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ),
+          );
+        }),
       ),
     );
   }
 }
 
+// Correct Row example
 /*
-
-                    /*TextFormField(
-                      controller: _emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: const InputDecoration(
-                        labelText: 'Email',
-                        prefixIcon: Icon(Icons.email),
-                      ),
-                      validator: (value) => value == null || value.isEmpty
-                          ? 'Por favor ingrese su correo electrónico'
-                          : !value.contains('@') || !value.contains('.')
-                              ? 'Por favor ingrese un correo electrónico válido'
-                              : null,
-                      onFieldSubmitted: (_) => _submitForm(context),
-                    ),
-                    const SizedBox(height: 20),                    */
-
-                    /*TextFormField(
-                      controller: _passwordController,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        labelText: 'Password',
-                        prefixIcon: IconButton(
-                          icon: const Icon(Icons.lock),
-                          tooltip:
-                              'Debe tener al menos 8 caracteres y \ndebe contener al menos un número',
-                          onPressed: () {},
-                        ),
-                      ),
-                      validator: (value) => value == null || value.isEmpty
-                          ? 'Por favor ingrese su contraseña'
-                          : value.length < 8
-                              ? 'La contraseña debe tener al menos 8 caracteres'
-                              : !RegExp(r'.*\d+.*').hasMatch(value)
-                                  ? 'La contraseña debe contener al menos un número'
-                                  : null,
-                      onFieldSubmitted: (_) => _submitForm(context),
-                    ),*/
+Row(
+  mainAxisAlignment: MainAxisAlignment.center,
+  children: [
+    const Text(
+        "Don't have an account?",
+        style: TextStyle(
+            fontWeight: FontWeight.bold)
+    ),
+    const SizedBox(width: 10),
+    InkWell(
+      onTap: () {
+        print("Sign up");
+      },
+      child: const Text(
+          "Sign up",
+          style: TextStyle(
+              color: Colors.blue,
+              fontWeight: FontWeight.bold)),
+    ),
+  ],
+)
  */
