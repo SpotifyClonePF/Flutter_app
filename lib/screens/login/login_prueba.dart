@@ -365,7 +365,7 @@ class LoginState extends State<Login> {
                                       child: Container(
                                         padding: const EdgeInsets.all(13),
                                         decoration: const BoxDecoration(
-                                          color: Colors.black87,
+                                          color: MyColors.facebook,
                                           /*border: Border(
                                             top: BorderSide(
                                                 width: 1.0,
@@ -402,24 +402,26 @@ class LoginState extends State<Login> {
                           const Divider(color: Colors.transparent, height: 30),
 
                           /// Sign up
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Text("Don't have an account?",
-                                  style: TextStyle(
-                                      color: Colors.grey,
-                                      fontWeight: FontWeight.bold)),
-                              const SizedBox(width: 10),
-                              InkWell(
-                                onTap: () {
-                                  print("Sign up");
-                                },
-                                child: const Text("Sign up",
+                          InkWell(
+                            onTap: () {
+                              Navigator.pushNamed(context, '/signup');
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                Text("Don't have an account?",
+                                    style: TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold)),
+                                SizedBox(width: 10),
+                                Text("Sign up",
                                     style: TextStyle(
                                         color: Colors.lightBlue,
+                                        fontSize: 18,
                                         fontWeight: FontWeight.bold)),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -434,28 +436,3 @@ class LoginState extends State<Login> {
     );
   }
 }
-
-// Correct Row example
-/*
-Row(
-  mainAxisAlignment: MainAxisAlignment.center,
-  children: [
-    const Text(
-        "Don't have an account?",
-        style: TextStyle(
-            fontWeight: FontWeight.bold)
-    ),
-    const SizedBox(width: 10),
-    InkWell(
-      onTap: () {
-        print("Sign up");
-      },
-      child: const Text(
-          "Sign up",
-          style: TextStyle(
-              color: Colors.blue,
-              fontWeight: FontWeight.bold)),
-    ),
-  ],
-)
- */

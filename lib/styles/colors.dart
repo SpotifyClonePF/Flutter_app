@@ -15,4 +15,5 @@ class MyColors {
     Color(0xffd5b740),
   ]);
   static const Color mainGreen = Color(0xFF47BCC6);
+  static const Color facebook = Color(0xFF3B5998);
 }

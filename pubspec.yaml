@@ -83,6 +83,8 @@ flutter:
     - assets/icons/facebook_redondo.png
     - assets/icons/twitter.png
     - assets/icons/fondo.png
+    - assets/icons/logo_plano.png
+    - assets/icons/logo_no_fondo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

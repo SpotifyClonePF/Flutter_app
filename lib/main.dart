@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'screens/login/login_prueba.dart';
 import 'screens/routes.dart';
 import 'styles/colors.dart';
 import 'package:window_manager/window_manager.dart';
@@ -23,7 +22,12 @@ void main() async {
     });
   }
 
-  runApp(const MyApp());
+  runApp(
+    const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: MyApp(),
+    )
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -38,18 +42,23 @@ class _MyAppState extends State<MyApp> {
   // Routes
   final _routes = {
     '/': (context) => const Login(),
+    '/login': (context) => const Login(),
+    '/signup': (context) => const SignUp(),
     '/home': (context) => const MenuPage(),
+    '/welcome': (context) => WelcomePage(),
   };
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = MediaQuery.of(context).size.width < 600;
+
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: MyColors.lightBlack,
     ));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Sound2U',
-      initialRoute: '/',
+      initialRoute: isMobile ? '/welcome' : '/login',
       routes: _routes,
       onGenerateRoute: (settings) {
         return MaterialPageRoute(
