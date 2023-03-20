@@ -404,7 +404,7 @@ class LoginState extends State<Login> {
                           /// Sign up
                           InkWell(
                             onTap: () {
-                              Navigator.pushNamed(context, '/signup');
+                              Navigator.pushReplacementNamed(context, '/signup');
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,

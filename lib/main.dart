@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'screens/routes.dart';
 import 'styles/colors.dart';
 import 'package:window_manager/window_manager.dart';
+import 'constants.dart';
 
 void main() async {
 
@@ -41,11 +42,11 @@ class _MyAppState extends State<MyApp> {
 
   // Routes
   final _routes = {
-    '/': (context) => const Login(),
+    '/': (context) => const WelcomePage(),
     '/login': (context) => const Login(),
     '/signup': (context) => const SignUp(),
     '/home': (context) => const MenuPage(),
-    '/welcome': (context) => WelcomePage(),
+    '/home_desk': (context) => const HomeDesktopPage(),
   };
 
   @override
@@ -58,7 +59,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Sound2U',
-      initialRoute: isMobile ? '/welcome' : '/login',
+      initialRoute: isMobile ? '/' : '/home_desk',
       routes: _routes,
       onGenerateRoute: (settings) {
         return MaterialPageRoute(

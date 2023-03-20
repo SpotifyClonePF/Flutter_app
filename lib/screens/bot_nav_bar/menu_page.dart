@@ -16,9 +16,9 @@ class _MenuPageState extends State<MenuPage> {
 
   // List of pages to be displayed
   final List<Widget> _tabs = [
-    const Home(),
+    Home(),
     Page2(),
-    const Page3(),
+    Page3(),
   ];
 
   @override

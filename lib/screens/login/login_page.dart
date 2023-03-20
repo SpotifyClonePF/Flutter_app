@@ -410,8 +410,8 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                               ElevatedButton(
                                 onPressed: () {
-                                  Navigator.pushNamed(context,
-                                      '/login'); // Cambiar a pushReplacementNamed
+                                  Navigator.pushReplacementNamed(context,
+                                      '/login');
                                 },
                                 style: ElevatedButton.styleFrom(
                                   shape: RoundedRectangleBorder(
