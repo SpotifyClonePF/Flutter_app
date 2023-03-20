@@ -17,7 +17,6 @@ class LoginState extends State<Login> {
   final ScrollController _scrollController = ScrollController();
   String _email = '';
   String _password = '';
-  final bool _obscureText = true;
 
   final _passwordController = TextEditingController();
 
@@ -48,6 +47,7 @@ class LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     final isMobile = MediaQuery.of(context).size.width < 600;
+    bool isHiddenPass = true;
 
     return Scaffold(
       backgroundColor: Colors.black.withOpacity(0.7),
@@ -144,12 +144,10 @@ class LoginState extends State<Login> {
                             ),
                             child: InputText(
                               label: 'Password',
-                              obscureText: true,
+                              obscureText: isHiddenPass,
                               showPassword: true,
-                              icon: Icon(
-                                _obscureText
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
+                              icon: const Icon(
+                                Icons.visibility,
                                 color: MyColors.darkGray,
                               ),
                               onChanged: (data) {
@@ -404,7 +402,8 @@ class LoginState extends State<Login> {
                           /// Sign up
                           InkWell(
                             onTap: () {
-                              Navigator.pushReplacementNamed(context, '/signup');
+                              Navigator.pushReplacementNamed(
+                                  context, '/signup');
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,

@@ -46,7 +46,7 @@ class _MyAppState extends State<MyApp> {
     '/login': (context) => const Login(),
     '/signup': (context) => const SignUp(),
     '/home': (context) => const MenuPage(),
-    '/home_desk': (context) => const HomeDesktopPage(),
+    '/home_desk': (context) => const Login(),
   };
 
   @override
