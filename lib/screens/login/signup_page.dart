@@ -1,4 +1,6 @@
 import 'dart:ui';
+import 'package:Sound2U/responsive.dart';
+import 'package:Sound2U/services/firebase_service.dart';
 import 'package:flutter/material.dart';
 import '../../styles/colors.dart';
 import '../../widgets/input_text.dart';
@@ -13,11 +15,12 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   final _formKey = GlobalKey<FormState>();
   final ScrollController _scrollController = ScrollController();
+  String _name = '';
   String _email = '';
   String _password = '';
   final bool _obscureText = true;
   final _passwordController = TextEditingController();
-  double _containerPass = 50, _containerEmail = 50;
+  double _containerPass = 50, _containerEmail = 50, _containerName = 50;
 
   @override
   void dispose() {
@@ -25,10 +28,15 @@ class _SignUpState extends State<SignUp> {
     super.dispose();
   }
 
-  void _submitForm(BuildContext context) {
+  Future<void> _submitForm(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
+      final name = _name.trim();
       final email = _email.trim();
       final password = _password.trim();
+
+      if (await existUser(name, email, password)){
+        Navigator.pushReplacementNamed(context, '/login');
+      }
 
       // Agregar Login AQUI
       print("Email: " + email);
@@ -84,6 +92,38 @@ class _SignUpState extends State<SignUp> {
                           ),
 
                           const Divider(color: Colors.transparent, height: 50),
+
+                          /// Name Input
+                          Container(
+                            height: _containerName,
+                            decoration: const BoxDecoration(
+                              color: Colors.black45,
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10),
+                              ),
+                            ),
+                            child: InputText(
+                              label: 'Username',
+                              icon: const Icon(Icons.person),
+                              onChanged: (data) {
+                                _name = data;
+                              },
+                              validator: (data) {
+                                if (data == null || data.isEmpty) {
+                                  setState(() {
+                                    _containerName = 80;
+                                  });
+                                  return 'Por favor ingrese su nombre de usuario';
+                                }
+                                setState(() {
+                                  _containerName = 50;
+                                });
+                                return null;
+                              },
+                            ),
+                          ),
+
+                          const Divider(color: Colors.transparent, height: 20),
 
                           /// Email input
                           Container(

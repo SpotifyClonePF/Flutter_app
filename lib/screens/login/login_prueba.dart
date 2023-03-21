@@ -1,7 +1,9 @@
 import 'dart:ui';
+import 'package:Sound2U/services/firebase_service.dart';
 import 'package:Sound2U/styles/colors.dart';
 import 'package:Sound2U/widgets/input_text.dart';
 import 'package:flutter/material.dart';
+import 'package:Sound2U/responsive.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -30,13 +32,17 @@ class LoginState extends State<Login> {
     super.dispose();
   }
 
-  void _submitForm(BuildContext context) {
+  Future<void> _submitForm(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
       //final email = _emailController.text.trim();
       //final password = _passwordController.text.trim();
 
       final email = _email.trim();
       final password = _password.trim();
+
+      if (await getPeople(email, password)) {
+        Navigator.pushReplacementNamed(context, Responsive.isMobile(context) ? '/home' : "/home_desk");
+      }
 
       // Agregar Login AQUI
       print("Email: " + email);
@@ -116,13 +122,13 @@ class LoginState extends State<Login> {
                                     _containerEmail = 80;
                                   });
                                   return 'Por favor ingrese su correo electrónico';
-                                } else if (!data.contains('@') ||
+                                } /*else if (!data.contains('@') ||
                                     !data.contains('.')) {
                                   setState(() {
                                     _containerEmail = 80;
                                   });
                                   return 'Por favor ingrese un correo electrónico válido';
-                                }
+                                }*/
                                 setState(() {
                                   _containerEmail = 50;
                                 });
