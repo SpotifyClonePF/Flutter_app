@@ -1,60 +1,49 @@
 import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart' as material;
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'firebase_options.dart';
-import 'package:firedart/firedart.dart';
 import 'screens/routes.dart';
 import 'styles/colors.dart';
 import 'package:window_manager/window_manager.dart';
-import 'package:fluent_ui/fluent_ui.dart';
-
-const projectId = 'dyzr-541db';
+import 'constants.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await requestPermission();
+  await FlutterDownloader.initialize();
 
-  if (!kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
+  /*
+  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+    WidgetsFlutterBinding.ensureInitialized();
     await windowManager.ensureInitialized();
 
     WindowOptions windowOptions = const WindowOptions(
       center: false,
-      backgroundColor: material.Colors.transparent,
-      minimumSize: Size(815, 650),
+      backgroundColor: Colors.transparent,
+      minimumSize: Size(650, 650),
     );
     windowManager.waitUntilReadyToShow(windowOptions, () async {
       await windowManager.show();
       await windowManager.focus();
     });
   }
-
-  if (kIsWeb) {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.web,
-    );
-  } else {
-    if (Platform.isWindows) {
-      Firestore.initialize(projectId);
-    } else {
-      await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform,
-      );
-      await requestPermission();
-      await FlutterDownloader.initialize();
-    }
-  }
-
-  runApp(const material.MaterialApp(
+                     */
+  runApp(const MaterialApp(
     debugShowCheckedModeBanner: false,
     home: MyApp(),
   ));
 }
 
 Future<void> requestPermission() async {
-  await [Permission.storage].request();
+  Map<Permission, PermissionStatus> statuses = await [
+    Permission.storage,
+  ].request();
 }
 
 class MyApp extends StatefulWidget {
@@ -81,13 +70,13 @@ class _MyAppState extends State<MyApp> {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: MyColors.lightBlack,
     ));
-    return material.MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Sound2U',
-      initialRoute: isMobile ? '/' : '/login',
+      initialRoute: isMobile ? '/' : '/home_desk',
       routes: _routes,
       onGenerateRoute: (settings) {
-        return material.MaterialPageRoute(
+        return MaterialPageRoute(
           builder: (context) => const Page404(),
         );
       },
