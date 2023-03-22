@@ -23,4 +23,5 @@ const playlists = [
   'Country',
   'Rock',
   'Dance',
+  'Electronic',
 ];
