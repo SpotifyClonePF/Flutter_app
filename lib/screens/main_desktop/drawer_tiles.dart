@@ -5,10 +5,12 @@ class InfoCard extends StatelessWidget {
     super.key,
     required this.title,
     required this.icon,
+    required this.onTap,
   });
 
   final String title;
   final IconData icon;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,7 @@ class InfoCard extends StatelessWidget {
             fontSize: 18,
             overflow: TextOverflow.ellipsis),
       ),
+      onTap: onTap,
     );
   }
 }

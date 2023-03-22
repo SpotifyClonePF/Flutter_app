@@ -1,21 +1,22 @@
 import 'package:Sound2U/models/data.dart';
-import 'package:Sound2U/screens/main_desktop/drawer_tiles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'drawer_tiles.dart';
 
-class DrawerMenu extends StatelessWidget {
-  const DrawerMenu({Key? key}) : super(key: key);
+class SideMenu extends StatelessWidget {
+  const SideMenu({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: double.infinity,
       width: 280,
-      color: Colors.black,
+      color: Colors.green,
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
+
             /// User info
             Center(
               child: Container(
@@ -45,16 +46,6 @@ class DrawerMenu extends StatelessWidget {
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
             ),
-            const SizedBox(height: 15),
-            const Divider(
-              color: Colors.white54,
-              thickness: 1,
-              indent: 10,
-              endIndent: 10,
-            ),
-            const SizedBox(height: 5),
-
-            /// Menu options
             Column(
               children: [
                 InfoCard(
@@ -74,31 +65,7 @@ class DrawerMenu extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 10),
-            const Divider(
-              color: Colors.white54,
-              thickness: 1,
-              indent: 10,
-              endIndent: 10,
-            ),
-            const SizedBox(height: 10),
-
-            /// Playlists
             _LibraryPlaylists(),
-            /*SizedBox(
-              height: 400,
-              child: ListView.builder(
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(
-                        'Playlist con nombre largo numero ${index + 1}',
-                        style: const TextStyle(color: Colors.white54, overflow: TextOverflow.ellipsis)
-                    ),
-                  );
-                },
-              ),
-            ),*/
           ],
         ),
       ),
@@ -134,34 +101,22 @@ class _LibraryPlaylistsState extends State<_LibraryPlaylists> {
         controller: _scrollController,
         child: ListView(
           controller: _scrollController,
+          padding: const EdgeInsets.symmetric(vertical: 12),
           physics: const ClampingScrollPhysics(),
           children: [
             Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                      child: Text(
-                        'Playlists',
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontSize: 20,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: Text(
+                    'PLAYLISTS',
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 20,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          CupertinoIcons.add,
-                          color: Colors.red,
-                        ),
-                    ),
-                  ],
+                  ),
                 ),
                 ...playlists
                     .map((e) => ListTile(
