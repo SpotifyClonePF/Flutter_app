@@ -1,5 +1,6 @@
 import 'package:Sound2U/styles/colors.dart';
 import 'package:flutter/material.dart';
+import 'drawer_menu.dart';
 
 class HomeDesktopPage extends StatelessWidget {
   const HomeDesktopPage({Key? key}) : super(key: key);
@@ -19,40 +20,37 @@ class HomeDesktopPage extends StatelessWidget {
               end: Alignment.centerRight,
             ),
           ),
-          child: Row(
+          child: Column(
             children: [
               Expanded(
-                child: Column(
+                child: Row(
                   children: [
-                    DrawerHeader(
-                      child: Image.asset("assets/icons/logo_no_fondo.png"),
-                    ),
-                    ListTile(
-                      onTap: () {},
-                      horizontalTitleGap: 0.0,
-                      leading: const Icon(
-                        Icons.home,
-                        color: Colors.white54,
-                        size: 16,
-                      ),
-                      title: InkWell(
-                        onTap: () {},
-                        child: const Text(
-                          'Home',
-                          style: TextStyle(color: Colors.white54),
-
+                    const DrawerMenu(),
+                    Expanded(
+                      child: Container(
+                        color: Colors.blue,
+                        child: const Center(
+                          child: Text(
+                            'Home',
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          ),
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
-              Expanded(
-                flex: 5,
-                child: Container(
-                  color: Colors.blue,
+              Container(
+                height: 85,
+                width: double.infinity,
+                color: Colors.red,
+                child: const Center(
+                  child: Text(
+                    'Play Bar',
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
                 ),
-              ),
+              )
             ],
           ),
         ),

@@ -19,6 +19,17 @@ class Home extends StatelessWidget {
             end: Alignment.centerRight,
           ),
         ),
+        child: ListView.builder(
+          itemCount: 6,
+          itemBuilder: (context, index) {
+            return ListTile(
+              title: Text(
+                  'Playlist ${index + 1}',
+                  style: const TextStyle(color: Colors.white54)
+              ),
+            );
+          },
+        ),
       )
     );
   }
