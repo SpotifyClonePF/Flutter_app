@@ -12,7 +12,6 @@ import 'styles/colors.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 
-const apiKey = 'AIzaSyCSCECr3eK6uh0B7hhpTt9smAu22oRgGG4';
 const projectId = 'dyzr-541db';
 
 void main() async {
@@ -55,7 +54,7 @@ void main() async {
 }
 
 Future<void> requestPermission() async {
-  Map<Permission, PermissionStatus> statuses = await [
+  await [
     Permission.storage,
   ].request();
 }
