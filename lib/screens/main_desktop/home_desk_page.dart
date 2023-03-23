@@ -1,7 +1,5 @@
-import 'package:Sound2U/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'drawer_menu.dart';
-import 'side_menu.dart';
 
 class HomeDesktopPage extends StatelessWidget {
   const HomeDesktopPage({Key? key}) : super(key: key);
