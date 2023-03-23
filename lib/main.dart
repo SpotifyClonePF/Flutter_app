@@ -54,9 +54,7 @@ void main() async {
 }
 
 Future<void> requestPermission() async {
-  Map<Permission, PermissionStatus> statuses = await [
-    Permission.storage,
-  ].request();
+  await [Permission.storage].request();
 }
 
 class MyApp extends StatefulWidget {
