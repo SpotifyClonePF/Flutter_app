@@ -34,8 +34,14 @@ class _SignUpState extends State<SignUp> {
       final email = _email.trim();
       final password = _password.trim();
 
-      if (await existUser(name, email, password)){
-        Navigator.pushReplacementNamed(context, '/login');
+      if (Responsive.isDesktop(context)) {
+        if (await existUserWindows(name, email, password)) {
+          Navigator.pushReplacementNamed(context, '/login');
+        }
+      } else {
+        if (await existUser(name, email, password)) {
+          Navigator.pushReplacementNamed(context, '/login');
+        }
       }
 
       // Agregar Login AQUI
