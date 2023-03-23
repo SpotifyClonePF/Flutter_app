@@ -41,13 +41,17 @@ class LoginState extends State<Login> {
       final email = _email.trim();
       final password = _password.trim();
 
-      if (Responsive.isDesktop(context) && await getPeopleWindows(email, password)) {
-        goToHome();
-      } else{
+      
+      if (Responsive.isDesktop(context)) {
+        if (await getPeopleWindows(email, password)) {
+          goToHome();
+        }
+      } else {
         if (await getPeople(email, password)) {
           goToHome();
         }
       }
+
 
       // Agregar Login AQUI
       print("Email: " + email);
