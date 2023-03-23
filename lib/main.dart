@@ -9,8 +9,8 @@ import 'firebase_options.dart';
 import 'package:firedart/firedart.dart';
 import 'screens/routes.dart';
 import 'styles/colors.dart';
-import 'package:window_manager/window_manager.dart';
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 
 const projectId = 'dyzr-541db';
 
@@ -18,16 +18,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   if (!kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
-    await windowManager.ensureInitialized();
-
-    WindowOptions windowOptions = const WindowOptions(
-      center: false,
-      backgroundColor: material.Colors.transparent,
-      minimumSize: Size(815, 650),
-    );
-    windowManager.waitUntilReadyToShow(windowOptions, () async {
-      await windowManager.show();
-      await windowManager.focus();
+    doWhenWindowReady(() {
+      final win = appWindow;
+      win.size = const Size(1280, 720);
+      win.minSize = const Size(815, 650);
+      win.alignment = Alignment.center;
+      win.title = "Dyzr";
+      win.show();
     });
   }
 
@@ -54,9 +51,7 @@ void main() async {
 }
 
 Future<void> requestPermission() async {
-  await [
-    Permission.storage,
-  ].request();
+  await [Permission.storage].request();
 }
 
 class MyApp extends StatefulWidget {
@@ -83,10 +78,16 @@ class _MyAppState extends State<MyApp> {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: MyColors.lightBlack,
     ));
+
     return material.MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Sound2U',
-      initialRoute: isMobile ? '/' : '/login',
+      theme: material.ThemeData(
+        scrollbarTheme: material.ScrollbarThemeData(
+          thumbColor: material.MaterialStateProperty.all(MyColors.lightBlack),
+        ),
+      ),
+      initialRoute: isMobile ? '/home' : '/home_desk',
       routes: _routes,
       onGenerateRoute: (settings) {
         return material.MaterialPageRoute(

@@ -21,6 +21,9 @@ class DrawerMenu extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           child: Column(
             children: [
+
+              const SizedBox(height: 20),
+
               /// User info
               Center(
                 child: Container(
@@ -90,7 +93,7 @@ class DrawerMenu extends StatelessWidget {
 
               /// Playlists
               if (isExpanded) SizedBox(
-                height: MediaQuery.of(context).size.height - 450,
+                height: MediaQuery.of(context).size.height - 470,
                 child: _LibraryPlaylists(),
               ),
               /*SizedBox(
@@ -140,54 +143,53 @@ class _LibraryPlaylistsState extends State<_LibraryPlaylists> {
     return SizedBox(
       child: Scrollbar(
         thumbVisibility: true,
+        thickness: 10,
         controller: _scrollController,
         child: ListView(
           controller: _scrollController,
           physics: const ClampingScrollPhysics(),
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                      child: Text(
-                        'Playlists',
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontSize: 20,
+                const Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+                  child: Text(
+                    'Playlists',
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 20,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 20, top: 4.45),
+                  child: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        CupertinoIcons.add,
+                        color: Colors.red,
+                      ),
+                  ),
+                ),
+              ],
+            ),
+            ...playlists
+                .map((e) => ListTile(
+                      dense: true,
+                      title: Text(
+                        e,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                    ),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          CupertinoIcons.add,
-                          color: Colors.red,
-                        ),
-                    ),
-                  ],
-                ),
-                ...playlists
-                    .map((e) => ListTile(
-                          dense: true,
-                          title: Text(
-                            e,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                          onTap: () {},
-                        ))
-                    .toList(),
-              ],
-            )
+                      onTap: () {},
+                    ))
+                .toList()
           ],
         ),
       ),

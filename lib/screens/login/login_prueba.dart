@@ -125,7 +125,7 @@ class LoginState extends State<Login> {
                               ),
                             ),
                             child: InputText(
-                              label: 'Email',
+                              label: 'Username or Email',
                               icon: const Icon(Icons.email),
                               keyboard: TextInputType.emailAddress,
                               onChanged: (data) {
