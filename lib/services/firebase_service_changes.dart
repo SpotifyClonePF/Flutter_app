@@ -24,3 +24,27 @@ Future<bool> getPeopleWindows(String name, String password) async {
   }
   return exit;
 }
+
+Future<bool> existUserWindows(
+    String name, String email, String password) async {
+  print("AAAA");
+  CollectionReference collectionReferenceUser =
+      Firestore.instance.collection('user');
+  try {
+    List<Document> queryEmail =
+        await collectionReferenceUser.where('email', isEqualTo: email).get();
+    List<Document> queryNombre =
+        await collectionReferenceUser.where('name', isEqualTo: name).get();
+    if (queryEmail.isNotEmpty == true || queryNombre.isNotEmpty == true) {
+      return false;
+    }
+  } catch (e) {
+    return false;
+  }
+  await Firestore.instance.collection('user').document(name).set({
+    'name': name,
+    'email': email,
+    'password': password,
+  });
+  return true;
+}
