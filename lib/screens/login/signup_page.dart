@@ -4,6 +4,7 @@ import 'package:Sound2U/services/firebase_service.dart';
 import 'package:flutter/material.dart';
 import '../../styles/colors.dart';
 import '../../widgets/input_text.dart';
+import 'package:Sound2U/services/firebase_services_windows.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -34,10 +35,15 @@ class _SignUpState extends State<SignUp> {
       final email = _email.trim();
       final password = _password.trim();
 
-      if (await existUser(name, email, password)){
-        Navigator.pushReplacementNamed(context, '/login');
+      if (Responsive.isDesktop(context)) {
+        if (await existUserWindows(name, email, password)) {
+          Navigator.pushReplacementNamed(context, '/login');
+        }
+      } else {
+        if (await existUser(name, email, password)) {
+          Navigator.pushReplacementNamed(context, '/login');
+        }
       }
-
       // Agregar Login AQUI
       print("Email: " + email);
       print("Password: " + password);

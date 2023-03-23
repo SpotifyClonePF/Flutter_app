@@ -4,7 +4,7 @@ import 'package:Sound2U/styles/colors.dart';
 import 'package:Sound2U/widgets/input_text.dart';
 import 'package:flutter/material.dart';
 import 'package:Sound2U/responsive.dart';
-import 'package:Sound2U/services/firebase_service_changes.dart';
+import 'package:Sound2U/services/firebase_services_windows.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -41,9 +41,11 @@ class LoginState extends State<Login> {
       final email = _email.trim();
       final password = _password.trim();
 
-      if (Responsive.isDesktop(context) && await getPeopleWindows(email, password)) {
-        goToHome();
-      } else{
+      if (Responsive.isDesktop(context)) {
+        if (await getPeopleWindows(email, password)) {
+          goToHome();
+        }
+      } else {
         if (await getPeople(email, password)) {
           goToHome();
         }
@@ -55,8 +57,9 @@ class LoginState extends State<Login> {
     }
   }
 
-  void goToHome(){
-    Navigator.pushReplacementNamed(context, Responsive.isMobile(context) ? '/home' : "/home_desk");
+  void goToHome() {
+    Navigator.pushReplacementNamed(
+        context, Responsive.isMobile(context) ? '/home' : "/home_desk");
   }
 
   @override
