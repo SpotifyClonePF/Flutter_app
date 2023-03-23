@@ -1,10 +1,18 @@
 import 'dart:io';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart' as material;
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'firebase_options.dart';
+import 'package:firedart/firedart.dart';
 import 'screens/routes.dart';
 import 'styles/colors.dart';
 import 'package:window_manager/window_manager.dart';
+import 'package:fluent_ui/fluent_ui.dart';
+
+const projectId = 'dyzr-541db';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,7 +22,7 @@ void main() async {
 
     WindowOptions windowOptions = const WindowOptions(
       center: false,
-      backgroundColor: Colors.transparent,
+      backgroundColor: material.Colors.transparent,
       minimumSize: Size(815, 650),
     );
     windowManager.waitUntilReadyToShow(windowOptions, () async {
@@ -23,12 +31,32 @@ void main() async {
     });
   }
 
-  runApp(
-    const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: MyApp(),
-    )
-  );
+  if (kIsWeb) {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.web,
+    );
+  } else {
+    if (Platform.isWindows) {
+      Firestore.initialize(projectId);
+    } else {
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      );
+      await requestPermission();
+      await FlutterDownloader.initialize();
+    }
+  }
+
+  runApp(const material.MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: MyApp(),
+  ));
+}
+
+Future<void> requestPermission() async {
+  Map<Permission, PermissionStatus> statuses = await [
+    Permission.storage,
+  ].request();
 }
 
 class MyApp extends StatefulWidget {
@@ -39,7 +67,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   // Routes
   final _routes = {
     '/': (context) => const WelcomePage(),
@@ -56,13 +83,13 @@ class _MyAppState extends State<MyApp> {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: MyColors.lightBlack,
     ));
-    return MaterialApp(
+    return material.MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Sound2U',
-      initialRoute: isMobile ? '/home' : '/home_desk',
+      initialRoute: isMobile ? '/' : '/login',
       routes: _routes,
       onGenerateRoute: (settings) {
-        return MaterialPageRoute(
+        return material.MaterialPageRoute(
           builder: (context) => const Page404(),
         );
       },

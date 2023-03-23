@@ -1,7 +1,10 @@
 import 'dart:ui';
+import 'package:Sound2U/services/firebase_service.dart';
+import 'package:Sound2U/services/firebase_service_changes.dart';
 import 'package:Sound2U/styles/colors.dart';
 import 'package:Sound2U/widgets/input_text.dart';
 import 'package:flutter/material.dart';
+import 'package:Sound2U/responsive.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -30,7 +33,7 @@ class LoginState extends State<Login> {
     super.dispose();
   }
 
-  void _submitForm(BuildContext context) {
+  Future<void> _submitForm(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
       //final email = _emailController.text.trim();
       //final password = _passwordController.text.trim();
@@ -38,10 +41,24 @@ class LoginState extends State<Login> {
       final email = _email.trim();
       final password = _password.trim();
 
+      if (Responsive.isDesktop(context) &&
+          await getPeopleWindows(email, password)) {
+        goToHome();
+      } else {
+        if (await getPeople(email, password)) {
+          goToHome();
+        }
+      }
+
       // Agregar Login AQUI
       print("Email: " + email);
       print("Password: " + password);
     }
+  }
+
+  void goToHome() {
+    Navigator.pushReplacementNamed(
+        context, Responsive.isMobile(context) ? '/home' : "/home_desk");
   }
 
   @override
@@ -116,13 +133,13 @@ class LoginState extends State<Login> {
                                     _containerEmail = 80;
                                   });
                                   return 'Por favor ingrese su correo electrónico';
-                                } else if (!data.contains('@') ||
+                                } /*else if (!data.contains('@') ||
                                     !data.contains('.')) {
                                   setState(() {
                                     _containerEmail = 80;
                                   });
                                   return 'Por favor ingrese un correo electrónico válido';
-                                }
+                                }*/
                                 setState(() {
                                   _containerEmail = 50;
                                 });
