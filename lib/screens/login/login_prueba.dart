@@ -1,7 +1,9 @@
+import 'dart:io';
 import 'dart:ui';
 import 'package:Sound2U/services/firebase_service.dart';
 import 'package:Sound2U/styles/colors.dart';
 import 'package:Sound2U/widgets/input_text.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:Sound2U/responsive.dart';
 import 'package:Sound2U/services/firebase_service_changes.dart';
@@ -41,17 +43,16 @@ class LoginState extends State<Login> {
       final email = _email.trim();
       final password = _password.trim();
 
-      
-      if (Responsive.isDesktop(context)) {
-        if (await getPeopleWindows(email, password)) {
-          goToHome();
-        }
-      } else {
+      if (kIsWeb ||
+          !(Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
         if (await getPeople(email, password)) {
           goToHome();
         }
+      } else {
+        if (await getPeopleWindows(email, password)) {
+          goToHome();
+        }
       }
-
 
       // Agregar Login AQUI
       print("Email: " + email);
@@ -59,8 +60,9 @@ class LoginState extends State<Login> {
     }
   }
 
-  void goToHome(){
-    Navigator.pushReplacementNamed(context, Responsive.isMobile(context) ? '/home' : "/home_desk");
+  void goToHome() {
+    Navigator.pushReplacementNamed(
+        context, Responsive.isMobile(context) ? '/home' : "/home_desk");
   }
 
   @override

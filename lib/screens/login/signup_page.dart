@@ -1,6 +1,7 @@
+import 'dart:io';
 import 'dart:ui';
-import 'package:Sound2U/responsive.dart';
 import 'package:Sound2U/services/firebase_service.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../../styles/colors.dart';
 import '../../widgets/input_text.dart';
@@ -35,13 +36,15 @@ class _SignUpState extends State<SignUp> {
       final email = _email.trim();
       final password = _password.trim();
 
-      if (Responsive.isDesktop(context)) {
-        if (await existUserWindows(name, email, password)) {
-          Navigator.pushReplacementNamed(context, '/login');
+
+
+      if (kIsWeb || !(Platform.isWindows || Platform.isLinux || Platform.isMacOS)){
+        if (await existUser(name, email, password)) {
+          goToLogin();
         }
       } else {
-        if (await existUser(name, email, password)) {
-          Navigator.pushReplacementNamed(context, '/login');
+        if (await existUserWindows(name, email, password)) {
+          goToLogin();
         }
       }
 
@@ -49,6 +52,10 @@ class _SignUpState extends State<SignUp> {
       print("Email: " + email);
       print("Password: " + password);
     }
+  }
+
+  void goToLogin(){
+    Navigator.pushReplacementNamed(context, '/login');
   }
 
   @override
