@@ -4,6 +4,7 @@ import 'package:Sound2U/services/firebase_service.dart';
 import 'package:flutter/material.dart';
 import '../../styles/colors.dart';
 import '../../widgets/input_text.dart';
+import 'package:Sound2U/services/firebase_service_changes.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
