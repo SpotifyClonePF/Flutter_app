@@ -4,6 +4,7 @@ import 'package:Sound2U/styles/colors.dart';
 import 'package:Sound2U/widgets/input_text.dart';
 import 'package:flutter/material.dart';
 import 'package:Sound2U/responsive.dart';
+import 'package:Sound2U/services/firebase_service_changes.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -40,14 +41,22 @@ class LoginState extends State<Login> {
       final email = _email.trim();
       final password = _password.trim();
 
-      if (await getPeople(email, password)) {
-        Navigator.pushReplacementNamed(context, Responsive.isMobile(context) ? '/home' : "/home_desk");
+      if (Responsive.isDesktop(context) && await getPeopleWindows(email, password)) {
+        goToHome();
+      } else{
+        if (await getPeople(email, password)) {
+          goToHome();
+        }
       }
 
       // Agregar Login AQUI
       print("Email: " + email);
       print("Password: " + password);
     }
+  }
+
+  void goToHome(){
+    Navigator.pushReplacementNamed(context, Responsive.isMobile(context) ? '/home' : "/home_desk");
   }
 
   @override
