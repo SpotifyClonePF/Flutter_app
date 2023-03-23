@@ -2,19 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 FirebaseFirestore db = FirebaseFirestore.instance;
 
-// lista de canco
-/*
-Future<List> getCanco() async {
-  List canco = [];
-  CollectionReference collectionReferenceCanco = db.collection('canco');
-  QuerySnapshot queryCanco = await collectionReferenceCanco.get();
-  queryCanco.docs.forEach((documento) {
-    canco.add(documento.data());
-  });
-  await Future.delayed(const Duration(seconds: 5));
-  return canco;
-}*/
-
 // verficar usuario
 Future<bool> getPeople(String name, String password) async {
   bool exit = false;
@@ -63,6 +50,19 @@ Future<bool> existUser(String name, String email, String password) async {
   });
   return true;
 }
+
+// lista de canco
+/*
+Future<List> getCanco() async {
+  List canco = [];
+  CollectionReference collectionReferenceCanco = db.collection('canco');
+  QuerySnapshot queryCanco = await collectionReferenceCanco.get();
+  queryCanco.docs.forEach((documento) {
+    canco.add(documento.data());
+  });
+  await Future.delayed(const Duration(seconds: 5));
+  return canco;
+}*/
 
 // obetener lista de storage
 /*
