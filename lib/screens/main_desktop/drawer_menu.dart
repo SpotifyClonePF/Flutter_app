@@ -1,5 +1,6 @@
 import 'package:Sound2U/models/data.dart';
 import 'package:Sound2U/screens/main_desktop/drawer_tiles.dart';
+import 'package:Sound2U/styles/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -31,7 +32,7 @@ class DrawerMenu extends StatelessWidget {
                     color: Colors.white24,
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: Colors.green,
+                      color: MyColors.mainGreen,
                       width: 5,
                     ),
                   ),

@@ -68,7 +68,7 @@ class RightSide extends StatelessWidget {
               ],
             ),
           ),
-          Expanded(
+          const Expanded(
             child: PlaylistScreen(playlist: lofihiphopPlaylist),
           ),
         ],

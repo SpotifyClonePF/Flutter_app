@@ -133,7 +133,7 @@ const _lofihiphopMusic = [
     artist: 'WYS, Sweet Medicine',
     album: 'Evermore',
     duration: '2:31',
-  ),
+  )
 ];
 
 class Playlist {
@@ -161,7 +161,7 @@ class Playlist {
 const lofihiphopPlaylist = Playlist(
   id: '5-playlist',
   name: 'lofi hip hop music - beats to relax/study to',
-  imageURL: 'assets/lofigirl.jpg',
+  imageURL: 'assets/icons/lofi.png',
   description:
   'A daily selection of chill beats - perfect to help you relax & study 📚',
   creator: 'Lofi Girl',

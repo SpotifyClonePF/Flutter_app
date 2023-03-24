@@ -7,10 +7,12 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'firebase_options.dart';
 import 'package:firedart/firedart.dart';
+import 'models/current_track_model.dart';
 import 'screens/routes.dart';
 import 'styles/colors.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
+import 'package:provider/provider.dart';
 
 const projectId = 'dyzr-541db';
 
@@ -44,10 +46,15 @@ void main() async {
     }
   }
 
-  runApp(const material.MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: MyApp(),
-  ));
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => CurrentTrackModel(),
+      child: const material.MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: MyApp(),
+      ),
+    ),
+  );
 }
 
 Future<void> requestPermission() async {
