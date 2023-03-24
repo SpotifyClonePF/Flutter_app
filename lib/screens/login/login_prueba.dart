@@ -5,12 +5,32 @@ import 'package:Sound2U/widgets/input_text.dart';
 import 'package:flutter/material.dart';
 import 'package:Sound2U/responsive.dart';
 import 'package:Sound2U/services/firebase_services_windows.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
   @override
   LoginState createState() => LoginState();
+}
+
+class SharedPreferenceUtil {
+  static const String USERNAME = "username";
+  static const String PASSWORD = "password";
+  static void saveUser(String name, String password) async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    sp.clear;
+    sp.setString('$USERNAME', name);
+    sp.setString('$PASSWORD', password);
+  }
+
+  static Future<List> getUser() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    List list = new List();
+    list.add(sp.getString('$USERNAME'));
+    list.add(sp.getString('$PASSWORD'));
+    return list;
+  }
 }
 
 class LoginState extends State<Login> {
