@@ -19,17 +19,6 @@ const projectId = 'dyzr-541db';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  if (!kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
-    doWhenWindowReady(() {
-      final win = appWindow;
-      win.size = const Size(1280, 720);
-      win.minSize = const Size(815, 650);
-      win.alignment = Alignment.center;
-      win.title = "Dyzr";
-      win.show();
-    });
-  }
-
   if (kIsWeb) {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.web,
@@ -47,14 +36,24 @@ void main() async {
   }
 
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => CurrentTrackModel(),
-      child: const material.MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: MyApp(),
-      ),
+    material.MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: ChangeNotifierProvider(
+          create: (context) => CurrentTrackModel(),
+          child: const MyApp()),
     ),
   );
+
+  if (!kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
+    doWhenWindowReady(() {
+      final win = appWindow;
+      win.size = const Size(1300, 720);
+      win.minSize = const Size(815, 650);
+      win.alignment = Alignment.center;
+      win.title = "Dyzr";
+      win.show();
+    });
+  }
 }
 
 Future<void> requestPermission() async {

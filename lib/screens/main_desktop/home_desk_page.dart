@@ -28,9 +28,9 @@ class Shell extends StatelessWidget {
         children: [
           Expanded(
             child: Row(
-              children: const [
-                DrawerMenu(),
-                RightSide(),
+              children: [
+                if (MediaQuery.of(context).size.width > 800) const DrawerMenu(),
+                const RightSide(),
               ],
             ),
           ),
@@ -58,7 +58,7 @@ class CurrentTrack extends StatelessWidget {
             const Spacer(),
             _PlayerControls(),
             const Spacer(),
-            _MoreControlls(),
+            if (MediaQuery.of(context).size.width > 800) _MoreControlls(),
           ],
         ),
       ),
@@ -233,15 +233,16 @@ class RightSide extends StatelessWidget {
                 Expanded(
                   child: Container(
                       decoration: const BoxDecoration(
-                        color: Colors.black87,
+                        color: MyColors.mainGreen,
                       ),
                       child: MoveWindow()),
                 ),
                 Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.black87,
-                    ),
-                    child: const WindowButtons()),
+                  decoration: const BoxDecoration(
+                    color: MyColors.mainGreenDark,
+                  ),
+                  child: const WindowButtons(),
+                ),
               ],
             ),
           ),
