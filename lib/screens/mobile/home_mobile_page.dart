@@ -28,8 +28,7 @@ class _MenuPageState extends State<MenuPage> {
     return Scaffold(
       backgroundColor: MyColors.darkGray,
       body: _tabs[_selectedIndex],
-      bottomNavigationBar: Container(
-        color: MyColors.lightBlack,
+      bottomNavigationBar: SafeArea(
         child: BottomNavigationBar(
           backgroundColor: MyColors.lightBlack,
           currentIndex: _selectedIndex,
