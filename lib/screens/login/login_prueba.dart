@@ -5,7 +5,9 @@ import 'package:Sound2U/widgets/input_text.dart';
 import 'package:flutter/material.dart';
 import 'package:Sound2U/responsive.dart';
 import 'package:Sound2U/services/firebase_services_windows.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:io';
+import 'package:path_provider/path_provider.dart';
+import 'package:Sound2U/bean/User.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -14,34 +16,13 @@ class Login extends StatefulWidget {
   LoginState createState() => LoginState();
 }
 
-class SharedPreferenceUtil {
-  static const String USERNAME = "username";
-  static const String PASSWORD = "password";
-  static void saveUser(String name, String password) async {
-    SharedPreferences sp = await SharedPreferences.getInstance();
-    sp.clear;
-    sp.setString('$USERNAME', name);
-    sp.setString('$PASSWORD', password);
-  }
-
-  static Future<List> getUser() async {
-    SharedPreferences sp = await SharedPreferences.getInstance();
-    List list = new List();
-    list.add(sp.getString('$USERNAME'));
-    list.add(sp.getString('$PASSWORD'));
-    return list;
-  }
-}
-
 class LoginState extends State<Login> {
-  //final _emailController = TextEditingController();
-  //final _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final ScrollController _scrollController = ScrollController();
   String _email = '';
   String _password = '';
-
-  final _passwordController = TextEditingController();
 
   late bool _isChecked = false;
 
@@ -49,8 +30,21 @@ class LoginState extends State<Login> {
 
   @override
   void dispose() {
+    _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
+    save;
+  }
+
+  Future<void> save() async {
+    final storage = LoginDataStorage();
+    final lastLogin = await storage.readLoginInfo();
+    if (lastLogin != null) {
+      print(
+          'Last username: ${lastLogin.username}, last password: ${lastLogin.password}');
+      _emailController.text = lastLogin.username.toString();
+      _passwordController.text = lastLogin.password.toString();
+    }
   }
 
   Future<void> _submitForm(BuildContext context) async {
@@ -63,10 +57,12 @@ class LoginState extends State<Login> {
 
       if (Responsive.isDesktop(context)) {
         if (await getPeopleWindows(email, password)) {
+          saveData(email, password);
           goToHome();
         }
       } else {
         if (await getPeople(email, password)) {
+          saveData(email, password);
           goToHome();
         }
       }
@@ -75,6 +71,12 @@ class LoginState extends State<Login> {
       print("Email: " + email);
       print("Password: " + password);
     }
+  }
+
+  Future<void> saveData(String email, String password) async {
+    final storage = LoginDataStorage();
+    final newLogin = LoginInfo(email, password);
+    await storage.saveLoginInfo(newLogin);
   }
 
   void goToHome() {
