@@ -1,9 +1,0 @@
-
-Uso de la carpeta 'utils':
-
-    - En esta carpeta se encuentran los archivos que contienen funciones que se utilizan
-      en el código principal y pueden ser llamadas des de cualquier sitio de la app.
-
-        Por ejemplo:
-            - getRandomInt' que se utiliza para generar un número aleatorio entre 0 y el número que
-            se le pase como parámetro. De esta manera se podria usar en cualquier sitio de la app.

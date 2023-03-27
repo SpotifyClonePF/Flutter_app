@@ -46,8 +46,7 @@ class LoginState extends State<Login> {
       final email = _email.trim();
       final password = _password.trim();
 
-      if (kIsWeb ||
-          !(Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
+      if (kIsWeb || !(Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
         if (await getPeople(email, password)) {
           goToHome();
         }
