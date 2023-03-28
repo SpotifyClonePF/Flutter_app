@@ -54,6 +54,7 @@ dependencies:
   fluent_ui: ^4.4.1
   bitsdojo_window: ^0.1.5
   provider: ^6.0.1
+  rive: ^0.10.3
 
 
 dev_dependencies:
@@ -107,6 +108,7 @@ flutter:
     - assets/icons/logo_plano.png
     - assets/icons/logo_no_fondo.png
     - assets/icons/lofi.png
+    - assets/icons/rive.riv
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

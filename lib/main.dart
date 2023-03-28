@@ -73,7 +73,7 @@ class _MyAppState extends State<MyApp> {
     '/': (context) => const WelcomePage(),
     '/login': (context) => const Login(),
     '/signup': (context) => const SignUp(),
-    '/home': (context) => const MenuPage(),
+    '/home': (context) => const HomeMobilePage(),
     '/home_desk': (context) => const HomeDesktopPage(),
   };
 
