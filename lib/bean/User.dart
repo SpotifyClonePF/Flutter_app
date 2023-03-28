@@ -1,46 +1,55 @@
-import 'dart:io';
-import 'package:path_provider/path_provider.dart';
+import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
-class LoginInfo {
-  String? username;
-  String? password;
+import 'package:path_provider/path_provider.dart';
 
-  LoginInfo(this.username, this.password);
+class User {
+  final String username;
+  final String password;
 
-  LoginInfo.fromJson(Map<String, dynamic> json)
-      : username = json['username'],
-        password = json['password'];
+  User({required this.username, required this.password});
 
-  Map<String, dynamic> toJson() => {'username': username, 'password': password};
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(username: json['username'], password: json['password']);
+  }
+
+  Map<String, dynamic> toJson() {
+    return {'username': username, 'password': password};
+  }
 }
 
-class LoginDataStorage {
-  Future<File> get _loginDataFile async {
+class FileStorage {
+  Future<File> get _localFile async {
     final directory = await getExternalStorageDirectory();
+    if (Platform.isWindows) {
+      final directory = await getApplicationDocumentsDirectory();
+      print(directory);
+    } else {
+      final directory = await getExternalStorageDirectory();
+      print(directory);
+    }
     if (directory == null) {
       throw FileSystemException('External storage directory not available');
     }
-    return File('${directory.path}/login_data.json');
+    return File('${directory.path}/user.json');
   }
 
-  Future<LoginInfo?> readLoginInfo() async {
+  Future<void> saveUser(User user) async {
+    final file = await _localFile;
+    await file.writeAsString(jsonEncode(user.toJson()));
+  }
+
+  Future<User?> loadUser() async {
     try {
-      final file = await _loginDataFile;
-      if (!await file.exists()) {
+      final file = await _localFile;
+      if (!file.existsSync()) {
         return null;
       }
       final contents = await file.readAsString();
-      final json = jsonDecode(contents); // 解码为Map
-      final loginInfo = LoginInfo.fromJson(json); // 转换为LoginInfo对象
-      return loginInfo;
+      return User.fromJson(jsonDecode(contents));
     } catch (e) {
       return null;
     }
-  }
-
-  Future<void> saveLoginInfo(LoginInfo info) async {
-    final file = await _loginDataFile;
-    await file.writeAsString(info.toJson().toString());
   }
 }

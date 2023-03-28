@@ -33,18 +33,6 @@ class LoginState extends State<Login> {
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
-    save;
-  }
-
-  Future<void> save() async {
-    final storage = LoginDataStorage();
-    final lastLogin = await storage.readLoginInfo();
-    if (lastLogin != null) {
-      print(
-          'Last username: ${lastLogin.username}, last password: ${lastLogin.password}');
-      _emailController.text = lastLogin.username.toString();
-      _passwordController.text = lastLogin.password.toString();
-    }
   }
 
   Future<void> _submitForm(BuildContext context) async {
@@ -57,12 +45,16 @@ class LoginState extends State<Login> {
 
       if (Responsive.isDesktop(context)) {
         if (await getPeopleWindows(email, password)) {
-          saveData(email, password);
+          if (_isChecked) {
+            saveData(email, password);
+          }
           goToHome();
         }
       } else {
         if (await getPeople(email, password)) {
-          saveData(email, password);
+          if (_isChecked) {
+            saveData(email, password);
+          }
           goToHome();
         }
       }
@@ -73,10 +65,10 @@ class LoginState extends State<Login> {
     }
   }
 
-  Future<void> saveData(String email, String password) async {
-    final storage = LoginDataStorage();
-    final newLogin = LoginInfo(email, password);
-    await storage.saveLoginInfo(newLogin);
+  Future<void> saveData(String email, String passwords) async {
+    final storage = FileStorage();
+    final user = User(username: email, password: passwords);
+    await storage.saveUser(user);
   }
 
   void goToHome() {
