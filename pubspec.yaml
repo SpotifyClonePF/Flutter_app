@@ -109,6 +109,7 @@ flutter:
     - assets/icons/logo_no_fondo.png
     - assets/icons/lofi.png
     - assets/icons/rive.riv
+    - assets/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
