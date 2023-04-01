@@ -1,3 +1,4 @@
+import 'package:Sound2U/styles/colors.dart';
 import 'package:flutter/material.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -20,7 +21,6 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       backgroundColor: Colors.transparent,
       elevation: 0,
-      toolbarHeight: 70,
       leading: Padding(
         padding: padding,
         child: IconButton(
@@ -33,13 +33,24 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       actions: [
         Padding(
-          padding: padding,
-          child: IconButton(
-            icon: const Icon(
-              Icons.account_circle,
-              size: 36,
+          padding: const EdgeInsets.only(right: 12),
+          child: Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: MyColors.mainGreen,
+                width: 3,
+              ),
             ),
-            onPressed: onProfileButtonPressed,
+            child: CircleAvatar(
+              radius: 20,
+              backgroundColor: Colors.white24,
+              child: Icon(
+                trailingIcon,
+                color: Colors.white,
+                size: 40,
+              ),
+            ),
           ),
         ),
       ],
@@ -47,5 +58,5 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(70);
 }
