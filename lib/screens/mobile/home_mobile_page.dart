@@ -1,8 +1,7 @@
-import 'package:Sound2U/screens/mobile/tabs/page2_page.dart';
+import 'package:Sound2U/screens/mobile/tabs/search_page.dart';
 import 'package:Sound2U/styles/colors.dart';
 //import 'package:Sound2U/utils/rive_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:rive/rive.dart';
 import 'tabs/home_page.dart';
 import 'tabs/page3_page.dart';
 import 'tabs/page4_page.dart';
@@ -19,7 +18,7 @@ class _HomeMobilePageState extends State<HomeMobilePage> {
 
   final List<Widget> pages = [
     const Home(),
-    const Page2(),
+    const Search(),
     const Page3(),
     const Page4(),
   ];
@@ -129,6 +128,7 @@ class AnimatedBar extends StatelessWidget {
   }
 }
 
+/*
 class RiveAsset {
   final String artboard, stateMachineName, title, src;
   late SMIBool? input;
@@ -157,7 +157,7 @@ List<RiveAsset> bottomNavs = [
       title: "Timer"),
   RiveAsset("assets/icons/rive.riv",
       artboard: "USER", stateMachineName: "USER_Interactivity", title: "Bell"),
-];
+];*/
 
 /*
 class _HomeMobilePageState extends State<HomeMobilePage> {
