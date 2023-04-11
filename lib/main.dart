@@ -13,11 +13,26 @@ import 'styles/colors.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:provider/provider.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:Sound2U/bean/User.dart';
+import 'package:Sound2U/services/firebase_service.dart';
+import 'package:Sound2U/services/firebase_service_changes.dart';
 
 const projectId = 'dyzr-541db';
+bool recordUser = false;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  if (!kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
+    doWhenWindowReady(() {
+      final win = appWindow;
+      win.size = const Size(1300, 720);
+      win.minSize = const Size(815, 650);
+      win.alignment = Alignment.center;
+      win.title = "Dyzr";
+      win.show();
+    });
+  }
 
   if (kIsWeb) {
     await Firebase.initializeApp(
@@ -34,26 +49,31 @@ void main() async {
       await FlutterDownloader.initialize();
     }
   }
-
+  recordUser = await save();
   runApp(
     material.MaterialApp(
       debugShowCheckedModeBanner: false,
       home: ChangeNotifierProvider(
-          create: (context) => CurrentTrackModel(),
-          child: const MyApp()),
+          create: (context) => CurrentTrackModel(), child: const MyApp()),
     ),
   );
+}
 
-  if (!kIsWeb && (Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
-    doWhenWindowReady(() {
-      final win = appWindow;
-      win.size = const Size(1300, 720);
-      win.minSize = const Size(815, 650);
-      win.alignment = Alignment.center;
-      win.title = "Dyzr";
-      win.show();
-    });
+Future<bool> save() async {
+  final storage = FileStorage();
+  final loadedUser = await storage.loadUser();
+  if (loadedUser != null) {
+    if (Platform.isWindows) {
+      if (await getPeopleWindows(loadedUser.username, loadedUser.password)) {
+        return true;
+      }
+    } else {
+      if (await getPeople(loadedUser.username, loadedUser.password)) {
+        return true;
+      }
+    }
   }
+  return false;
 }
 
 Future<void> requestPermission() async {
@@ -84,22 +104,40 @@ class _MyAppState extends State<MyApp> {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: MyColors.lightBlack,
     ));
-
-    return material.MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Sound2U',
-      theme: material.ThemeData(
-        scrollbarTheme: material.ScrollbarThemeData(
-          thumbColor: material.MaterialStateProperty.all(MyColors.lightBlack),
+    if (recordUser) {
+      return material.MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Sound2U',
+        theme: material.ThemeData(
+          scrollbarTheme: material.ScrollbarThemeData(
+            thumbColor: material.MaterialStateProperty.all(MyColors.lightBlack),
+          ),
         ),
-      ),
-      initialRoute: isMobile ? '/home' : '/login',
-      routes: _routes,
-      onGenerateRoute: (settings) {
-        return material.MaterialPageRoute(
-          builder: (context) => const Page404(),
-        );
-      },
-    );
+        initialRoute: isMobile ? '/home' : '/login',
+        routes: _routes,
+        onGenerateRoute: (settings) {
+          return material.MaterialPageRoute(
+            builder: (context) => const Page404(),
+          );
+        },
+      );
+    } else {
+      return material.MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Sound2U',
+        theme: material.ThemeData(
+          scrollbarTheme: material.ScrollbarThemeData(
+            thumbColor: material.MaterialStateProperty.all(MyColors.lightBlack),
+          ),
+        ),
+        initialRoute: isMobile ? '/home_desk' : '/home',
+        routes: _routes,
+        onGenerateRoute: (settings) {
+          return material.MaterialPageRoute(
+            builder: (context) => const Page404(),
+          );
+        },
+      );
+    }
   }
 }

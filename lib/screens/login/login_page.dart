@@ -8,7 +8,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:Sound2U/responsive.dart';
 import 'package:Sound2U/services/firebase_service_changes.dart';
-
+import 'package:Sound2U/bean/User.dart';
+import 'package:path_provider/path_provider.dart';
 import '../main_desktop/my_window.dart';
 
 class Login extends StatefulWidget {
@@ -46,12 +47,18 @@ class LoginState extends State<Login> {
       final email = _email.trim();
       final password = _password.trim();
 
-      if (kIsWeb || !(Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
-        if (await getPeople(email, password)) {
+      if (Responsive.isDesktop(context)) {
+        if (await getPeopleWindows(email, password)) {
+          if (_isChecked) {
+            saveData(email, password);
+          }
           goToHome();
         }
       } else {
-        if (await getPeopleWindows(email, password)) {
+        if (await getPeople(email, password)) {
+          if (_isChecked) {
+            saveData(email, password);
+          }
           goToHome();
         }
       }
@@ -60,6 +67,12 @@ class LoginState extends State<Login> {
       print("Email: " + email);
       print("Password: " + password);
     }
+  }
+
+  Future<void> saveData(String email, String passwords) async {
+    final storage = FileStorage();
+    final user = User(username: email, password: passwords);
+    await storage.saveUser(user);
   }
 
   void goToHome() {
@@ -76,25 +89,26 @@ class LoginState extends State<Login> {
       backgroundColor: Colors.black.withOpacity(0.7),
       body: Column(
         children: [
-          if (!kIsWeb && Platform.isWindows) WindowTitleBarBox(
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(
-                      decoration: const BoxDecoration(
-                        color: MyColors.mainGreenDark,
-                      ),
-                      child: MoveWindow()),
-                ),
-                Container(
-                  decoration: const BoxDecoration(
-                    color: MyColors.mainGreenDark,
+          if (!kIsWeb && Platform.isWindows)
+            WindowTitleBarBox(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                        decoration: const BoxDecoration(
+                          color: MyColors.mainGreenDark,
+                        ),
+                        child: MoveWindow()),
                   ),
-                  child: const WindowButtons(),
-                ),
-              ],
+                  Container(
+                    decoration: const BoxDecoration(
+                      color: MyColors.mainGreenDark,
+                    ),
+                    child: const WindowButtons(),
+                  ),
+                ],
+              ),
             ),
-          ),
           Flexible(
             child: Container(
               decoration: const BoxDecoration(
@@ -106,8 +120,8 @@ class LoginState extends State<Login> {
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
                 child: Center(
-                  child: LayoutBuilder(
-                      builder: (BuildContext context, BoxConstraints constraints) {
+                  child: LayoutBuilder(builder:
+                      (BuildContext context, BoxConstraints constraints) {
                     return SingleChildScrollView(
                       controller: _scrollController,
                       child: Container(
@@ -137,7 +151,8 @@ class LoginState extends State<Login> {
                                   textAlign: TextAlign.center,
                                 ),
 
-                                const Divider(color: Colors.transparent, height: 40),
+                                const Divider(
+                                    color: Colors.transparent, height: 40),
 
                                 /// Email input
                                 Container(
@@ -176,7 +191,8 @@ class LoginState extends State<Login> {
                                   ),
                                 ),
 
-                                const Divider(color: Colors.transparent, height: 20),
+                                const Divider(
+                                    color: Colors.transparent, height: 20),
 
                                 /// Password input
                                 Container(
@@ -213,11 +229,13 @@ class LoginState extends State<Login> {
                                   ),
                                 ),
 
-                                const Divider(color: Colors.transparent, height: 0),
+                                const Divider(
+                                    color: Colors.transparent, height: 0),
 
                                 /// Remember me and forgot password
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Row(
                                       mainAxisSize: MainAxisSize.min,
@@ -231,11 +249,13 @@ class LoginState extends State<Login> {
                                           ),
                                         ),
                                         Padding(
-                                          padding: const EdgeInsets.only(top: 2.5),
+                                          padding:
+                                              const EdgeInsets.only(top: 2.5),
                                           child: Checkbox(
                                             value: _isChecked,
-                                            fillColor: MaterialStateProperty.all(
-                                                Colors.grey.shade600),
+                                            fillColor:
+                                                MaterialStateProperty.all(
+                                                    Colors.grey.shade600),
                                             activeColor: Colors.blueGrey,
                                             onChanged: (value) {
                                               setState(() {
@@ -265,7 +285,8 @@ class LoginState extends State<Login> {
                                     // Agrega aquí cualquier otro widget que quieras incluir a la derecha del CheckboxListTile
                                   ],
                                 ),
-                                const Divider(color: Colors.transparent, height: 20),
+                                const Divider(
+                                    color: Colors.transparent, height: 20),
 
                                 /// Login button
                                 InkWell(
@@ -307,7 +328,8 @@ class LoginState extends State<Login> {
                                     ),
                                   ),
                                 ),
-                                const Divider(color: Colors.transparent, height: 25),
+                                const Divider(
+                                    color: Colors.transparent, height: 25),
 
                                 /// OR CONTINUE WITH
                                 const Text(
@@ -319,7 +341,8 @@ class LoginState extends State<Login> {
                                   ),
                                 ),
 
-                                const Divider(color: Colors.transparent, height: 25),
+                                const Divider(
+                                    color: Colors.transparent, height: 25),
 
                                 /// Social media buttons
                                 Column(
@@ -340,8 +363,8 @@ class LoginState extends State<Login> {
                                             bottom: BorderSide(
                                                 width: 3.0, color: Colors.black45),
                                           ),*/
-                                          borderRadius:
-                                              BorderRadius.all(Radius.circular(10)),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10)),
                                         ),
                                         child: const Center(
                                           child: Text(
@@ -390,7 +413,8 @@ class LoginState extends State<Login> {
                                                   "Twitter",
                                                   style: TextStyle(
                                                       color: Colors.white,
-                                                      fontWeight: FontWeight.bold,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                       fontSize: 18),
                                                 ),
                                               ),
@@ -431,7 +455,8 @@ class LoginState extends State<Login> {
                                                   "Facebook",
                                                   style: TextStyle(
                                                       color: Colors.white,
-                                                      fontWeight: FontWeight.bold,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                       fontSize: 18),
                                                 ),
                                               ),
@@ -442,7 +467,8 @@ class LoginState extends State<Login> {
                                     ),
                                   ],
                                 ),
-                                const Divider(color: Colors.transparent, height: 30),
+                                const Divider(
+                                    color: Colors.transparent, height: 30),
 
                                 /// Sign up
                                 InkWell(
