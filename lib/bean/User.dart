@@ -21,18 +21,21 @@ class User {
 
 class FileStorage {
   Future<File> get _localFile async {
-    final directory = await getExternalStorageDirectory();
     if (Platform.isWindows) {
-      final directory = await getApplicationDocumentsDirectory();
+      final directory = await getDownloadsDirectory();
       print(directory);
+      if (directory == null) {
+        throw FileSystemException('External storage directory not available');
+      }
+      return File('${directory.path}/user.json');
     } else {
       final directory = await getExternalStorageDirectory();
       print(directory);
+      if (directory == null) {
+        throw FileSystemException('External storage directory not available');
+      }
+      return File('${directory.path}/user.json');
     }
-    if (directory == null) {
-      throw FileSystemException('External storage directory not available');
-    }
-    return File('${directory.path}/user.json');
   }
 
   Future<void> saveUser(User user) async {
