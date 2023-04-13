@@ -10,7 +10,8 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
-  String _searchText = '';
+  final controller = TextEditingController();
+  List<Song> _songs = lofihiphopMusic;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +25,7 @@ class _SearchState extends State<Search> {
           elevation: 0,
           toolbarHeight: 80,
           title: TextField(
+            controller: controller,
             decoration: InputDecoration(
               hintText: 'Search',
               hintStyle: const TextStyle(color: Colors.white),
@@ -41,14 +43,69 @@ class _SearchState extends State<Search> {
             ),
             textAlignVertical: TextAlignVertical.center,
             style: const TextStyle(color: Colors.white),
-            onChanged: (value) {
-              setState(() {
-                _searchText = value;
-              });
-            },
+            onChanged: searchSong,
           ),
         ),
-        body: SingleChildScrollView(
+        body: ListView.builder(
+          physics: const BouncingScrollPhysics(
+              decelerationRate: ScrollDecelerationRate.fast),
+          itemCount: _songs.length,
+          itemBuilder: (context, index) {
+            final song = _songs[index];
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: ListTile(
+                leading: Image.asset(
+                  "assets/icons/lofi.png",
+                  fit: BoxFit.cover,
+                  width: 55,
+                  height: 55,
+                ),
+                title: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      song.title,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      song.artist,
+                      style: const TextStyle(
+                        color: MyColors.mainGreen,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  void searchSong(String query) {
+    final suggestions = lofihiphopMusic.where((song) {
+      final songTitle = song.title.toLowerCase();
+      final input = query.toLowerCase();
+
+      return songTitle.contains(input);
+    }).toList();
+
+    setState(() => _songs = suggestions);
+  }
+}
+
+/*
+SingleChildScrollView(
           scrollDirection: Axis.vertical,
           physics: const BouncingScrollPhysics(
               decelerationRate: ScrollDecelerationRate.fast),
@@ -163,7 +220,4 @@ class _SearchState extends State<Search> {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
+ */

@@ -51,7 +51,7 @@ class Song {
   });
 }
 
-const _lofihiphopMusic = [
+const lofihiphopMusic = [
   Song(
     id: '0',
     title: 'Snowman',
@@ -169,7 +169,7 @@ const lofihiphopPlaylist = Playlist(
   creator: 'Lofi Girl',
   duration: '28 min',
   followers: '5,351,685',
-  songs: _lofihiphopMusic,
+  songs: lofihiphopMusic,
 );
 
 const List songs = [
