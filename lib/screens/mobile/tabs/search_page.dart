@@ -49,12 +49,16 @@ class _SearchState extends State<Search> {
         body: ListView.builder(
           physics: const BouncingScrollPhysics(
               decelerationRate: ScrollDecelerationRate.fast),
-          itemCount: _songs.length,
+          itemCount: _songs.length + 1,
           itemBuilder: (context, index) {
+            if (index == _songs.length){
+              return const SizedBox(height: 70);
+            }
             final song = _songs[index];
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: ListTile(
+                dense: true,
                 leading: Image.asset(
                   "assets/icons/lofi.png",
                   fit: BoxFit.cover,
@@ -95,9 +99,10 @@ class _SearchState extends State<Search> {
   void searchSong(String query) {
     final suggestions = lofihiphopMusic.where((song) {
       final songTitle = song.title.toLowerCase();
+      final songArtist = song.artist.toLowerCase();
       final input = query.toLowerCase();
 
-      return songTitle.contains(input);
+      return songTitle.contains(input) || songArtist.contains(input);
     }).toList();
 
     setState(() => _songs = suggestions);
