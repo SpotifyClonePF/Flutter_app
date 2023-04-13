@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 FirebaseFirestore db = FirebaseFirestore.instance;
 
@@ -16,6 +17,12 @@ Future<List> getCanco() async {
   await Future.delayed(const Duration(seconds: 5));
   return canco;
 }*/
+
+//login
+Future signIn(String email, String password) async {
+  await FirebaseAuth.instance
+      .signInWithEmailAndPassword(email: email, password: password);
+}
 
 // verficar usuario
 Future<bool> getPeople(String name, String password) async {
