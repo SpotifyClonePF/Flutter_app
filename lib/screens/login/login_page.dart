@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:ui';
+import 'package:Sound2U/services/auth_service.dart';
 import 'package:Sound2U/services/firebase_service.dart';
 import 'package:Sound2U/styles/colors.dart';
 import 'package:Sound2U/widgets/input_text.dart';
@@ -348,7 +349,9 @@ class LoginState extends State<Login> {
                                 Column(
                                   children: [
                                     InkWell(
-                                      onTap: () => _submitForm(context),
+                                      //onTap: () => _submitForm(context),
+                                      onTap: () =>
+                                          AuthService().signInWithGoogle(),
                                       child: Container(
                                         padding: const EdgeInsets.all(13),
                                         decoration: const BoxDecoration(
