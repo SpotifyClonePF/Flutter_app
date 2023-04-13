@@ -10,8 +10,8 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
-
   String _searchSong = '';
+  String _searchText = '';
 
   @override
   Widget build(BuildContext context) {
@@ -74,9 +74,11 @@ class _SearchState extends State<Search> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 20),
                       child: Table(
-                          defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                          defaultVerticalAlignment:
+                              TableCellVerticalAlignment.middle,
                           columnWidths: const {
                             0: FixedColumnWidth(45),
                             1: FlexColumnWidth(),
@@ -85,7 +87,7 @@ class _SearchState extends State<Search> {
                           },
                           children: List.generate(
                             5,
-                                (index) {
+                            (index) {
                               return TableRow(
                                 children: [
                                   Text(
@@ -97,9 +99,11 @@ class _SearchState extends State<Search> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 5),
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 5),
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           songs[index]['title'],
@@ -138,8 +142,7 @@ class _SearchState extends State<Search> {
                                 ],
                               );
                             },
-                          )
-                      ),
+                          )),
                     ),
                   ],
                 ),
@@ -162,7 +165,8 @@ class _SearchState extends State<Search> {
                       ),
                     ),
                     SingleChildScrollView(
-                      physics: const BouncingScrollPhysics(decelerationRate: ScrollDecelerationRate.fast),
+                      physics: const BouncingScrollPhysics(
+                          decelerationRate: ScrollDecelerationRate.fast),
                       scrollDirection: Axis.horizontal,
                       child: Padding(
                         padding: const EdgeInsets.only(top: 20),
@@ -179,7 +183,8 @@ class _SearchState extends State<Search> {
                                       height: 140,
                                       decoration: BoxDecoration(
                                         image: DecorationImage(
-                                          image: AssetImage(songs[index]['img']),
+                                          image:
+                                              AssetImage(songs[index]['img']),
                                           fit: BoxFit.cover,
                                         ),
                                         color: Colors.green,

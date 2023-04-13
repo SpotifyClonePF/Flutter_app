@@ -45,6 +45,7 @@ Future<bool> getPeople(String name, String password) async {
 
 // register usuario
 Future<bool> existUser(String name, String email, String password) async {
+  print("BBB");
   CollectionReference collectionReferenceUser = db.collection('user');
   try {
     QuerySnapshot queryEmail =
