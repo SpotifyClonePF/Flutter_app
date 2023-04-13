@@ -48,20 +48,23 @@ class LoginState extends State<Login> {
       final email = _email.trim();
       final password = _password.trim();
 
-      if (Responsive.isDesktop(context)) {
+      if (!kIsWeb && Responsive.isDesktop(context)) {
+        await signIn(email, password);
+        /*
         if (await getPeopleWindows(email, password)) {
           if (_isChecked) {
             saveData(email, password);
           }
           goToHome();
-        }
+        }*/
       } else {
-        if (await getPeople(email, password)) {
+        await signIn(email, password);
+        /*if (await getPeople(email, password)) {
           if (_isChecked) {
             saveData(email, password);
           }
           goToHome();
-        }
+        }*/
       }
 
       // Agregar Login AQUI

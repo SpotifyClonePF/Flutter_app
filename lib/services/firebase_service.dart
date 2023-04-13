@@ -22,6 +22,9 @@ Future<List> getCanco() async {
 Future signIn(String email, String password) async {
   await FirebaseAuth.instance
       .signInWithEmailAndPassword(email: email, password: password);
+
+  final user = FirebaseAuth.instance.currentUser!;
+  print(user.hashCode!);
 }
 
 // verficar usuario
