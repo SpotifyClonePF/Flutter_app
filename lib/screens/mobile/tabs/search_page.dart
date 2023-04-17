@@ -52,7 +52,7 @@ class _SearchState extends State<Search> {
           itemCount: _songs.length + 1,
           itemBuilder: (context, index) {
             if (index == _songs.length){
-              return const SizedBox(height: 70);
+              return const SizedBox(height: 160); // 70 sin el player y 160 si esta el player
             }
             final song = _songs[index];
             return Padding(
