@@ -74,11 +74,28 @@ Future<bool> existUser(String name, String email, String password) async {
 }
 
 // obetener lista de storage
-/*
-Future<ListResult> getFilesList() async {
+
+Future<List> getFilesList() async {
   ListResult result = await FirebaseStorage.instance.ref().listAll();
-  return result;
-}*/
+  List<String> list = [];
+  for (var prefix in result.prefixes) {
+    // The prefixes under storageRef.
+    // You can call listAll() recursively on them.
+  }
+  for (var item in result.items) {
+    // The items under storageRef.
+
+    final Url = item.getDownloadURL();
+    list.add(Url.toString());
+  }
+  return list;
+}
+
+Future<int> getNumLists(ListResult result) async {
+  int num = 0;
+
+  return num;
+}
 
 // obetener url descargar de music
 /*
@@ -117,6 +134,7 @@ Future<void> downloadMusic(String url, String filePath) async {
 //
 /*
 AudioPlayer player = AudioPlayer();
+bool
 Future<void> play(String url) async {
     await audioPlayer.play(url);
   }
