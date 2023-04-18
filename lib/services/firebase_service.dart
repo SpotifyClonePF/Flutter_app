@@ -68,9 +68,19 @@ Future<bool> existUser(String name, String email, String password) async {
 
 
 // obetener lista de storage
-Future<ListResult> getFilesList() async {
+Future<List> getAllSongsFirebase() async {
   ListResult result = await FirebaseStorage.instance.ref().listAll();
-  return result;
+
+  List<String> list = [];
+
+  for (var item in result.items) {
+    // The items under storageRef.
+
+    final Url = item.getDownloadURL();
+
+    list.add(Url.toString());
+  }
+  return list;
 }
 
 // obtener url descargar de music

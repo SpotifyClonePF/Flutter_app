@@ -51,6 +51,22 @@ class Song {
   });
 }
 
+class Song2 {
+  final String url;
+  final String title;
+  final String artist;
+  final String duration;
+  final Image image;
+
+  const Song2({
+    required this.url,
+    required this.title,
+    required this.artist,
+    required this.duration,
+    required this.image,
+  });
+}
+
 const lofihiphopMusic = [
   Song(
     id: '0',
