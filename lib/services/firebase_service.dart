@@ -66,15 +66,14 @@ Future<bool> existUser(String name, String email, String password) async {
   return true;
 }
 
+
 // obetener lista de storage
-/*
 Future<ListResult> getFilesList() async {
   ListResult result = await FirebaseStorage.instance.ref().listAll();
   return result;
-}*/
+}
 
-// obetener url descargar de music
-/*
+// obtener url descargar de music
 Future<String> _loadAudioUrl(String nombre) async {
   final storageRef = FirebaseStorage.instance.ref(nombre);
   final downloadUrl = await storageRef.getDownloadURL();
@@ -82,14 +81,13 @@ Future<String> _loadAudioUrl(String nombre) async {
     return downloadUrl;
   }
   return "";
-}*/
+}
 
 // obtener direccion(encaso solo android) par guardar la music.
-/*
 Future<String> _getsavepath(String nombre) async {
   final appDocumentsDirectory = await getExternalStorageDirectory();
   if (appDocumentsDirectory != null) {
     return '${appDocumentsDirectory.path}/$nombre';
   }
   return "";
-}*/
+}

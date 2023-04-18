@@ -1,15 +1,15 @@
 import 'package:Sound2U/styles/colors.dart';
 import 'package:flutter/material.dart';
 
+import 'data.dart';
+
 class MusicWidget extends StatefulWidget {
-  final String songName;
-  final String artistName;
+  final Song song;
   final String imageUrl;
 
   const MusicWidget({
     super.key,
-    required this.songName,
-    required this.artistName,
+    required this.song,
     required this.imageUrl,
   });
 
@@ -19,15 +19,13 @@ class MusicWidget extends StatefulWidget {
 
 class MusicWidgetState extends State<MusicWidget> {
   bool _isPlaying = false;
-  String _currentSongName = '';
-  String _currentArtistName = '';
   String _currentImageUrl = '';
+  late Song _currentSong;
 
   @override
   void initState() {
     super.initState();
-    _currentSongName = widget.songName;
-    _currentArtistName = widget.artistName;
+    _currentSong = widget.song;
     _currentImageUrl = widget.imageUrl;
   }
 
@@ -64,7 +62,7 @@ class MusicWidgetState extends State<MusicWidget> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    _currentSongName,
+                    _currentSong.title,
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -74,7 +72,7 @@ class MusicWidgetState extends State<MusicWidget> {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    _currentArtistName,
+                    _currentSong.artist,
                     style: const TextStyle(
                       fontSize: 14,
                       color: MyColors.mainGreen,

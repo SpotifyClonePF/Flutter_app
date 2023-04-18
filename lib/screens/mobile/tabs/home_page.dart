@@ -190,7 +190,7 @@ class Home extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 90),
+              const SizedBox(height: 180),
             ],
           ),
         ),

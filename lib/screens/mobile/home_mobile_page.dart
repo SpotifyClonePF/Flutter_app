@@ -1,3 +1,4 @@
+import 'package:Sound2U/models/data.dart';
 import 'package:Sound2U/models/play_mobile.dart';
 import 'package:Sound2U/screens/mobile/tabs/search_page.dart';
 import 'package:Sound2U/styles/colors.dart';
@@ -54,10 +55,9 @@ class _HomeMobilePageState extends State<HomeMobilePage> {
                 children: [
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: const MusicWidget(
-                      songName: "Cancion",
-                      artistName: "Artista",
+                    child: MusicWidget(
                       imageUrl: "assets/icons/lofi.png",
+                      song: lofihiphopMusic[0],
                     ),
                   ),
                   Container(
