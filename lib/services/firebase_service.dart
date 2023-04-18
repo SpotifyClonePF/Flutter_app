@@ -100,3 +100,44 @@ Future<String> _getsavepath(String nombre) async {
   }
   return "";
 }*/
+
+//
+
+/*
+Future<void> downloadMusic(String url, String filePath) async {
+  final response = await http.get(Uri.parse(url));
+  final bytes = response.bodyBytes;
+  final file = File(filePath);
+  await file.writeAsBytes(bytes);
+}
+
+*/
+
+
+//
+/*
+AudioPlayer player = AudioPlayer();
+Future<void> play(String url) async {
+    await audioPlayer.play(url);
+  }
+
+  //
+  Future<void> pause() async {
+    await audioPlayer.pause();
+  }
+
+  // 
+  Future<void> stop() async {
+    await audioPlayer.stop();
+  }
+
+  // 
+  Future<void> seek() async {
+    await audioPlayer.seek(Duration(seconds: audioPlayer.duration.inSeconds + 10));
+  }
+
+  // 
+  Future<void> rewind() async {
+    await audioPlayer.seek(Duration(seconds: audioPlayer.duration.inSeconds -10 10));
+  }
+*/
