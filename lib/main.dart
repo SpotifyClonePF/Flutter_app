@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:Sound2U/models/data.dart';
+import 'package:Sound2U/services/firebase_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart' as material;
 import 'package:flutter/foundation.dart';
@@ -39,8 +41,7 @@ void main() async {
     material.MaterialApp(
       debugShowCheckedModeBanner: false,
       home: ChangeNotifierProvider(
-          create: (context) => CurrentTrackModel(),
-          child: const MyApp()),
+          create: (context) => CurrentTrackModel(), child: const MyApp()),
     ),
   );
 
@@ -54,6 +55,8 @@ void main() async {
       win.show();
     });
   }
+
+  exx = await getFilesList();
 }
 
 Future<void> requestPermission() async {

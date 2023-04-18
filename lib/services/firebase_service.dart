@@ -1,6 +1,9 @@
+import 'package:Sound2U/models/data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_ffmpeg/media_information.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:flutter_ffmpeg/flutter_ffmpeg.dart';
 
 FirebaseFirestore db = FirebaseFirestore.instance;
 
@@ -66,11 +69,40 @@ Future<bool> existUser(String name, String email, String password) async {
   return true;
 }
 
-
 // obetener lista de storage
-Future<ListResult> getFilesList() async {
+Future<List<Song>> getFilesList() async {
   ListResult result = await FirebaseStorage.instance.ref().listAll();
-  return result;
+
+  List<Song> list = [];
+  for (var prefix in result.prefixes) {
+    // The prefixes under storageRef.
+    // You can call listAll() recursively on them.
+  }
+  for (var item in result.items) {
+    // The items under storageRef.
+
+    final Url = item.getDownloadURL().toString();
+    final name = item.name.toString();
+    final duration = await getDuration(Url);
+
+    Song song = Song(
+      id: Url,
+      title: name,
+      artist: name,
+      album: name,
+      duration: duration,
+    );
+    list.add(song);
+  }
+  return list;
+}
+
+Future<String> getDuration(String url) async {
+  final FlutterFFprobe flutterFFprobe = new FlutterFFprobe();
+  MediaInformation mediaInformation =
+      await flutterFFprobe.getMediaInformation(url);
+  final duration = mediaInformation.getMediaProperties()?['duration'];
+  return duration;
 }
 
 // obtener url descargar de music

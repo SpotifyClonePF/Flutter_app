@@ -1,4 +1,5 @@
 import 'package:Sound2U/models/data.dart';
+import 'package:Sound2U/services/firebase_service.dart';
 import 'package:Sound2U/styles/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,7 @@ class Search extends StatefulWidget {
 
 class _SearchState extends State<Search> {
   final controller = TextEditingController();
-  List<Song> _songs = lofihiphopMusic;
+  List<Song> _songs = exx;
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +52,9 @@ class _SearchState extends State<Search> {
               decelerationRate: ScrollDecelerationRate.fast),
           itemCount: _songs.length + 1,
           itemBuilder: (context, index) {
-            if (index == _songs.length){
-              return const SizedBox(height: 160); // 70 sin el player y 160 si esta el player
+            if (index == _songs.length) {
+              return const SizedBox(
+                  height: 160); // 70 sin el player y 160 si esta el player
             }
             final song = _songs[index];
             return Padding(
