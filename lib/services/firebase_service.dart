@@ -81,18 +81,21 @@ Future<List<Song>> getFilesList() async {
   for (var item in result.items) {
     // The items under storageRef.
 
-    final Url = item.getDownloadURL().toString();
+    final Url = await item.getDownloadURL();
     final name = item.name.toString();
-    final duration = await getDuration(Url);
+    //final duration = await getDuration(Url);
 
     Song song = Song(
       id: Url,
       title: name,
       artist: name,
       album: name,
-      duration: duration,
+      duration: 'duration',
     );
     list.add(song);
+    print("-----------------------------------------");
+    print(Url);
+    print(name);
   }
   return list;
 }

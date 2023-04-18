@@ -99,7 +99,7 @@ class _SearchState extends State<Search> {
   }
 
   void searchSong(String query) {
-    final suggestions = lofihiphopMusic.where((song) {
+    final suggestions = exx.where((song) {
       final songTitle = song.title.toLowerCase();
       final songArtist = song.artist.toLowerCase();
       final input = query.toLowerCase();
