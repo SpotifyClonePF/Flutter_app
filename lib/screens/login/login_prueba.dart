@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:Sound2U/screens/login/forgot_pw_page.dart';
 import 'package:Sound2U/services/firebase_service.dart';
 import 'package:Sound2U/styles/colors.dart';
 import 'package:Sound2U/widgets/input_text.dart';
@@ -42,7 +43,8 @@ class LoginState extends State<Login> {
 
       final email = _email.trim();
       final password = _password.trim();
-
+      await signIn(email, password);
+/*
       if (Responsive.isDesktop(context)) {
         if (await getPeopleWindows(email, password)) {
           if (_isChecked) {
@@ -58,7 +60,7 @@ class LoginState extends State<Login> {
           goToHome();
         }
       }
-
+*/
       // Agregar Login AQUI
       print("Email: " + email);
       print("Password: " + password);
@@ -237,7 +239,10 @@ class LoginState extends State<Login> {
                                 alignment: Alignment.centerRight,
                                 child: InkWell(
                                   onTap: () {
-                                    //Navigator.pushNamed(context, '/forgot-password');
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) {
+                                      return ForgotPasswordPage();
+                                    }));
                                   },
                                   child: const Text(
                                     'Forgot password?',
