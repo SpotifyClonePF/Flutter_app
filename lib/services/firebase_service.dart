@@ -46,8 +46,6 @@ Future<bool> getPeople(String name, String password) async {
   return exit;
 }
 
-
-
 // register usuario
 Future<bool> existUser(String name, String email, String password) async {
   CollectionReference collectionReferenceUser = db.collection('user');
@@ -72,16 +70,16 @@ Future<bool> existUser(String name, String email, String password) async {
 }
 
 Future<String> getInformationOfFile(String filename, String tipo) async {
-   String CampoData = "";
+  String CampoData = "";
   CollectionReference collectionReferenceUser = db.collection('music');
   try {
-    QuerySnapshot query = await collectionReferenceUser.doc(filename).get();
+    DocumentSnapshot query = await collectionReferenceUser.doc(filename).get();
     if (query.exists) {
-    Map<String, dynamic> data = query.data();
-    if (data.containsKey(tipo)) {
-      CampoData = data[tipo];
+      Map<String, dynamic>? data = query.data() as Map<String, dynamic>?;
+      if (data != null && data.containsKey(tipo)) {
+        CampoData = data[tipo];
+      }
     }
-  }
   } catch (e) {
     return CampoData;
   }
@@ -90,7 +88,8 @@ Future<String> getInformationOfFile(String filename, String tipo) async {
 
 // obetener lista de storage
 Future<List<Song>> getFilesList() async {
-  ListResult result = await FirebaseStorage.instance.ref().listAll();
+  ListResult result =
+      await FirebaseStorage.instance.ref().child('music').listAll();
 
   List<Song> list = [];
   for (var prefix in result.prefixes) {
@@ -106,10 +105,10 @@ Future<List<Song>> getFilesList() async {
 
     Song song = Song(
       id: Url,
-      title: getInformationOfFile(name,"title"),
-      artist: getInformationOfFile(name,"artist"),
-      album: name,
-      duration: getInformationOfFile(name,"duration"),
+      title: await getInformationOfFile(name, "title"),
+      artist: await getInformationOfFile(name, "artist"),
+      album: await getInformationOfFile(name, "album"),
+      duration: await getInformationOfFile(name, "duration"),
     );
     list.add(song);
     print("-----------------------------------------");
