@@ -86,6 +86,16 @@ Future<String> getInformationOfFile(String filename, String tipo) async {
   return CampoData;
 }
 
+Future<String> getImageOfFile(String filename) async {
+  String ImgData = "Img/" + filename + ".jpg";
+  print(ImgData);
+  print(filename + "*********************************************************");
+  String imageUrl =
+      await FirebaseStorage.instance.ref().child(ImgData).getDownloadURL();
+
+  return imageUrl;
+}
+
 // obetener lista de storage
 Future<List<Song>> getFilesList() async {
   ListResult result =
@@ -102,15 +112,30 @@ Future<List<Song>> getFilesList() async {
     final Url = await item.getDownloadURL();
     final name = item.name.toString();
     //final duration = await getDuration(Url);
-
-    Song song = Song(
-      id: Url,
-      title: await getInformationOfFile(name, "title"),
-      artist: await getInformationOfFile(name, "artist"),
-      album: await getInformationOfFile(name, "album"),
-      duration: await getInformationOfFile(name, "duration"),
-    );
-    list.add(song);
+    String titles = await getInformationOfFile(name, "title");
+    try {
+      Song song = Song(
+        id: Url,
+        title: await getInformationOfFile(name, "title"),
+        imageURL:
+            await getImageOfFile(await getInformationOfFile(name, "title")),
+        artist: await getInformationOfFile(name, "artist"),
+        album: await getInformationOfFile(name, "album"),
+        duration: await getInformationOfFile(name, "duration"),
+      );
+      list.add(song);
+    } catch (e) {
+      Song song = Song(
+        id: Url,
+        title: "lol",
+        imageURL:
+            "https://firebasestorage.googleapis.com/v0/b/dyzr-541db.appspot.com/o/Img%2FEstopa.jpg?alt=media&token=35360aa9-9592-48de-a71e-ce3bfcbe0757",
+        artist: "lol",
+        album: "lol",
+        duration: "lol",
+      );
+      list.add(song);
+    }
     print("-----------------------------------------");
     print(Url);
     print(name);

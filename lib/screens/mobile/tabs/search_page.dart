@@ -61,8 +61,8 @@ class _SearchState extends State<Search> {
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: ListTile(
                 dense: true,
-                leading: Image.asset(
-                  "assets/icons/lofi.png",
+                leading: Image.network(
+                  song.imageURL,
                   fit: BoxFit.cover,
                   width: 55,
                   height: 55,
