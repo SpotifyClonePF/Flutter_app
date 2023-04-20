@@ -71,29 +71,21 @@ Future<bool> existUser(String name, String email, String password) async {
   return true;
 }
 
-Future<bool> getInformationOfFile(String filename,) async {
-  bool exit = false;
+Future<String> getInformationOfFile(String filename, String tipo) async {
+   String CampoData = "";
   CollectionReference collectionReferenceUser = db.collection('music');
   try {
-    QuerySnapshot queryEmail = await collectionReferenceUser
-        .where('email', isEqualTo: name)
-        .where('password', isEqualTo: password)
-        .get();
-    QuerySnapshot queryNombre = await collectionReferenceUser
-        .where('name', isEqualTo: name)
-        .where('password', isEqualTo: password)
-        .get();
-
-    if (queryEmail.docs.isNotEmpty == true) {
-      exit = true;
+    QuerySnapshot query = await collectionReferenceUser.doc(filename).get();
+    if (query.exists) {
+    Map<String, dynamic> data = query.data();
+    if (data.containsKey(tipo)) {
+      CampoData = data[tipo];
     }
-    if (queryNombre.docs.isNotEmpty == true) {
-      exit = true;
-    }
-  } catch (e) {
-    return exit;
   }
-  return exit;
+  } catch (e) {
+    return CampoData;
+  }
+  return CampoData;
 }
 
 // obetener lista de storage
@@ -114,10 +106,10 @@ Future<List<Song>> getFilesList() async {
 
     Song song = Song(
       id: Url,
-      title: name,
-      artist: name,
+      title: getInformationOfFile(name,"title"),
+      artist: getInformationOfFile(name,"artist"),
       album: name,
-      duration: 'duration',
+      duration: getInformationOfFile(name,"duration"),
     );
     list.add(song);
     print("-----------------------------------------");
