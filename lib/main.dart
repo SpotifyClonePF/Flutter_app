@@ -56,7 +56,7 @@ void main() async {
     });
   }
 
-  exx = await getFilesList();
+  await getFilesList();
 }
 
 Future<void> requestPermission() async {

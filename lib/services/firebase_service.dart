@@ -123,7 +123,7 @@ Future<List<Song>> getFilesList() async {
         album: await getInformationOfFile(name, "album"),
         duration: await getInformationOfFile(name, "duration"),
       );
-      list.add(song);
+      exx.add(song);
     } catch (e) {
       Song song = Song(
         id: Url,
@@ -134,7 +134,7 @@ Future<List<Song>> getFilesList() async {
         album: "lol",
         duration: "lol",
       );
-      list.add(song);
+      exx.add(song);
     }
     print("-----------------------------------------");
     print(Url);
