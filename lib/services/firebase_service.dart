@@ -1,4 +1,5 @@
 import 'package:Sound2U/models/data.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_ffmpeg/media_information.dart';
@@ -113,6 +114,7 @@ Future<List<Song>> getFilesList() async {
     final name = item.name.toString();
     //final duration = await getDuration(Url);
     String titles = await getInformationOfFile(name, "title");
+    final player = AudioPlayer();
     try {
       Song song = Song(
         id: Url,
@@ -121,7 +123,7 @@ Future<List<Song>> getFilesList() async {
             await getImageOfFile(await getInformationOfFile(name, "title")),
         artist: await getInformationOfFile(name, "artist"),
         album: await getInformationOfFile(name, "album"),
-        duration: await getInformationOfFile(name, "duration"),
+        duration: await getAudioDuration(Url),
       );
       exx.add(song);
     } catch (e) {
@@ -139,16 +141,27 @@ Future<List<Song>> getFilesList() async {
     print("-----------------------------------------");
     print(Url);
     print(name);
+    print(await getAudioDuration(Url));
   }
   return list;
 }
 
-Future<String> getDuration(String url) async {
-  final FlutterFFprobe flutterFFprobe = new FlutterFFprobe();
-  MediaInformation mediaInformation =
-      await flutterFFprobe.getMediaInformation(url);
-  final duration = mediaInformation.getMediaProperties()?['duration'];
-  return duration;
+Future<String> getAudioDuration(String filePath) async {
+  AudioPlayer player = AudioPlayer();
+  Duration duration = Duration();
+  await player.setUrl(filePath);
+  int durationInMilliseconds = await player.getDuration();
+  duration = Duration(milliseconds: durationInMilliseconds);
+  String formattedDuration = formatDuration(duration);
+  print(formattedDuration);
+  return formattedDuration;
+}
+
+String formatDuration(Duration duration) {
+  String twoDigits(int n) => n.toString().padLeft(2, "0");
+  String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
+  String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
+  return "$twoDigitMinutes:$twoDigitSeconds";
 }
 
 // obtener url descargar de music
