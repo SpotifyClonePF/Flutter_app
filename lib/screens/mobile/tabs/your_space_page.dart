@@ -2,14 +2,14 @@ import 'package:Sound2U/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-class Page3 extends StatefulWidget {
-  const Page3({Key? key}) : super(key: key);
+class YourSpace extends StatefulWidget {
+  const YourSpace({Key? key}) : super(key: key);
 
   @override
-  State<Page3> createState() => _Page3State();
+  State<YourSpace> createState() => _YourSpaceState();
 }
 
-class _Page3State extends State<Page3> {
+class _YourSpaceState extends State<YourSpace> {
   final ScrollController _scrollController = ScrollController();
 
   bool _isVisible = true;
@@ -78,27 +78,31 @@ class _Page3State extends State<Page3> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+
+              /// LIKED SONGS
               AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
-                height: _isVisible ? 50 : 0,
+                height: _isVisible ? 70 : 0,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: MyColors.white.withOpacity(0.2),
+                  color: MyColors.white.withOpacity(0.9),
                   borderRadius: const BorderRadius.all(
                     Radius.circular(20),
                   ),
                 ),
                 child: const Center(
                   child: Text(
-                    'Liked songs',
+                    'Liked songs ♥',
                     style: TextStyle(
-                      color: MyColors.white,
-                      fontSize: 15,
+                      color: MyColors.black,
+                      fontSize: 18,
                     ),
                   ),
                 ),
               ),
               SizedBox(height: _isVisible ? 20 : 0),
+
+              /// SEARCH PLAYLISTS
               Padding(
                 padding: const EdgeInsets.only(bottom: 20),
                 child: Container(
@@ -128,11 +132,13 @@ class _Page3State extends State<Page3> {
                   ),
                 ),
               ),
+
+              /// PLAYLISTS
               Expanded(
                 child: GridView.builder(
                   controller: _scrollController,
                   physics: const BouncingScrollPhysics(
-                      decelerationRate: ScrollDecelerationRate.fast),
+                      decelerationRate: ScrollDecelerationRate.normal),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     crossAxisSpacing: 25,
@@ -153,6 +159,10 @@ class _Page3State extends State<Page3> {
                           decoration: BoxDecoration(
                             color: MyColors.white.withOpacity(0.2),
                             borderRadius: BorderRadius.circular(20),
+                            image: const DecorationImage(
+                              image: AssetImage('assets/icons/lofi.png'),
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                         const SizedBox(height: 10),

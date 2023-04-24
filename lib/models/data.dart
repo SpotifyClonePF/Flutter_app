@@ -38,6 +38,7 @@ const playlists = [
 class Song {
   final String id;
   final String title;
+  final String imageURL;
   final String artist;
   final String album;
   final String duration;
@@ -45,32 +46,20 @@ class Song {
   const Song({
     required this.id,
     required this.title,
+    required this.imageURL,
     required this.artist,
     required this.album,
     required this.duration,
   });
 }
 
-class Song2 {
-  final String url;
-  final String title;
-  final String artist;
-  final String duration;
-  final Image image;
-
-  const Song2({
-    required this.url,
-    required this.title,
-    required this.artist,
-    required this.duration,
-    required this.image,
-  });
-}
+List<Song> exx = [];
 
 const lofihiphopMusic = [
   Song(
     id: '0',
     title: 'Snowman',
+    imageURL: "sss",
     artist: 'WYS',
     album: '1 Am. Study Session',
     duration: '3:15',
@@ -78,6 +67,7 @@ const lofihiphopMusic = [
   Song(
     id: '1',
     title: 'Healthy Distraction',
+    imageURL: "sss",
     artist: 'less.people',
     album: 'One Day It\'s Over',
     duration: '2:18',
@@ -85,6 +75,7 @@ const lofihiphopMusic = [
   Song(
     id: '2',
     title: 'Far Away',
+    imageURL: "sss",
     artist: 'Mila Coolness',
     album: 'Silent River',
     duration: '2:39',
@@ -92,6 +83,7 @@ const lofihiphopMusic = [
   Song(
     id: '3',
     title: 'Call You Soon',
+    imageURL: "sss",
     artist: 'Louk, Glimlip',
     album: 'Can We Talk',
     duration: '2:35',
@@ -99,6 +91,7 @@ const lofihiphopMusic = [
   Song(
     id: '4',
     title: 'Winter Sun',
+    imageURL: "sss",
     artist: 'Bcalm, Banks',
     album: 'Feelings',
     duration: '2:15',
@@ -106,6 +99,7 @@ const lofihiphopMusic = [
   Song(
     id: '5',
     title: 'Hope',
+    imageURL: "sss",
     artist: 'No Spirit',
     album: 'Memories We Made',
     duration: '1:57',
@@ -113,6 +107,7 @@ const lofihiphopMusic = [
   Song(
     id: '6',
     title: 'A Better Place',
+    imageURL: "sss",
     artist: 'Project AER, cxit.',
     album: 'Growth Patterns',
     duration: '2:00',
@@ -120,6 +115,7 @@ const lofihiphopMusic = [
   Song(
     id: '7',
     title: 'Misty Dawn',
+    imageURL: "sss",
     artist: 'BluntOne',
     album: 'Autumn in Budapest',
     duration: '2:34',
@@ -127,6 +123,7 @@ const lofihiphopMusic = [
   Song(
     id: '8',
     title: 'Hourglass',
+    imageURL: "sss",
     artist: 'Thaehan',
     album: 'Hourglass',
     duration: '1:43',
@@ -134,6 +131,7 @@ const lofihiphopMusic = [
   Song(
     id: '9',
     title: 'After Sunset',
+    imageURL: "sss",
     artist: 'Project AER, WYS',
     album: '3 Am. Study Session',
     duration: '2:41',
@@ -141,6 +139,7 @@ const lofihiphopMusic = [
   Song(
     id: '10',
     title: 'Child',
+    imageURL: "sss",
     artist: 'Ambulo',
     album: 'Polar',
     duration: '2:12',
@@ -148,6 +147,7 @@ const lofihiphopMusic = [
   Song(
     id: '11',
     title: 'Arizona Zero',
+    imageURL: "sss",
     artist: 'WYS, Sweet Medicine',
     album: 'Evermore',
     duration: '2:31',
@@ -181,7 +181,7 @@ const lofihiphopPlaylist = Playlist(
   name: 'lofi hip hop music - beats to relax/study to',
   imageURL: 'assets/icons/lofi.png',
   description:
-  'A daily selection of chill beats - perfect to help you relax & study 📚',
+      'A daily selection of chill beats - perfect to help you relax & study 📚',
   creator: 'Lofi Girl',
   duration: '28 min',
   followers: '5,351,685',

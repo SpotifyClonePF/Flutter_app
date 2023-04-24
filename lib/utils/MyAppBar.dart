@@ -34,21 +34,24 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 12),
-          child: Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(
-                color: MyColors.mainGreen,
-                width: 3,
+          child: InkWell(
+            onTap: onProfileButtonPressed,
+            child: Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: MyColors.mainGreen,
+                  width: 3,
+                ),
               ),
-            ),
-            child: CircleAvatar(
-              radius: 20,
-              backgroundColor: Colors.white24,
-              child: Icon(
-                trailingIcon,
-                color: Colors.white,
-                size: 40,
+              child: CircleAvatar(
+                radius: 20,
+                backgroundColor: Colors.white24,
+                child: Icon(
+                  trailingIcon,
+                  color: Colors.white,
+                  size: 40,
+                ),
               ),
             ),
           ),

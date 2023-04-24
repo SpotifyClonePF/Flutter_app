@@ -4,7 +4,7 @@ import 'package:Sound2U/screens/mobile/tabs/search_page.dart';
 import 'package:Sound2U/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'tabs/home_page.dart';
-import 'tabs/page3_page.dart';
+import 'tabs/your_space_page.dart';
 import 'tabs/page4_page.dart';
 
 class HomeMobilePage extends StatefulWidget {
@@ -20,7 +20,7 @@ class _HomeMobilePageState extends State<HomeMobilePage> {
   final List<Widget> pages = [
     const Home(),
     const Search(),
-    const Page3(),
+    const YourSpace(),
     const Page4(),
   ];
 

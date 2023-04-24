@@ -17,7 +17,9 @@ class Home extends StatelessWidget {
           leadingIcon: Icons.menu_sharp,
           trailingIcon: Icons.account_circle,
           onLeadingIconPressed: () {},
-          onProfileButtonPressed: () {},
+          onProfileButtonPressed: () {
+            Navigator.pushNamed(context, '/profileMobile');
+          },
         ),
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
