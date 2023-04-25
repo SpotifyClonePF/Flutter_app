@@ -1,4 +1,5 @@
 import 'package:Sound2U/models/data.dart';
+import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart' as rxdart;
@@ -94,6 +95,14 @@ class _MusicPlayer extends StatelessWidget {
                     ),
                   ],
                 );
+              },
+            ),
+            ProgressBar(
+              progress: const Duration(milliseconds: 1000),
+              buffered: const Duration(milliseconds: 2000),
+              total: const Duration(milliseconds: 5000),
+              onSeek: (duration) {
+                print('User selected a new time: $duration');
               },
             ),
           ],
