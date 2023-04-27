@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:Sound2U/models/data.dart';
 import 'package:Sound2U/screens/mobile/song_page.dart';
 import 'package:Sound2U/services/firebase_service.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -10,7 +11,6 @@ import 'package:permission_handler/permission_handler.dart';
 import 'firebase_options.dart';
 import 'package:firedart/firedart.dart';
 import 'models/current_track_model.dart';
-import 'models/data.dart';
 import 'screens/routes.dart';
 import 'styles/colors.dart';
 import 'package:fluent_ui/fluent_ui.dart';
@@ -42,8 +42,7 @@ void main() async {
     material.MaterialApp(
       debugShowCheckedModeBanner: false,
       home: ChangeNotifierProvider(
-          create: (context) => CurrentTrackModel(),
-          child: const MyApp()),
+          create: (context) => CurrentTrackModel(), child: const MyApp()),
     ),
   );
 
@@ -81,7 +80,9 @@ class _MyAppState extends State<MyApp> {
     '/home': (context) => const HomeMobilePage(),
     '/home_desk': (context) => const HomeDesktopPage(),
     '/profileMobile': (context) => const ProfileMobile(),
-    '/song_page': (context) => const SongPage(),
+    '/song_page': (context) => SongPage(
+          song: ModalRoute.of(context)?.settings.arguments as Song,
+        ),
   };
 
   @override

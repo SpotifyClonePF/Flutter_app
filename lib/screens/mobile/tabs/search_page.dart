@@ -1,4 +1,5 @@
 import 'package:Sound2U/models/data.dart';
+import 'package:Sound2U/screens/mobile/song_page.dart';
 import 'package:Sound2U/styles/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -60,7 +61,12 @@ class _SearchState extends State<Search> {
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: InkWell(
                 onTap: () {
-                  Navigator.pushNamed(context, '/song_page', arguments: song);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SongPage(song: song),
+                    ),
+                  );
                 },
                 child: ListTile(
                   dense: true,
