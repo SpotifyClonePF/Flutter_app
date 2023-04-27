@@ -57,6 +57,7 @@ void main() async {
   }
 
   await getFilesList();
+  await readPlayList();
 }
 
 Future<void> requestPermission() async {

@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_ffmpeg/media_information.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_ffmpeg/flutter_ffmpeg.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 FirebaseFirestore db = FirebaseFirestore.instance;
 
@@ -22,6 +23,8 @@ Future<List> getCanco() async {
 }*/
 
 // verficar usuario
+String nameUser = "root";
+
 Future<bool> getPeople(String name, String password) async {
   bool exit = false;
   CollectionReference collectionReferenceUser = db.collection('user');
@@ -37,9 +40,11 @@ Future<bool> getPeople(String name, String password) async {
 
     if (queryEmail.docs.isNotEmpty == true) {
       exit = true;
+      nameUser = name;
     }
     if (queryNombre.docs.isNotEmpty == true) {
       exit = true;
+      nameUser = name;
     }
   } catch (e) {
     return exit;
@@ -163,6 +168,10 @@ String formatDuration(Duration duration) {
   String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
   return "$twoDigitMinutes:$twoDigitSeconds";
 }
+
+Future<bool> createPlayList(String nombre) async {}
+
+Future<List> readPlayList() async {}
 
 // obtener url descargar de music
 Future<String> _loadAudioUrl(String nombre) async {
