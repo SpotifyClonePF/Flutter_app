@@ -169,6 +169,7 @@ String formatDuration(Duration duration) {
   return "$twoDigitMinutes:$twoDigitSeconds";
 }
 
+
 Future<bool> createPlayList(String name) async {
   CollectionReference collectionReferenceUser = db.collection(nameUser);
   try {
@@ -179,13 +180,29 @@ Future<bool> createPlayList(String name) async {
   } catch (e) {
     return false;
   }
-  await FirebaseFirestore.instance.collection(nameUser).doc(name).set();
+  await FirebaseFirestore.instance.collection(nameUser).doc(name).set({});
   return true;
 }
 
 
 
-Future<List> readPlayList() async {}
+Future<List> readPlayList() async {
+  CollectionReference collectionReferenceUser = db.collection(nameUser);
+  List<QueryDocumentSnapshot> documents = [];
+  try {
+    QuerySnapshot querySnapshot = await collectionReferenceUser.get();
+    documents = querySnapshot.docs;
+  } catch (e) {
+    // 出现错误
+    return null;
+  }
+  List<Map<String, dynamic>> playlists = [];
+  for (var document in documents) {
+    Map<String, dynamic> data = document.data();
+    playlists.add(data);
+  }
+  return playlists;
+}
 
 // obtener url descargar de music
 Future<String> _loadAudioUrl(String nombre) async {
