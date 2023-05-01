@@ -204,6 +204,36 @@ Future<List> readPlayList() async {
   return playlists;
 }
 
+Future<Map<String, List>> getAllFields() async {
+  List<Map<String, dynamic>> playlists = await readPlayList();
+  Map<String, List> fieldsMap = {};
+  for (var playlist in playlists) {
+    String playlistName = playlist['name'];
+    List fields = [];
+    playlist.forEach((key, value) {
+      fields.add('$key: $value');
+    });
+    fieldsMap[playlistName] = fields;
+  }
+  return fieldsMap;
+}
+
+Future<List> getFieldsByName(String playlistName) async {
+  Map<String, List> fieldsMap = await getAllFields();
+  return fieldsMap[playlistName] ?? [];
+}
+
+Future<List> getPlaylistName() async {
+  List<Map<String, dynamic>> playlists = await readPlayList();
+  List lists = [];
+  for (var playlist in playlists) {
+    String playlistName = playlist['name'];
+    lists.add(playlistName);
+  }
+  return lists;
+}
+
+
 // obtener url descargar de music
 Future<String> _loadAudioUrl(String nombre) async {
   final storageRef = FirebaseStorage.instance.ref(nombre);
