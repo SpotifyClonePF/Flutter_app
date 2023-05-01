@@ -169,7 +169,21 @@ String formatDuration(Duration duration) {
   return "$twoDigitMinutes:$twoDigitSeconds";
 }
 
-Future<bool> createPlayList(String nombre) async {}
+Future<bool> createPlayList(String name) async {
+  CollectionReference collectionReferenceUser = db.collection(nameUser);
+  try {
+    DocumentSnapshot documentSnapshot = await collectionReferenceUser.doc(name).get();
+    if (documentSnapshot.exists) {
+      return false;
+    }
+  } catch (e) {
+    return false;
+  }
+  await FirebaseFirestore.instance.collection(nameUser).doc(name).set();
+  return true;
+}
+
+
 
 Future<List> readPlayList() async {}
 
