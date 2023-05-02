@@ -2,10 +2,7 @@ import 'package:Sound2U/models/data.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter_ffmpeg/media_information.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:flutter_ffmpeg/flutter_ffmpeg.dart';
-import 'package:firebase_database/firebase_database.dart';
 
 FirebaseFirestore db = FirebaseFirestore.instance;
 
