@@ -1,3 +1,4 @@
+import 'package:Sound2U/services/firebase_service.dart';
 import 'package:Sound2U/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -61,13 +62,18 @@ class _YourSpaceState extends State<YourSpace> {
             ),
           ),
         ),
-        actions: const [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 22),
-            child: Icon(
-              Icons.add,
-              color: MyColors.white,
-              size: 36,
+        actions: [
+          InkWell(
+            onTap: () {
+              createPlayList("AAAAAA");
+            },
+            child: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 22),
+              child: Icon(
+                Icons.add,
+                color: MyColors.white,
+                size: 36,
+              ),
             ),
           ),
         ],
