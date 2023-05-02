@@ -56,8 +56,14 @@ void main() async {
     });
   }
 
-  await getFilesList();
+  //await getFilesList();
   await readPlayList();
+  await playListAddSong("My Playlist", "again");
+  List<String> prova = await getPlaylistName();
+  print(
+      '////////////////////////////////////////////////////////////////////////////////////////////////////////////////////');
+  print(prova);
+  print(await getFieldKeysByName("My Playlist"));
 }
 
 Future<void> requestPermission() async {

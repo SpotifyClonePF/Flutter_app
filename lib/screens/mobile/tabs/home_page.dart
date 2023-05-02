@@ -43,72 +43,75 @@ class Home extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 20),
                     child: Table(
-                      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                      columnWidths: const {
-                        0: FixedColumnWidth(45),
-                        1: FlexColumnWidth(),
-                        2: FixedColumnWidth(60),
-                        3: FixedColumnWidth(32),
-                      },
-                      children: List.generate(
-                        5,
-                        (index) {
-                          return TableRow(
-                            children: [
-                              Text(
-                                '0${index + 1}',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 5),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      songs[index]['title'],
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    const SizedBox(height: 5),
-                                    Text(
-                                      songs[index]['artist'],
-                                      style: const TextStyle(
-                                        color: MyColors.mainGreen,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const Icon(
-                                Icons.more_vert,
-                                color: Colors.white,
-                              ),
-                              Text(
-                                songs[index]['duration'],
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ],
-                          );
+                        defaultVerticalAlignment:
+                            TableCellVerticalAlignment.middle,
+                        columnWidths: const {
+                          0: FixedColumnWidth(45),
+                          1: FlexColumnWidth(),
+                          2: FixedColumnWidth(60),
+                          3: FixedColumnWidth(32),
                         },
-                      )
-                    ),
+                        children: List.generate(
+                          5,
+                          (index) {
+                            return TableRow(
+                              children: [
+                                Text(
+                                  '0${index + 1}',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 5),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        songs[index]['title'],
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      const SizedBox(height: 5),
+                                      Text(
+                                        songs[index]['artist'],
+                                        style: const TextStyle(
+                                          color: MyColors.mainGreen,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const Icon(
+                                  Icons.more_vert,
+                                  color: Colors.white,
+                                ),
+                                Text(
+                                  songs[index]['duration'],
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        )),
                   ),
                 ],
               ),
@@ -131,7 +134,8 @@ class Home extends StatelessWidget {
                     ),
                   ),
                   SingleChildScrollView(
-                    physics: const BouncingScrollPhysics(decelerationRate: ScrollDecelerationRate.fast),
+                    physics: const BouncingScrollPhysics(
+                        decelerationRate: ScrollDecelerationRate.fast),
                     scrollDirection: Axis.horizontal,
                     child: Padding(
                       padding: const EdgeInsets.only(top: 20),

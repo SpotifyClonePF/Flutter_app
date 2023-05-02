@@ -169,11 +169,11 @@ String formatDuration(Duration duration) {
   return "$twoDigitMinutes:$twoDigitSeconds";
 }
 
-
 Future<bool> createPlayList(String name) async {
   CollectionReference collectionReferenceUser = db.collection(nameUser);
   try {
-    DocumentSnapshot documentSnapshot = await collectionReferenceUser.doc(name).get();
+    DocumentSnapshot documentSnapshot =
+        await collectionReferenceUser.doc(name).get();
     if (documentSnapshot.exists) {
       return false;
     }
@@ -184,55 +184,83 @@ Future<bool> createPlayList(String name) async {
   return true;
 }
 
+Future<bool> playListAddSong(String name, String nameSong) async {
+  CollectionReference collectionReferenceUser = db.collection(nameUser);
+  try {
+    DocumentSnapshot<Object?> querySnapshot =
+        await collectionReferenceUser.doc(name).get();
+    Map<String, dynamic>? data = querySnapshot.data() as Map<String, dynamic>?;
+    if (data!.containsKey(nameSong)) {
+      return false;
+    }
+  } catch (e) {
+    return false;
+  }
+  await FirebaseFirestore.instance.collection(nameUser).doc(name).update({
+    nameSong: true,
+  });
+  return true;
+}
 
-
-Future<List> readPlayList() async {
+Future<List?> readPlayList() async {
   CollectionReference collectionReferenceUser = db.collection(nameUser);
   List<QueryDocumentSnapshot> documents = [];
   try {
     QuerySnapshot querySnapshot = await collectionReferenceUser.get();
     documents = querySnapshot.docs;
   } catch (e) {
-    // 出现错误
     return null;
   }
   List<Map<String, dynamic>> playlists = [];
   for (var document in documents) {
-    Map<String, dynamic> data = document.data();
-    playlists.add(data);
+    Map<String, dynamic>? data = document.data() as Map<String, dynamic>?;
+    playlists.add(data!);
   }
   return playlists;
 }
 
 Future<Map<String, List>> getAllFields() async {
-  List<Map<String, dynamic>> playlists = await readPlayList();
+  List<Map<String, dynamic>>? playlists =
+      (await readPlayList())!.cast<Map<String, dynamic>>();
   Map<String, List> fieldsMap = {};
-  for (var playlist in playlists) {
+  for (var playlist in playlists!) {
     String playlistName = playlist['name'];
     List fields = [];
     playlist.forEach((key, value) {
-      fields.add('$key: $value');
+      fields.add('$key');
     });
     fieldsMap[playlistName] = fields;
   }
   return fieldsMap;
 }
 
-Future<List> getFieldsByName(String playlistName) async {
-  Map<String, List> fieldsMap = await getAllFields();
-  return fieldsMap[playlistName] ?? [];
-}
-
-Future<List> getPlaylistName() async {
-  List<Map<String, dynamic>> playlists = await readPlayList();
-  List lists = [];
-  for (var playlist in playlists) {
-    String playlistName = playlist['name'];
-    lists.add(playlistName);
+Future<List<String>> getFieldKeysByName(String playlistName) async {
+  CollectionReference collectionReferenceUser = db.collection(nameUser);
+  List<String> fieldKeys = [];
+  try {
+    DocumentSnapshot documentSnapshot =
+        await collectionReferenceUser.doc(playlistName).get();
+    Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
+    fieldKeys = data.keys.toList();
+  } catch (e) {
+    return [];
   }
-  return lists;
+  return fieldKeys;
 }
 
+Future<List<String>> getPlaylistName() async {
+  CollectionReference collectionReferenceUser = db.collection(nameUser);
+  List<String> playlists = [];
+  try {
+    QuerySnapshot querySnapshot = await collectionReferenceUser.get();
+    for (var document in querySnapshot.docs) {
+      playlists.add(document.id);
+    }
+  } catch (e) {
+    return [];
+  }
+  return playlists;
+}
 
 // obtener url descargar de music
 Future<String> _loadAudioUrl(String nombre) async {
