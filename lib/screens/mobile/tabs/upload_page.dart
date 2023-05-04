@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:dotted_border/dotted_border.dart';
 
 class Upload extends StatefulWidget {
   const Upload({Key? key}) : super(key: key);
@@ -9,7 +8,6 @@ class Upload extends StatefulWidget {
 }
 
 class _UploadState extends State<Upload> {
-
   Future<void> _showMyDialog() async {
     return showDialog<void>(
       context: context,
@@ -75,22 +73,6 @@ class _UploadState extends State<Upload> {
               Center(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 40),
-                  child: DottedBorder(
-                    color: Colors.white,
-                    borderType: BorderType.Circle,
-                    dashPattern: const [15, 25],
-                    strokeCap: StrokeCap.round,
-                    strokeWidth: 3,
-                    child: const CircleAvatar(
-                      radius: 70,
-                      backgroundColor: Colors.transparent,
-                      child: Icon(
-                        Icons.file_upload_outlined,
-                        color: Colors.white,
-                        size: 80,
-                      ),
-                    ),
-                  ),
                 ),
               ),
 

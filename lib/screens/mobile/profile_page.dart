@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../models/data.dart';
 import '../../styles/colors.dart';
+import 'package:Sound2U/services/firebase_service.dart' as firebaseservice;
 
 class ProfileMobile extends StatelessWidget {
   const ProfileMobile({Key? key}) : super(key: key);
@@ -72,8 +73,8 @@ class ProfileMobile extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: MyColors.white.withOpacity(0.2),
                           borderRadius: BorderRadius.circular(50),
-                          image: const DecorationImage(
-                            image: AssetImage('assets/icons/lofi.png'),
+                          image: DecorationImage(
+                            image: NetworkImage(firebaseservice.userimg),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -86,8 +87,8 @@ class ProfileMobile extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: Column(
                       children: [
-                        const Text(
-                          'DyzrAdmin',
+                        Text(
+                          firebaseservice.emailUser,
                           style: TextStyle(
                               color: MyColors.white,
                               fontSize: 30,
@@ -95,7 +96,7 @@ class ProfileMobile extends StatelessWidget {
                         ),
                         const SizedBox(height: 5),
                         Text(
-                          'DyzrAdmin@gmail.com',
+                          firebaseservice.emailUser,
                           style: TextStyle(
                               color: MyColors.white.withOpacity(0.7),
                               fontSize: 16,
