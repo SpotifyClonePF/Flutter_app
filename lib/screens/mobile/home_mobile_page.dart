@@ -5,7 +5,7 @@ import 'package:Sound2U/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'tabs/home_page.dart';
 import 'tabs/your_space_page.dart';
-import 'tabs/page4_page.dart';
+import 'tabs/upload_page.dart';
 
 class HomeMobilePage extends StatefulWidget {
   const HomeMobilePage({super.key});
@@ -21,7 +21,7 @@ class _HomeMobilePageState extends State<HomeMobilePage> {
     const Home(),
     const Search(),
     const YourSpace(),
-    const Page4(),
+    const Upload(),
   ];
 
   final List<IconData> icons = [

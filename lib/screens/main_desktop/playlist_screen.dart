@@ -79,24 +79,11 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
           ),
         ),
         actions: [
-          /*
-          TextButton.icon(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.account_circle_outlined,
-              size: 30,
-            ),
-            label: Text(
-              'User',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-          ),*/
           const SizedBox(width: 8),
           IconButton(
             padding: const EdgeInsets.only(),
             onPressed: () {},
             icon: const Icon(
-              //Icons.keyboard_arrow_down,
               Icons.keyboard_arrow_left,
               size: 30,
             ),
