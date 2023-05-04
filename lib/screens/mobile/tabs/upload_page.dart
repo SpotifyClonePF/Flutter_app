@@ -1,3 +1,4 @@
+import 'package:Sound2U/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
 
@@ -9,28 +10,189 @@ class Upload extends StatefulWidget {
 }
 
 class _UploadState extends State<Upload> {
-
   Future<void> _showMyDialog() async {
     return showDialog<void>(
       context: context,
       barrierDismissible: true,
+      barrierColor: Colors.black.withOpacity(0.7),
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('AlertDialog Title'),
+          insetPadding: const EdgeInsets.all(0),
+          backgroundColor: MyColors.darkGray,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          title: Align(
+            alignment: Alignment.topLeft,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+              child: const Icon(
+                Icons.close,
+                color: Colors.white,
+                size: 30,
+              ),
+            ),
+          ),
           content: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(
+                decelerationRate: ScrollDecelerationRate.normal),
             child: ListBody(
-              children: const <Widget>[
-                Text('This is a demo alert dialog.'),
-                Text('Would you like to approve of this message?'),
+              children: <Widget>[
+                /// Upload icon
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 50),
+                  child: Column(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          border: Border.all(
+                            color: Colors.white,
+                            width: 2,
+                          ),
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: const Padding(
+                          padding: EdgeInsets.all(40),
+                          child: Icon(
+                            Icons.add_photo_alternate,
+                            color: Colors.white,
+                            size: 50,
+                          ),
+                        ),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 15),
+                        child: Text("Cover image",
+                            style: TextStyle(
+                                color: Colors.white70,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500)),
+                      ),
+                    ],
+                  ),
+                ),
+
+                /// Upload song button
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      border: Border.all(
+                        color: Colors.white,
+                        width: 2,
+                      ),
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.all(7),
+                      child: Icon(
+                        Icons.add_box_outlined,
+                        color: Colors.white,
+                        size: 40,
+                      ),
+                    ),
+                  ),
+                ),
+
+                /// Song name
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      border: Border.all(
+                        color: Colors.white,
+                        width: 2,
+                      ),
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: const TextField(
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Song\'s name',
+                        contentPadding: EdgeInsets.only(left: 20),
+                        hintStyle: TextStyle(
+                          color: Colors.white70,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                ),
+
+                /// Artist name
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      border: Border.all(
+                        color: Colors.white,
+                        width: 2,
+                      ),
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: const TextField(
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Artist\'s name',
+                        contentPadding: EdgeInsets.only(left: 20),
+                        hintStyle: TextStyle(
+                          color: Colors.white70,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
           actions: <Widget>[
-            TextButton(
-              child: const Text('Approve'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+            Padding(
+              padding: const EdgeInsets.only(bottom: 20, left: 20, right: 20),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.9),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                width: double.infinity,
+                child: TextButton(
+                  child: const Padding(
+                    padding: EdgeInsets.all(5),
+                    child: Text(
+                      'Upload',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ),
             ),
           ],
         );
@@ -81,13 +243,18 @@ class _UploadState extends State<Upload> {
                     dashPattern: const [15, 25],
                     strokeCap: StrokeCap.round,
                     strokeWidth: 3,
-                    child: const CircleAvatar(
-                      radius: 70,
-                      backgroundColor: Colors.transparent,
-                      child: Icon(
-                        Icons.file_upload_outlined,
-                        color: Colors.white,
-                        size: 80,
+                    child: GestureDetector(
+                      onTap: () {
+                        _showMyDialog();
+                      },
+                      child: const CircleAvatar(
+                        radius: 70,
+                        backgroundColor: Colors.transparent,
+                        child: Icon(
+                          Icons.file_upload_outlined,
+                          color: Colors.white,
+                          size: 80,
+                        ),
                       ),
                     ),
                   ),
