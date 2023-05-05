@@ -3,8 +3,104 @@ import 'package:Sound2U/styles/colors.dart';
 import 'package:Sound2U/utils/MyAppBar.dart';
 import 'package:flutter/material.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+
+  bool _showIcons = true;
+
+  Future<void> showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      barrierColor: Colors.black.withOpacity(0.7),
+      builder: (BuildContext context) {
+        return AlertDialog(
+          insetPadding: const EdgeInsets.all(0),
+          backgroundColor: MyColors.darkGray,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          content: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(
+                decelerationRate: ScrollDecelerationRate.normal),
+            child: ListBody(
+              children: <Widget>[
+                /// Information text
+                const Center(
+                  child: Text(
+                    'Information',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 26,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                /// Logo
+                const Image(
+                  image: AssetImage('assets/icons/logo_no_fondo.png'),
+                  width: 110,
+                  height: 110,
+                ),
+                /// Version
+                Center(
+                  child: RichText(
+                    text: const TextSpan(
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      children: [
+                        TextSpan(text: 'Version '),
+                        TextSpan(
+                          text: '1.0.0',
+                          style: TextStyle(
+                            color: MyColors.mainGreen,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                /// Terms and Conditions
+                const SizedBox(height: 40),
+                const Center(
+                  child: Text(
+                    'Terms and Conditions',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                /// Privacy Policy
+                const Center(
+                  child: Text(
+                    'Privacy Policy',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +112,20 @@ class Home extends StatelessWidget {
         appBar: MyAppBar(
           leadingIcon: Icons.menu_sharp,
           trailingIcon: Icons.account_circle,
-          onLeadingIconPressed: () {},
+          onLeadingIconPressed: () {
+            setState(() {
+              _showIcons = !_showIcons;
+            });
+          },
           onProfileButtonPressed: () {
             Navigator.pushNamed(context, '/profileMobile');
+          },
+          showExtraIcons: _showIcons,
+          onThemeButtonPressed: () {
+            Navigator.pushNamed(context, '/appearance');
+          },
+          onInfoButtonPressed: () {
+            showMyDialog();
           },
         ),
         body: SingleChildScrollView(

@@ -5,6 +5,9 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final IconData leadingIcon, trailingIcon;
   final VoidCallback onLeadingIconPressed;
   final VoidCallback onProfileButtonPressed;
+  final VoidCallback onThemeButtonPressed;
+  final VoidCallback onInfoButtonPressed;
+  final bool showExtraIcons;
 
   const MyAppBar({
     Key? key,
@@ -12,6 +15,9 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     required this.trailingIcon,
     required this.onLeadingIconPressed,
     required this.onProfileButtonPressed,
+    required this.showExtraIcons,
+    required this.onThemeButtonPressed,
+    required this.onInfoButtonPressed,
   }) : super(key: key);
 
   @override
@@ -21,14 +27,46 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       backgroundColor: Colors.transparent,
       elevation: 0,
+      title: Row(
+        children: [
+          if (!showExtraIcons) ...[
+            Row(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    onThemeButtonPressed();
+                  },
+                  child: const Icon(
+                    Icons.water_drop_outlined,
+                    size: 30,
+                    color: Colors.white,
+                  ),
+                ),
+                const SizedBox(width: 20),
+                GestureDetector(
+                  onTap: () {
+                    onInfoButtonPressed();
+                  },
+                  child: const Icon(
+                    Icons.info_outline_rounded,
+                    size: 30,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ]
+        ],
+      ),
       leading: Padding(
         padding: padding,
         child: IconButton(
           icon: Icon(
-            leadingIcon,
-            size: 36,
+            showExtraIcons ? leadingIcon : Icons.menu_open,
+            size: 34,
           ),
           onPressed: onLeadingIconPressed,
+          splashRadius: 1,
         ),
       ),
       actions: [

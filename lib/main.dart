@@ -83,6 +83,7 @@ class _MyAppState extends State<MyApp> {
     '/song_page': (context) => SongPage(
           song: ModalRoute.of(context)?.settings.arguments as Song,
         ),
+    '/appearance': (context) => const Appearance(),
   };
 
   @override
