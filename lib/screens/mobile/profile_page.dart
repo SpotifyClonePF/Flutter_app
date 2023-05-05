@@ -88,7 +88,7 @@ class ProfileMobile extends StatelessWidget {
                     child: Column(
                       children: [
                         Text(
-                          firebaseservice.emailUser,
+                          firebaseservice.nameUser,
                           style: TextStyle(
                               color: MyColors.white,
                               fontSize: 30,

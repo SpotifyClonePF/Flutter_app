@@ -151,7 +151,8 @@ class TracksList extends StatelessWidget {
         DataColumn(label: Icon(Icons.access_time, color: Colors.white)),
       ],
       rows: tracks.map((e) {
-        final selected = context.watch<CurrentTrackModel>().selected?.id == e.id;
+        final selected =
+            context.watch<CurrentTrackModel>().selected?.id == e.id;
         final textStyle =
             TextStyle(color: selected ? MyColors.mainGreen : MyColors.white);
         return DataRow(
@@ -214,7 +215,7 @@ class PlaylistHeader extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    playlist.description,
+                    playlist.name,
                     style: Theme.of(context)
                         .textTheme
                         .titleMedium!
@@ -222,7 +223,7 @@ class PlaylistHeader extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'Created by ${playlist.creator} · ${playlist.songs.length} songs, ${playlist.duration}',
+                    'Created by  · ${playlist.songs.length} songs, ',
                     style: Theme.of(context)
                         .textTheme
                         .titleMedium!
@@ -234,7 +235,7 @@ class PlaylistHeader extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 30),
-        _PlaylistButtons(followers: playlist.followers),
+        _PlaylistButtons(followers: playlist.name),
       ],
     );
   }

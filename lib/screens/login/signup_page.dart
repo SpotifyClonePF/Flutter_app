@@ -41,10 +41,12 @@ class _SignUpState extends State<SignUp> {
       if (kIsWeb ||
           !(Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
         if (await signUp(email, password)) {
+          await existUser(name, email, password);
           goToLogin();
         }
       } else {
         if (await signUp(email, password)) {
+          await existUser(name, email, password);
           goToLogin();
         }
       }

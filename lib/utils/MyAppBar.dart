@@ -2,14 +2,15 @@ import 'package:Sound2U/styles/colors.dart';
 import 'package:flutter/material.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final IconData leadingIcon, trailingIcon;
+  final IconData leadingIcon;
+  final String trailingImageUrl; // <-- 更改类型为 String
   final VoidCallback onLeadingIconPressed;
   final VoidCallback onProfileButtonPressed;
 
   const MyAppBar({
     Key? key,
     required this.leadingIcon,
-    required this.trailingIcon,
+    required this.trailingImageUrl, // <-- 更改类型为 String
     required this.onLeadingIconPressed,
     required this.onProfileButtonPressed,
   }) : super(key: key);
@@ -47,10 +48,8 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
               child: CircleAvatar(
                 radius: 20,
                 backgroundColor: Colors.white24,
-                child: Icon(
-                  trailingIcon,
-                  color: Colors.white,
-                  size: 40,
+                child: ClipOval(
+                  child: Image.network(trailingImageUrl), // <-- 加载网络图片
                 ),
               ),
             ),

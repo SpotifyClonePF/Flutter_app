@@ -31,38 +31,26 @@ Future<List> getCanco() async {
 }*/
 
 // verficar usuario
-String nameUser = "a";
+String nameUser = "root";
 String emailUser = "root";
 String userimg =
-    "https://firebasestorage.googleapis.com/v0/b/dyzr-541db.appspot.com/o/user%2Fdefault.png?alt=media&token=78c4b395-9ccc-4d97-a513-26d96a5516dc";
+    "https://firebasestorage.googleapis.com/v0/b/dyzr-proyect.appspot.com/o/user%2Fdefault.png?alt=media&token=b8f316e2-8bee-4f10-8957-eb9e2c7325b8";
 
-Future<bool> getPeople(String name, String password) async {
-  bool exit = false;
+Future<String> getPeople(String email) async {
+  String name = "";
   CollectionReference collectionReferenceUser = db.collection('user');
   try {
-    QuerySnapshot queryEmail = await collectionReferenceUser
-        .where('email', isEqualTo: name)
-        .where('password', isEqualTo: password)
-        .get();
-    QuerySnapshot queryNombre = await collectionReferenceUser
-        .where('name', isEqualTo: name)
-        .where('password', isEqualTo: password)
-        .get();
-
-    if (queryEmail.docs.isNotEmpty == true) {
-      exit = true;
-      nameUser = name;
-      getImageProfile(name);
-    }
-    if (queryNombre.docs.isNotEmpty == true) {
-      exit = true;
-      nameUser = name;
-      getImageProfile(name);
+    DocumentSnapshot query = await collectionReferenceUser.doc(email).get();
+    if (query.exists) {
+      Map<String, dynamic>? data = query.data() as Map<String, dynamic>?;
+      if (data != null && data.containsKey('name')) {
+        name = data['name'];
+      }
     }
   } catch (e) {
-    return exit;
+    return name;
   }
-  return exit;
+  return name;
 }
 
 Future<bool> signUp(String email, String password) async {
@@ -116,9 +104,10 @@ Future<bool> signIn(String email, String password) async {
       return false;
     } else {
       print("user HAS verfied email & is signed in");
-      nameUser = email;
+      nameUser = await getPeople(email);
       emailUser = email;
       getImageProfile(emailUser);
+
       return true;
     }
   } on FirebaseAuthException catch (e) {
@@ -135,6 +124,13 @@ Future<bool> signIn(String email, String password) async {
   return false;
 }
 
+Future<void> playlistOfUser() async {
+  List<String> listname = await getPlaylistName();
+  for (String playlistname in listname) {
+    songs.add(await getFieldKeysByName(playlistname));
+  }
+}
+
 Future<bool> signOut() async {
   try {
     await FirebaseAuth.instance.signOut();
@@ -147,9 +143,11 @@ Future<void> getImageProfile(String username) async {
   String ImgData = "user/" + username + ".png";
   print(ImgData);
   print(username + "*********************************************************");
-  String imageUrl =
-      await FirebaseStorage.instance.ref().child(ImgData).getDownloadURL();
-  userimg = imageUrl;
+  try {
+    String imageUrl =
+        await FirebaseStorage.instance.ref().child(ImgData).getDownloadURL();
+    userimg = imageUrl;
+  } catch (e) {}
 }
 
 // register usuario
@@ -158,16 +156,13 @@ Future<bool> existUser(String name, String email, String password) async {
   try {
     QuerySnapshot queryEmail =
         await collectionReferenceUser.where('email', isEqualTo: email).get();
-    QuerySnapshot queryNombre =
-        await collectionReferenceUser.where('name', isEqualTo: name).get();
-    if (queryEmail.docs.isNotEmpty == true ||
-        queryNombre.docs.isNotEmpty == true) {
+    if (queryEmail.docs.isNotEmpty == true) {
       return false;
     }
   } catch (e) {
     return false;
   }
-  await FirebaseFirestore.instance.collection('user').doc(name).set({
+  await FirebaseFirestore.instance.collection('user').doc(email).set({
     'name': name,
     'email': email,
     'password': password,
@@ -193,7 +188,7 @@ Future<String> getInformationOfFile(String filename, String tipo) async {
 }
 
 Future<String> getImageOfFile(String filename) async {
-  String ImgData = "Img/" + filename + ".jpg";
+  String ImgData = "img/" + filename + ".jpg";
   print(ImgData);
   print(filename + "*********************************************************");
   String imageUrl =
@@ -236,7 +231,7 @@ Future<List<Song>> getFilesList() async {
         id: Url,
         title: "lol",
         imageURL:
-            "https://firebasestorage.googleapis.com/v0/b/dyzr-541db.appspot.com/o/Img%2FEstopa.jpg?alt=media&token=35360aa9-9592-48de-a71e-ce3bfcbe0757",
+            "https://firebasestorage.googleapis.com/v0/b/dyzr-proyect.appspot.com/o/img%2FAnimals.png?alt=media&token=e085b8cc-36bf-4b2b-889e-9fff1d7aac35",
         artist: "lol",
         album: "lol",
         duration: "lol",
@@ -270,7 +265,7 @@ String formatDuration(Duration duration) {
 }
 
 Future<bool> createPlayList(String name) async {
-  CollectionReference collectionReferenceUser = db.collection(nameUser);
+  CollectionReference collectionReferenceUser = db.collection(emailUser);
   try {
     DocumentSnapshot documentSnapshot =
         await collectionReferenceUser.doc(name).get();
@@ -280,12 +275,12 @@ Future<bool> createPlayList(String name) async {
   } catch (e) {
     return false;
   }
-  await FirebaseFirestore.instance.collection(nameUser).doc(name).set({});
+  await FirebaseFirestore.instance.collection(emailUser).doc(name).set({});
   return true;
 }
 
 Future<bool> playListAddSong(String name, String nameSong) async {
-  CollectionReference collectionReferenceUser = db.collection(nameUser);
+  CollectionReference collectionReferenceUser = db.collection(emailUser);
   try {
     DocumentSnapshot<Object?> querySnapshot =
         await collectionReferenceUser.doc(name).get();
@@ -296,46 +291,14 @@ Future<bool> playListAddSong(String name, String nameSong) async {
   } catch (e) {
     return false;
   }
-  await FirebaseFirestore.instance.collection(nameUser).doc(name).update({
+  await FirebaseFirestore.instance.collection(emailUser).doc(name).update({
     nameSong: true,
   });
   return true;
 }
 
-Future<List?> readPlayList() async {
-  CollectionReference collectionReferenceUser = db.collection(nameUser);
-  List<QueryDocumentSnapshot> documents = [];
-  try {
-    QuerySnapshot querySnapshot = await collectionReferenceUser.get();
-    documents = querySnapshot.docs;
-  } catch (e) {
-    return null;
-  }
-  List<Map<String, dynamic>> playlists = [];
-  for (var document in documents) {
-    Map<String, dynamic>? data = document.data() as Map<String, dynamic>?;
-    playlists.add(data!);
-  }
-  return playlists;
-}
-
-Future<Map<String, List>> getAllFields() async {
-  List<Map<String, dynamic>>? playlists =
-      (await readPlayList())!.cast<Map<String, dynamic>>();
-  Map<String, List> fieldsMap = {};
-  for (var playlist in playlists!) {
-    String playlistName = playlist['name'];
-    List fields = [];
-    playlist.forEach((key, value) {
-      fields.add('$key');
-    });
-    fieldsMap[playlistName] = fields;
-  }
-  return fieldsMap;
-}
-
 Future<List<String>> getFieldKeysByName(String playlistName) async {
-  CollectionReference collectionReferenceUser = db.collection(nameUser);
+  CollectionReference collectionReferenceUser = db.collection(emailUser);
   List<String> fieldKeys = [];
   try {
     DocumentSnapshot documentSnapshot =
@@ -349,7 +312,7 @@ Future<List<String>> getFieldKeysByName(String playlistName) async {
 }
 
 Future<List<String>> getPlaylistName() async {
-  CollectionReference collectionReferenceUser = db.collection(nameUser);
+  CollectionReference collectionReferenceUser = db.collection(emailUser);
   List<String> playlists = [];
   try {
     QuerySnapshot querySnapshot = await collectionReferenceUser.get();
