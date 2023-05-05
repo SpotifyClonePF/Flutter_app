@@ -48,7 +48,7 @@ class LoginState extends State<Login> {
 
       if (kIsWeb ||
           !(Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
-        if (await getPeople(email, password)) {
+        if (await signIn(email, password)) {
           goToHome();
         }
       } else {

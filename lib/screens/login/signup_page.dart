@@ -38,14 +38,13 @@ class _SignUpState extends State<SignUp> {
       final email = _email.trim();
       final password = _password.trim();
 
-
-
-      if (kIsWeb || !(Platform.isWindows || Platform.isLinux || Platform.isMacOS)){
-        if (await existUser(name, email, password)) {
+      if (kIsWeb ||
+          !(Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
+        if (await signUp(email, password)) {
           goToLogin();
         }
       } else {
-        if (await existUserWindows(name, email, password)) {
+        if (await signUp(email, password)) {
           goToLogin();
         }
       }
@@ -56,7 +55,7 @@ class _SignUpState extends State<SignUp> {
     }
   }
 
-  void goToLogin(){
+  void goToLogin() {
     Navigator.pushReplacementNamed(context, '/login');
   }
 
@@ -68,25 +67,26 @@ class _SignUpState extends State<SignUp> {
       backgroundColor: Colors.black.withOpacity(0.7),
       body: Column(
         children: [
-          if (!kIsWeb && Platform.isWindows) WindowTitleBarBox(
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(
-                      decoration: const BoxDecoration(
-                        color: MyColors.mainGreenDark,
-                      ),
-                      child: MoveWindow()),
-                ),
-                Container(
-                  decoration: const BoxDecoration(
-                    color: MyColors.mainGreenDark,
+          if (!kIsWeb && Platform.isWindows)
+            WindowTitleBarBox(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                        decoration: const BoxDecoration(
+                          color: MyColors.mainGreenDark,
+                        ),
+                        child: MoveWindow()),
                   ),
-                  child: const WindowButtons(),
-                ),
-              ],
+                  Container(
+                    decoration: const BoxDecoration(
+                      color: MyColors.mainGreenDark,
+                    ),
+                    child: const WindowButtons(),
+                  ),
+                ],
+              ),
             ),
-          ),
           Flexible(
             child: Container(
               decoration: const BoxDecoration(
@@ -98,8 +98,8 @@ class _SignUpState extends State<SignUp> {
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
                 child: Center(
-                  child: LayoutBuilder(
-                      builder: (BuildContext context, BoxConstraints constraints) {
+                  child: LayoutBuilder(builder:
+                      (BuildContext context, BoxConstraints constraints) {
                     return SingleChildScrollView(
                       controller: _scrollController,
                       child: Container(
@@ -129,7 +129,8 @@ class _SignUpState extends State<SignUp> {
                                   textAlign: TextAlign.center,
                                 ),
 
-                                const Divider(color: Colors.transparent, height: 50),
+                                const Divider(
+                                    color: Colors.transparent, height: 50),
 
                                 /// Name Input
                                 Container(
@@ -161,7 +162,8 @@ class _SignUpState extends State<SignUp> {
                                   ),
                                 ),
 
-                                const Divider(color: Colors.transparent, height: 20),
+                                const Divider(
+                                    color: Colors.transparent, height: 20),
 
                                 /// Email input
                                 Container(
@@ -200,7 +202,8 @@ class _SignUpState extends State<SignUp> {
                                   ),
                                 ),
 
-                                const Divider(color: Colors.transparent, height: 20),
+                                const Divider(
+                                    color: Colors.transparent, height: 20),
 
                                 /// Password input
                                 Container(
@@ -239,7 +242,8 @@ class _SignUpState extends State<SignUp> {
                                   ),
                                 ),
 
-                                const Divider(color: Colors.transparent, height: 20),
+                                const Divider(
+                                    color: Colors.transparent, height: 20),
 
                                 /// Confirm Password input
                                 Container(
@@ -278,7 +282,8 @@ class _SignUpState extends State<SignUp> {
                                   ),
                                 ),
 
-                                const Divider(color: Colors.transparent, height: 50),
+                                const Divider(
+                                    color: Colors.transparent, height: 50),
 
                                 /// Login button
                                 InkWell(
@@ -320,12 +325,14 @@ class _SignUpState extends State<SignUp> {
                                     ),
                                   ),
                                 ),
-                                const Divider(color: Colors.transparent, height: 25),
+                                const Divider(
+                                    color: Colors.transparent, height: 25),
 
                                 /// Login
                                 InkWell(
                                   onTap: () {
-                                    Navigator.pushReplacementNamed(context, '/login');
+                                    Navigator.pushReplacementNamed(
+                                        context, '/login');
                                   },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,

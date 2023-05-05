@@ -3,6 +3,17 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:http/http.dart' as http;
+
+Future<void> myFunction() async {
+  final response = await http.post(
+    Uri.parse('https://example.com/'),
+    headers: {'X-Firebase-Locale': 'en-US'},
+    body: {'foo': 'bar'},
+  );
+  print(response.body);
+}
 
 FirebaseFirestore db = FirebaseFirestore.instance;
 
@@ -52,6 +63,81 @@ Future<bool> getPeople(String name, String password) async {
     return exit;
   }
   return exit;
+}
+
+Future<bool> signUp(String email, String password) async {
+  try {
+    await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(email: email, password: password);
+    User? user = await FirebaseAuth.instance.currentUser;
+    print("/////");
+    print(user);
+    if (user != null && !user.emailVerified) {
+      try {
+        user.updateDisplayName(email);
+        await user.sendEmailVerification();
+        print('Verification email sent to ${user.email}');
+      } catch (e) {
+        print('Failed to send verification email. Error: $e');
+        print('2222');
+      }
+    }
+    return true;
+  } on FirebaseAuthException catch (e) {
+    if (e.code == 'weak-password') {
+      print("Password is too weak");
+    } else if (e.code == 'email-already-in-use') {
+      print("An account already exists for that email.");
+    } else {
+      print(e.message);
+    }
+  } catch (e) {
+    print(e);
+  }
+  return false;
+}
+
+Future<bool> signIn(String email, String password) async {
+  try {
+    User? user = FirebaseAuth.instance.currentUser;
+    print("/////");
+    print(user);
+    await signOut();
+    if (user == null) {
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+    }
+    await user?.reload();
+    user = await FirebaseAuth.instance.currentUser;
+    print("/////");
+    print(user);
+    if (user == null) {
+      print("user hasn't verified email");
+      return false;
+    } else {
+      print("user HAS verfied email & is signed in");
+      return true;
+    }
+  } on FirebaseAuthException catch (e) {
+    if (e.code == 'user-not-found') {
+      print("No user found for that email");
+    } else if (e.code == 'wrong-password') {
+      print("Wrong password provided for that user.");
+    } else {
+      print(e.message);
+    }
+  } catch (e) {
+    print(e);
+  }
+  return false;
+}
+
+Future<bool> signOut() async {
+  try {
+    await FirebaseAuth.instance.signOut();
+    return true;
+  } catch (e) {}
+  return false;
 }
 
 Future<void> getImageProfile(String username) async {
