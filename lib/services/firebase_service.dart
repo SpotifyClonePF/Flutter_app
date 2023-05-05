@@ -116,6 +116,9 @@ Future<bool> signIn(String email, String password) async {
       return false;
     } else {
       print("user HAS verfied email & is signed in");
+      nameUser = email;
+      emailUser = email;
+      getImageProfile(emailUser);
       return true;
     }
   } on FirebaseAuthException catch (e) {
