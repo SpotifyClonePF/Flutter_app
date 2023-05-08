@@ -54,7 +54,7 @@ class _SearchState extends State<Search> {
           itemBuilder: (context, index) {
             if (index == _songs.length) {
               return const SizedBox(
-                  height: 160,
+                height: 160,
               ); // 70 sin el player y 160 si esta el player
             }
             final song = _songs[index];

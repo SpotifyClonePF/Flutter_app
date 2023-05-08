@@ -17,19 +17,6 @@ Future<void> myFunction() async {
 
 FirebaseFirestore db = FirebaseFirestore.instance;
 
-// lista de canco
-/*
-Future<List> getCanco() async {
-  List canco = [];
-  CollectionReference collectionReferenceCanco = db.collection('canco');
-  QuerySnapshot queryCanco = await collectionReferenceCanco.get();
-  queryCanco.docs.forEach((documento) {
-    canco.add(documento.data());
-  });
-  await Future.delayed(const Duration(seconds: 5));
-  return canco;
-}*/
-
 // verficar usuario
 String nameUser = "root";
 String emailUser = "root";
@@ -122,13 +109,6 @@ Future<bool> signIn(String email, String password) async {
     print(e);
   }
   return false;
-}
-
-Future<void> playlistOfUser() async {
-  List<String> listname = await getPlaylistName();
-  for (String playlistname in listname) {
-    songs.add(await getFieldKeysByName(playlistname));
-  }
 }
 
 Future<bool> signOut() async {
@@ -244,6 +224,18 @@ Future<List<Song>> getFilesList() async {
     print(await getAudioDuration(Url));
   }
   return list;
+}
+
+Future<void> getPlayList() async {
+  List<String> lists = await getPlaylistName();
+  for (String list in lists) {}
+}
+
+Future<void> playlistOfUser() async {
+  List<String> listname = await getPlaylistName();
+  for (String playlistname in listname) {
+    //songs.add(await getFieldKeysByName(playlistname));
+  }
 }
 
 Future<String> getAudioDuration(String filePath) async {

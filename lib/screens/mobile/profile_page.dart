@@ -258,7 +258,8 @@ class ProfileMobile extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.symmetric(vertical: 20),
                               child: Row(
-                                children: List.generate(songs.length, (index) {
+                                children:
+                                    List.generate(playlist.length, (index) {
                                   return GestureDetector(
                                     onTap: () {},
                                     child: SizedBox(
@@ -270,8 +271,9 @@ class ProfileMobile extends StatelessWidget {
                                             height: 100,
                                             decoration: BoxDecoration(
                                               image: DecorationImage(
-                                                image: AssetImage(
-                                                    songs[index]['img']),
+                                                image: NetworkImage(
+                                                    playlist[index]
+                                                        ['imageURL']),
                                                 fit: BoxFit.cover,
                                               ),
                                               color: Colors.green,
@@ -281,7 +283,7 @@ class ProfileMobile extends StatelessWidget {
                                           ),
                                           const SizedBox(height: 10),
                                           Text(
-                                            songs[index]['title'],
+                                            playlist[index]['name'],
                                             style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 16,
@@ -294,7 +296,7 @@ class ProfileMobile extends StatelessWidget {
                                           SizedBox(
                                             width: 180,
                                             child: Text(
-                                              songs[index]['artist'],
+                                              playlist[index]['artist'],
                                               maxLines: 1,
                                               textAlign: TextAlign.center,
                                               style: const TextStyle(
@@ -371,7 +373,7 @@ class ProfileMobile extends StatelessWidget {
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 10),
                                       child: Text(
-                                        songs[index]['title'],
+                                        playlist[index]['name'],
                                         style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 16,
@@ -385,7 +387,7 @@ class ProfileMobile extends StatelessWidget {
                                       color: Colors.white,
                                     ),
                                     Text(
-                                      songs[index]['duration'],
+                                      '00:00',
                                       style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 16,

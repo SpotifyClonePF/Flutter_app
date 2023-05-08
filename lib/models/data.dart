@@ -194,3 +194,17 @@ const List songs = [
     ]
   }
 ];
+
+class Playlists {
+  final String name;
+  final String imageURL;
+  final String artist;
+
+  const Playlists({
+    required this.name,
+    required this.imageURL,
+    required this.artist,
+  });
+}
+
+List playlist = [];
