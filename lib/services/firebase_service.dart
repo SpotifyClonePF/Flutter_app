@@ -239,12 +239,10 @@ Future<String> getImageOfPlayList(String listname) async {
 Future<void> getPlayList() async {
   List<String> lists = await getPlaylistName();
   for (String list in lists) {
-    /*Playlists song = Playlists(
-        name: list,
-        imageURL: ,
-        artist: ,
-      );
-    playlist.add(song);
+    String imageURL = await getImageOfPlayList(list);
+    /*playlist.add({'name': list,
+        'imageURL': ,
+        'artist': ,});
 */
   }
 }

@@ -398,11 +398,4 @@ class Playlists {
   });
 }
 
-List playlist = [
-  Playlists(
-    name: '5',
-    imageURL:
-        'https://firebasestorage.googleapis.com/v0/b/dyzr-proyect.appspot.com/o/user%2Fdefault.png?alt=media&token=b8f316e2-8bee-4f10-8957-eb9e2c7325b8',
-    artist: "sss",
-  ),
-];
+List playlist = [];

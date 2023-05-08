@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:Sound2U/responsive.dart';
 import 'package:Sound2U/services/firebase_service_changes.dart';
+import 'package:Sound2U/screens/login/forgot_pw_page.dart';
 
 import '../main_desktop/my_window.dart';
 
@@ -258,7 +259,11 @@ class LoginState extends State<Login> {
                                       alignment: Alignment.centerRight,
                                       child: InkWell(
                                         onTap: () {
-                                          //Navigator.pushNamed(context, '/forgot-password');
+                                          Navigator.push(context,
+                                              MaterialPageRoute(
+                                                  builder: (context) {
+                                            return ForgotPasswordPage();
+                                          }));
                                         },
                                         child: const Text(
                                           'Forgot password?',
