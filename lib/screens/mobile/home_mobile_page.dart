@@ -62,7 +62,8 @@ class _HomeMobilePageState extends State<HomeMobilePage> {
                   ),
                   Container(
                     padding: const EdgeInsets.all(12),
-                    margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10, top: 5),
+                    margin: const EdgeInsets.only(
+                        left: 10, right: 10, bottom: 10, top: 5),
                     decoration: BoxDecoration(
                       color: MyColors.lightBlack.withAlpha(505),
                       borderRadius: const BorderRadius.all(Radius.circular(20)),

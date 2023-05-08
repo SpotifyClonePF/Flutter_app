@@ -226,9 +226,27 @@ Future<List<Song>> getFilesList() async {
   return list;
 }
 
+Future<String> getImageOfPlayList(String listname) async {
+  String ImgData = emailUser + "/" + listname + ".jpg";
+  print(ImgData);
+  print(listname + "*********************************************************");
+  String imageUrl =
+      await FirebaseStorage.instance.ref().child(ImgData).getDownloadURL();
+
+  return imageUrl;
+}
+
 Future<void> getPlayList() async {
   List<String> lists = await getPlaylistName();
-  for (String list in lists) {}
+  for (String list in lists) {
+    /*Playlists song = Playlists(
+        name: list,
+        imageURL: ,
+        artist: ,
+      );
+    playlist.add(song);
+*/
+  }
 }
 
 Future<void> playlistOfUser() async {
