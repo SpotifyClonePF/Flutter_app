@@ -1,3 +1,5 @@
+import 'package:Sound2U/responsive.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../models/data.dart';
 import '../../styles/colors.dart';
@@ -578,20 +580,56 @@ class _ProfileMobileState extends State<ProfileMobile> {
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 40, vertical: 30),
-                    child: Container(
-                      height: 50,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: MyColors.white.withOpacity(0.9),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          'Log out',
-                          style: TextStyle(
-                              color: MyColors.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w800),
+                    child: InkWell(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              backgroundColor: MyColors.darkGray,
+                              title: const Text('Cerrar sesión', style: TextStyle(color: Colors.white),),
+                              content: const Text('¿Está seguro que desea cerrar la sesión?', style: TextStyle(color: Colors.white),),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text('Cancelar'),
+                                ),
+                                TextButton(
+                                  onPressed: () async {
+                                    // Cierra la sesión
+                                    await FirebaseAuth.instance.signOut();
+
+                                    // Navega al inicio y reemplaza la pila de rutas
+                                    Navigator.pushNamedAndRemoveUntil(
+                                      context,
+                                      '/',
+                                      ModalRoute.withName('/'),
+                                    );
+                                  },
+                                  child: const Text('Cerrar sesión'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                      child: Container(
+                        height: 50,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: MyColors.white.withOpacity(0.9),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: const Center(
+                          child: Text(
+                            'Log out',
+                            style: TextStyle(
+                                color: MyColors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w800),
+                          ),
                         ),
                       ),
                     ),
