@@ -59,6 +59,7 @@ dependencies:
   audio_video_progress_bar: ^1.0.1
   dotted_border: ^2.0.0+3
   firebase_auth: ^4.1.4
+  google_sign_in: any
 
 
 dev_dependencies:

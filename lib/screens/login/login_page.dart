@@ -341,7 +341,7 @@ class LoginState extends State<Login> {
                                 Column(
                                   children: [
                                     InkWell(
-                                      onTap: () => _submitForm(context),
+                                      onTap: () => signInWithGoogle(context),
                                       child: Container(
                                         padding: const EdgeInsets.all(13),
                                         decoration: const BoxDecoration(
