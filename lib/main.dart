@@ -102,7 +102,7 @@ class _MyAppState extends State<MyApp> {
           thumbColor: material.MaterialStateProperty.all(MyColors.lightBlack),
         ),
       ),
-      initialRoute: isMobile ? '/' : '/login',
+      initialRoute: isMobile ? '/home' : '/login',
       routes: _routes,
       onGenerateRoute: (settings) {
         return material.MaterialPageRoute(

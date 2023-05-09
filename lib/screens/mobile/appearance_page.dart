@@ -11,18 +11,93 @@ class Appearance extends StatefulWidget {
 class _AppearanceState extends State<Appearance> {
   bool _primerBotonHundido = false;
   bool _segundoBotonHundido = false;
+  bool _darkMode = true;
+  int _selectedIndex = 0;
+
+  List<Map<String, dynamic>> colorList = [
+    {'name': 'Dyzr', 'color': MyColors.mainGreen},
+    {'name': 'Amber', 'color': const Color(0xFFEDAB00)},
+    {'name': 'Sapphire', 'color': const Color(0xFF0053F1)},
+    {'name': 'Emerald', 'color': const Color(0xFF008000)},
+    {'name': 'Scarlet', 'color': const Color(0xFFDA2424)},
+    {'name': 'Amethyst', 'color': const Color(0xFFAB4AE7)},
+    {'name': 'Citric', 'color': const Color(0xFFFFFF00)},
+    {'name': 'Fuchsia', 'color': const Color(0xFFED09BB)},
+    {'name': 'Jade', 'color': const Color(0xFF00FF85)},
+  ];
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> colorContainers = colorList
+        .map(
+          (color) => GestureDetector(
+            onTap: () {
+              setState(() {
+                _selectedIndex = colorList.indexOf(color);
+              });
+            },
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  height: 60,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: color['color'],
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                    border: _selectedIndex == colorList.indexOf(color)
+                        ? Border.all(
+                            color: _darkMode ? MyColors.white : MyColors.black,
+                            width: 2,
+                          )
+                        : null,
+                  ),
+                  child: _selectedIndex == colorList.indexOf(color)
+                      ? Align(
+                          alignment: Alignment.bottomRight,
+                        child: Icon(
+                            Icons.check_circle_outline,
+                            color: _darkMode ? Colors.white : Colors.black,
+                          ),
+                      )
+                      : null,
+                ),
+                const SizedBox(height: 10), // Espacio entre el color y el nombre
+                Text(
+                  color['name'],
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: _darkMode ? Colors.white : Colors.black,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        )
+        .toList();
+
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: _darkMode ? Colors.transparent : MyColors.white,
       appBar: AppBar(
         toolbarHeight: 70,
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 50),
-          child: Text('Appearance', style: TextStyle(fontSize: 25)),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.arrow_back_ios_new_rounded),
+          color: _darkMode ? MyColors.white : MyColors.black,
+        ),
+        title: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 40),
+          child: Text(
+            'Appearance',
+            style: TextStyle(
+              fontSize: 25,
+              color: _darkMode ? MyColors.white : MyColors.black,
+            ),
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -31,20 +106,23 @@ class _AppearanceState extends State<Appearance> {
           children: [
             /// Botones de la parte superior
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 30),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 100, vertical: 30),
               child: Row(
                 children: [
+                  /// Light mode
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
                         setState(() {
                           _primerBotonHundido = true;
                           _segundoBotonHundido = false;
+                          _darkMode = false;
                         });
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.grey[300],
-                        elevation: _primerBotonHundido ? 10 : 2,
+                        elevation: _primerBotonHundido ? 0 : 1,
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.horizontal(
                             left: Radius.circular(10),
@@ -57,20 +135,23 @@ class _AppearanceState extends State<Appearance> {
                       ),
                     ),
                   ),
+
+                  /// Dark modem
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
                         setState(() {
                           _primerBotonHundido = false;
                           _segundoBotonHundido = true;
+                          _darkMode = true;
                         });
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: MyColors.mainGreen.withOpacity(0.8),
-                        elevation: _segundoBotonHundido ? 5 : 0,
+                        backgroundColor: colorList[_selectedIndex]['color'],
+                        elevation: _segundoBotonHundido ? 0 : 1,
                         shape: const RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.horizontal(right: Radius.circular(10)),
+                          borderRadius: BorderRadius.horizontal(
+                              right: Radius.circular(10)),
                         ),
                       ),
                       child: const Icon(
@@ -88,14 +169,14 @@ class _AppearanceState extends State<Appearance> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
-                children: const [
+                children: [
                   SizedBox(
                     width: double.infinity,
                     child: Text(
                       "Theme colors",
                       style: TextStyle(
                         fontSize: 20,
-                        color: Colors.white,
+                        color: _darkMode ? MyColors.white : MyColors.black,
                       ),
                     ),
                   ),
@@ -106,26 +187,14 @@ class _AppearanceState extends State<Appearance> {
 
             SizedBox(
               width: double.infinity,
-              child: Padding(
+              child: GridView.count(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                crossAxisCount: 3,
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 20,
                 padding: const EdgeInsets.all(25),
-                child: GridView.count(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 20,
-                  children: const [
-                    ColoredBox(color: Colors.red),
-                    ColoredBox(color: Colors.blue),
-                    ColoredBox(color: Colors.green),
-                    ColoredBox(color: Colors.yellow),
-                    ColoredBox(color: Colors.purple),
-                    ColoredBox(color: Colors.orange),
-                    ColoredBox(color: Colors.pink),
-                    ColoredBox(color: Colors.brown),
-                    ColoredBox(color: Colors.teal),
-                  ],
-                ),
+                children: colorContainers,
               ),
             ),
           ],
