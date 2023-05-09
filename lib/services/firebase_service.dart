@@ -77,7 +77,7 @@ Future<bool> signIn(String email, String password) async {
     User? user = FirebaseAuth.instance.currentUser;
     print("/////");
     print(user);
-    await signOut();
+
     if (user == null) {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
@@ -93,7 +93,8 @@ Future<bool> signIn(String email, String password) async {
       print("user HAS verfied email & is signed in");
       nameUser = await getPeople(email);
       emailUser = email;
-      getImageProfile(emailUser);
+      await getPlayList();
+      await getImageProfile(emailUser);
 
       return true;
     }
@@ -240,11 +241,13 @@ Future<void> getPlayList() async {
   List<String> lists = await getPlaylistName();
   for (String list in lists) {
     String imageURL = await getImageOfPlayList(list);
-    /*playlist.add({'name': list,
-        'imageURL': ,
-        'artist': ,});
-*/
+    playlist.add({
+      'name': list,
+      'imageURL': imageURL,
+      'artist': 'aa',
+    });
   }
+  print(playlist);
 }
 
 Future<void> playlistOfUser() async {
