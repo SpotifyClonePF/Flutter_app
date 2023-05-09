@@ -79,12 +79,15 @@ class LoginState extends State<Login> {
         },
       );
     } on FirebaseAuthException catch (e) {
-      String errorMessage = 'An error occurred while sending the password reset email.';
+      String errorMessage =
+          'An error occurred while sending the password reset email.';
 
       if (e.code == 'user-not-found') {
-        errorMessage = 'User not found. Please check your email address and try again.';
+        errorMessage =
+            'User not found. Please check your email address and try again.';
       } else if (e.code == 'invalid-email') {
-        errorMessage = 'Invalid email address. Please enter a valid email address and try again.';
+        errorMessage =
+            'Invalid email address. Please enter a valid email address and try again.';
       }
 
       showDialog(
@@ -125,7 +128,7 @@ class LoginState extends State<Login> {
               ),
             ],
           ),
-          content:SingleChildScrollView(
+          content: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -141,9 +144,7 @@ class LoginState extends State<Login> {
                     ),
                   ),
                 ),
-
                 const SizedBox(height: 30),
-
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: TextField(
@@ -154,8 +155,7 @@ class LoginState extends State<Login> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide:
-                        const BorderSide(color: Colors.deepPurple),
+                        borderSide: const BorderSide(color: Colors.deepPurple),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       hintText: 'Email',
@@ -192,7 +192,7 @@ class LoginState extends State<Login> {
           goToHome();
         }
       } else {
-        if (await getPeopleWindows(email, password)) {
+        if (await signIn(email, password)) {
           goToHome();
         }
       }
