@@ -1,5 +1,0 @@
-
-Uso de la carpeta 'models':
-
-    - En esta carpeta se guarda las 'colecciones de datos', es decir, parecido a lo que
-      serian los 'objetos' en Java, aunque hay muchos mas ejemplos.

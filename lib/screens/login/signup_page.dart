@@ -24,7 +24,7 @@ class _SignUpState extends State<SignUp> {
   String _password = '';
   final bool _obscureText = true;
   final _passwordController = TextEditingController();
-  double _containerPass = 50, _containerEmail = 50, _containerName = 50;
+  double _containerPass = 55, _containerEmail = 55, _containerName = 55;
 
   @override
   void dispose() {
@@ -37,8 +37,6 @@ class _SignUpState extends State<SignUp> {
       final name = _name.trim();
       final email = _email.trim();
       final password = _password.trim();
-
-
 
       if (kIsWeb || !(Platform.isWindows || Platform.isLinux || Platform.isMacOS)){
         if (await existUser(name, email, password)) {

@@ -1,9 +1,177 @@
 import 'package:flutter/material.dart';
 import '../../models/data.dart';
 import '../../styles/colors.dart';
+import 'package:Sound2U/services/firebase_service.dart' as firebaseservice;
 
-class ProfileMobile extends StatelessWidget {
+class ProfileMobile extends StatefulWidget {
   const ProfileMobile({Key? key}) : super(key: key);
+
+  @override
+  State<ProfileMobile> createState() => _ProfileMobileState();
+}
+
+class _ProfileMobileState extends State<ProfileMobile> {
+
+  Future<void> showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      barrierColor: Colors.black.withOpacity(0.7),
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: MyColors.darkGray,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              /// Close button
+              IconButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                icon: const Icon(
+                  Icons.close,
+                  color: Colors.white,
+                  size: 30,
+                ),
+              ),
+
+              /// Check button
+              IconButton(
+                onPressed: (){
+
+                },
+                icon: const Icon(
+                  Icons.check,
+                  color: Colors.white,
+                  size: 30,
+                ),
+              ),
+            ],
+          ),
+          content: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(
+                decelerationRate: ScrollDecelerationRate.normal),
+            child: ListBody(
+              children: <Widget>[
+
+                /// Information text
+                Container(
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: Colors.white24,
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: MyColors.mainGreen,
+                      width: 5,
+                    ),
+                  ),
+                  child: CircleAvatar(
+                    radius: 50,
+                    backgroundColor: Colors.white24,
+                    child: Container(
+                      height: 140,
+                      width: 140,
+                      decoration: BoxDecoration(
+                        color: MyColors.white.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(50),
+                        image: DecorationImage(
+                          image: NetworkImage(firebaseservice.userimg),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+
+                /// Change image button
+                Center(
+                  child: Container(
+                    height: 40,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: MyColors.mainGreen,
+                        width: 2,
+                      ),
+                    ),
+                    child: TextButton(
+                      onPressed: () {},
+                      child: const Text(
+                        'Change Image',
+                        style: TextStyle(
+                          color: MyColors.mainGreen,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 30),
+
+                /// Name textfield
+                TextField(
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                  ),
+                  decoration: InputDecoration(
+                    hintText: 'Username',
+                    suffixIcon: const Icon(
+                      Icons.person,
+                      color: Colors.white,
+                    ),
+                    hintStyle: const TextStyle(color: Colors.white),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(
+                        color: Colors.white,
+                        width: 2,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(
+                        color: Colors.white,
+                        width: 2,
+                      ),
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+                /// Change password button
+                Container(
+                  height: 40,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: MyColors.mainGreen,
+                  ),
+                  child: TextButton(
+                    onPressed: () {},
+                    child: const Text(
+                      'Change Password',
+                      style: TextStyle(
+                        color: MyColors.darkGray,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +204,15 @@ class ProfileMobile extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 30),
               child: Container(
                 alignment: Alignment.centerRight,
-                child: const Icon(
-                  Icons.edit,
-                  color: MyColors.white,
-                  size: 25,
+                child: GestureDetector(
+                  onTap: () {
+                    showMyDialog();
+                  },
+                  child: const Icon(
+                    Icons.edit,
+                    color: MyColors.white,
+                    size: 25,
+                  ),
                 ),
               ),
             ),
@@ -72,8 +245,8 @@ class ProfileMobile extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: MyColors.white.withOpacity(0.2),
                           borderRadius: BorderRadius.circular(50),
-                          image: const DecorationImage(
-                            image: AssetImage('assets/icons/lofi.png'),
+                          image: DecorationImage(
+                            image: NetworkImage(firebaseservice.userimg),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -86,16 +259,16 @@ class ProfileMobile extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 10),
                     child: Column(
                       children: [
-                        const Text(
-                          'DyzrAdmin',
-                          style: TextStyle(
+                        Text(
+                          firebaseservice.nameUser,
+                          style: const TextStyle(
                               color: MyColors.white,
                               fontSize: 30,
                               fontWeight: FontWeight.w500),
                         ),
                         const SizedBox(height: 5),
                         Text(
-                          'DyzrAdmin@gmail.com',
+                          firebaseservice.emailUser,
                           style: TextStyle(
                               color: MyColors.white.withOpacity(0.7),
                               fontSize: 16,
@@ -257,7 +430,8 @@ class ProfileMobile extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.symmetric(vertical: 20),
                               child: Row(
-                                children: List.generate(songs.length, (index) {
+                                children:
+                                List.generate(playlist.length, (index) {
                                   return GestureDetector(
                                     onTap: () {},
                                     child: SizedBox(
@@ -269,18 +443,19 @@ class ProfileMobile extends StatelessWidget {
                                             height: 100,
                                             decoration: BoxDecoration(
                                               image: DecorationImage(
-                                                image: AssetImage(
-                                                    songs[index]['img']),
+                                                image: NetworkImage(
+                                                    playlist[index]
+                                                    ['imageURL']),
                                                 fit: BoxFit.cover,
                                               ),
                                               color: Colors.green,
                                               borderRadius:
-                                                  BorderRadius.circular(15),
+                                              BorderRadius.circular(15),
                                             ),
                                           ),
                                           const SizedBox(height: 10),
                                           Text(
-                                            songs[index]['title'],
+                                            playlist[index]['name'],
                                             style: const TextStyle(
                                               color: Colors.white,
                                               fontSize: 16,
@@ -293,7 +468,7 @@ class ProfileMobile extends StatelessWidget {
                                           SizedBox(
                                             width: 180,
                                             child: Text(
-                                              songs[index]['artist'],
+                                              playlist[index]['artist'],
                                               maxLines: 1,
                                               textAlign: TextAlign.center,
                                               style: const TextStyle(
@@ -346,7 +521,7 @@ class ProfileMobile extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(horizontal: 25),
                         child: Table(
                             defaultVerticalAlignment:
-                                TableCellVerticalAlignment.middle,
+                            TableCellVerticalAlignment.middle,
                             columnWidths: const {
                               0: FixedColumnWidth(45),
                               1: FlexColumnWidth(),
@@ -355,7 +530,7 @@ class ProfileMobile extends StatelessWidget {
                             },
                             children: List.generate(
                               5,
-                              (index) {
+                                  (index) {
                                 return TableRow(
                                   children: [
                                     Text(

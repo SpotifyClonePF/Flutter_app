@@ -8,7 +8,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:Sound2U/responsive.dart';
 import 'package:Sound2U/services/firebase_service_changes.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:email_validator/email_validator.dart';
 import '../main_desktop/my_window.dart';
 
 class Login extends StatefulWidget {
@@ -27,15 +28,154 @@ class LoginState extends State<Login> {
   String _password = '';
 
   final _passwordController = TextEditingController();
+  final _emailController = TextEditingController();
 
   late bool _isChecked = false;
 
-  double _containerPass = 50, _containerEmail = 50;
+  double _containerPass = 55, _containerEmail = 55;
 
   @override
   void dispose() {
     _passwordController.dispose();
+    _emailController.dispose();
     super.dispose();
+  }
+
+  Future<void> passwordReset() async {
+    final email = _emailController.text.trim();
+
+    if (email.isEmpty) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return const AlertDialog(
+            content: Text('Please enter your email'),
+          );
+        },
+      );
+      return;
+    }
+
+    if (!EmailValidator.validate(email)) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return const AlertDialog(
+            content: Text('Please enter a valid email'),
+          );
+        },
+      );
+      return;
+    }
+
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      showDialog(
+        context: context,
+        builder: (context) {
+          return const AlertDialog(
+            content: Text('Password reset email sent'),
+          );
+        },
+      );
+    } on FirebaseAuthException catch (e) {
+      String errorMessage = 'An error occurred while sending the password reset email.';
+
+      if (e.code == 'user-not-found') {
+        errorMessage = 'User not found. Please check your email address and try again.';
+      } else if (e.code == 'invalid-email') {
+        errorMessage = 'Invalid email address. Please enter a valid email address and try again.';
+      }
+
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: Text(errorMessage),
+          );
+        },
+      );
+    }
+  }
+
+  Future<void> showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      barrierColor: Colors.black.withOpacity(0.7),
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: MyColors.darkGray,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              /// Close button
+              IconButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                icon: const Icon(
+                  Icons.close,
+                  color: Colors.white,
+                  size: 30,
+                ),
+              ),
+            ],
+          ),
+          content:SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  child: Text(
+                    'We will send you an email to reset your password!',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 30),
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: TextField(
+                    controller: _emailController,
+                    decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.white),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                        const BorderSide(color: Colors.deepPurple),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      hintText: 'Email',
+                      fillColor: Colors.grey[200],
+                      filled: true,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                MaterialButton(
+                  onPressed: passwordReset,
+                  color: MyColors.mainGreen,
+                  child: const Text('Reset Password'),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 
   Future<void> _submitForm(BuildContext context) async {
@@ -46,8 +186,9 @@ class LoginState extends State<Login> {
       final email = _email.trim();
       final password = _password.trim();
 
-      if (kIsWeb || !(Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
-        if (await getPeople(email, password)) {
+      if (kIsWeb ||
+          !(Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
+        if (await signIn(email, password)) {
           goToHome();
         }
       } else {
@@ -76,25 +217,26 @@ class LoginState extends State<Login> {
       backgroundColor: Colors.black.withOpacity(0.7),
       body: Column(
         children: [
-          if (!kIsWeb && Platform.isWindows) WindowTitleBarBox(
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(
-                      decoration: const BoxDecoration(
-                        color: MyColors.mainGreenDark,
-                      ),
-                      child: MoveWindow()),
-                ),
-                Container(
-                  decoration: const BoxDecoration(
-                    color: MyColors.mainGreenDark,
+          if (!kIsWeb && Platform.isWindows)
+            WindowTitleBarBox(
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                        decoration: const BoxDecoration(
+                          color: MyColors.mainGreenDark,
+                        ),
+                        child: MoveWindow()),
                   ),
-                  child: const WindowButtons(),
-                ),
-              ],
+                  Container(
+                    decoration: const BoxDecoration(
+                      color: MyColors.mainGreenDark,
+                    ),
+                    child: const WindowButtons(),
+                  ),
+                ],
+              ),
             ),
-          ),
           Flexible(
             child: Container(
               decoration: const BoxDecoration(
@@ -106,8 +248,8 @@ class LoginState extends State<Login> {
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
                 child: Center(
-                  child: LayoutBuilder(
-                      builder: (BuildContext context, BoxConstraints constraints) {
+                  child: LayoutBuilder(builder:
+                      (BuildContext context, BoxConstraints constraints) {
                     return SingleChildScrollView(
                       controller: _scrollController,
                       child: Container(
@@ -137,7 +279,8 @@ class LoginState extends State<Login> {
                                   textAlign: TextAlign.center,
                                 ),
 
-                                const Divider(color: Colors.transparent, height: 40),
+                                const Divider(
+                                    color: Colors.transparent, height: 40),
 
                                 /// Email input
                                 Container(
@@ -176,7 +319,8 @@ class LoginState extends State<Login> {
                                   ),
                                 ),
 
-                                const Divider(color: Colors.transparent, height: 20),
+                                const Divider(
+                                    color: Colors.transparent, height: 20),
 
                                 /// Password input
                                 Container(
@@ -213,11 +357,13 @@ class LoginState extends State<Login> {
                                   ),
                                 ),
 
-                                const Divider(color: Colors.transparent, height: 0),
+                                const Divider(
+                                    color: Colors.transparent, height: 0),
 
                                 /// Remember me and forgot password
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Row(
                                       mainAxisSize: MainAxisSize.min,
@@ -231,11 +377,13 @@ class LoginState extends State<Login> {
                                           ),
                                         ),
                                         Padding(
-                                          padding: const EdgeInsets.only(top: 2.5),
+                                          padding:
+                                              const EdgeInsets.only(top: 2.5),
                                           child: Checkbox(
                                             value: _isChecked,
-                                            fillColor: MaterialStateProperty.all(
-                                                Colors.grey.shade600),
+                                            fillColor:
+                                                MaterialStateProperty.all(
+                                                    Colors.grey.shade600),
                                             activeColor: Colors.blueGrey,
                                             onChanged: (value) {
                                               setState(() {
@@ -250,7 +398,7 @@ class LoginState extends State<Login> {
                                       alignment: Alignment.centerRight,
                                       child: InkWell(
                                         onTap: () {
-                                          //Navigator.pushNamed(context, '/forgot-password');
+                                          showMyDialog();
                                         },
                                         child: const Text(
                                           'Forgot password?',
@@ -265,7 +413,8 @@ class LoginState extends State<Login> {
                                     // Agrega aquí cualquier otro widget que quieras incluir a la derecha del CheckboxListTile
                                   ],
                                 ),
-                                const Divider(color: Colors.transparent, height: 20),
+                                const Divider(
+                                    color: Colors.transparent, height: 20),
 
                                 /// Login button
                                 InkWell(
@@ -307,7 +456,8 @@ class LoginState extends State<Login> {
                                     ),
                                   ),
                                 ),
-                                const Divider(color: Colors.transparent, height: 25),
+                                const Divider(
+                                    color: Colors.transparent, height: 25),
 
                                 /// OR CONTINUE WITH
                                 const Text(
@@ -319,7 +469,8 @@ class LoginState extends State<Login> {
                                   ),
                                 ),
 
-                                const Divider(color: Colors.transparent, height: 25),
+                                const Divider(
+                                    color: Colors.transparent, height: 25),
 
                                 /// Social media buttons
                                 Column(
@@ -340,8 +491,8 @@ class LoginState extends State<Login> {
                                             bottom: BorderSide(
                                                 width: 3.0, color: Colors.black45),
                                           ),*/
-                                          borderRadius:
-                                              BorderRadius.all(Radius.circular(10)),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10)),
                                         ),
                                         child: const Center(
                                           child: Text(
@@ -390,7 +541,8 @@ class LoginState extends State<Login> {
                                                   "Twitter",
                                                   style: TextStyle(
                                                       color: Colors.white,
-                                                      fontWeight: FontWeight.bold,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                       fontSize: 18),
                                                 ),
                                               ),
@@ -431,7 +583,8 @@ class LoginState extends State<Login> {
                                                   "Facebook",
                                                   style: TextStyle(
                                                       color: Colors.white,
-                                                      fontWeight: FontWeight.bold,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                       fontSize: 18),
                                                 ),
                                               ),
@@ -442,7 +595,8 @@ class LoginState extends State<Login> {
                                     ),
                                   ],
                                 ),
-                                const Divider(color: Colors.transparent, height: 30),
+                                const Divider(
+                                    color: Colors.transparent, height: 30),
 
                                 /// Sign up
                                 InkWell(

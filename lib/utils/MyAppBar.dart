@@ -1,8 +1,10 @@
 import 'package:Sound2U/styles/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:Sound2U/services/firebase_service.dart' as firebaseservice;
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final IconData leadingIcon, trailingIcon;
+  final IconData leadingIcon;
+  final String trailingIcon;
   final VoidCallback onLeadingIconPressed;
   final VoidCallback onProfileButtonPressed;
   final VoidCallback onThemeButtonPressed;
@@ -75,20 +77,27 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: InkWell(
             onTap: onProfileButtonPressed,
             child: Container(
+              width: 50,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
                   color: MyColors.mainGreen,
-                  width: 3,
+                  width: 4,
                 ),
               ),
               child: CircleAvatar(
                 radius: 20,
-                backgroundColor: Colors.white24,
-                child: Icon(
-                  trailingIcon,
-                  color: Colors.white,
-                  size: 40,
+                backgroundColor: MyColors.mainGreen,
+                child: Container(
+                  height: 40,
+                  width: 45,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    image: DecorationImage(
+                      image: NetworkImage(trailingIcon),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
               ),
             ),

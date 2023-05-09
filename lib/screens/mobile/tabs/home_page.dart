@@ -2,6 +2,7 @@ import 'package:Sound2U/models/data.dart';
 import 'package:Sound2U/styles/colors.dart';
 import 'package:Sound2U/utils/MyAppBar.dart';
 import 'package:flutter/material.dart';
+import 'package:Sound2U/services/firebase_service.dart' as firebaseservice;
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -111,7 +112,7 @@ class _HomeState extends State<Home> {
         resizeToAvoidBottomInset: false,
         appBar: MyAppBar(
           leadingIcon: Icons.menu_sharp,
-          trailingIcon: Icons.account_circle,
+          trailingIcon: firebaseservice.userimg,
           onLeadingIconPressed: () {
             setState(() {
               _showIcons = !_showIcons;

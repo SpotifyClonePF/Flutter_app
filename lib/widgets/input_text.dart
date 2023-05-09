@@ -32,75 +32,72 @@ class _InputTextState extends State<InputText> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 0),
-      height: 45,
-      child: TextFormField(
-        keyboardType: widget.keyboard,
-        obscureText: !showPassword && widget.obscureText,
-        cursorColor: Colors.grey,
-        style: const TextStyle(
+    return TextFormField(
+      keyboardType: widget.keyboard,
+      obscureText: !showPassword && widget.obscureText,
+      cursorColor: Colors.grey,
+      style: const TextStyle(
+        color: Colors.grey,
+        fontSize: 15.0,
+        overflow: TextOverflow.ellipsis,
+      ),
+      decoration: InputDecoration(
+        fillColor: Colors.grey,
+        hintText: widget.hint,
+        labelText: widget.label,
+        labelStyle: const TextStyle(
           color: Colors.grey,
           fontSize: 15.0,
         ),
-        decoration: InputDecoration(
-          fillColor: Colors.grey,
-          hintText: widget.hint,
-          labelText: widget.label,
-          labelStyle: const TextStyle(
-            color: Colors.grey,
-            fontSize: 15.0,
-          ),
-          suffixIcon: widget.showPassword
-              ? GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      showPassword = !showPassword;
-                    });
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: Icon(
-                      showPassword ? Icons.visibility_off : Icons.visibility,
-                      color: Colors.grey,
-                    ),
-                  ),
-                )
-              : Padding(
+        suffixIcon: widget.showPassword
+            ? GestureDetector(
+                onTap: () {
+                  setState(() {
+                    showPassword = !showPassword;
+                  });
+                },
+                child: Padding(
                   padding: const EdgeInsets.only(right: 10),
                   child: Icon(
-                    widget.icon.icon,
+                    showPassword ? Icons.visibility_off : Icons.visibility,
                     color: Colors.grey,
                   ),
                 ),
-          suffixIconColor: Colors.grey,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.grey, width: 2),
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.grey, width: 2),
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.red, width: 2),
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          errorStyle: const TextStyle(
-            color: Colors.red,
-            fontSize: 15.0,
-          ),
-          hintStyle: const TextStyle(
-            color: Colors.grey,
-            fontSize: 15.0,
-          ),
+              )
+            : Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: Icon(
+                  widget.icon.icon,
+                  color: Colors.grey,
+                ),
+              ),
+        suffixIconColor: Colors.grey,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
         ),
-        onChanged: widget.onChanged,
-        validator: widget.validator,
+        enabledBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.grey, width: 2),
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.grey, width: 2),
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.red, width: 2),
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        errorStyle: const TextStyle(
+          color: Colors.red,
+          fontSize: 15.0,
+        ),
+        hintStyle: const TextStyle(
+          color: Colors.grey,
+          fontSize: 15.0,
+        ),
       ),
+      onChanged: widget.onChanged,
+      validator: widget.validator,
     );
   }
 }

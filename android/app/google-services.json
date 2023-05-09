@@ -1,34 +1,41 @@
 {
   "project_info": {
-    "project_number": "605590451889",
-    "project_id": "dyzr-541db",
-    "storage_bucket": "dyzr-541db.appspot.com"
+    "project_number": "763443816299",
+    "project_id": "dyzr-proyect",
+    "storage_bucket": "dyzr-proyect.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:605590451889:android:9991291f2d6c91b446d490",
+        "mobilesdk_app_id": "1:763443816299:android:9ce06f14a7f4f3efd64e2e",
         "android_client_info": {
           "package_name": "com.example.spotify_clone"
         }
       },
       "oauth_client": [
         {
-          "client_id": "605590451889-s3paf1bjonqvefm6eitt48cuqbr194s2.apps.googleusercontent.com",
+          "client_id": "763443816299-35lat6r9ihkn0lu2cnt6dc7g9jjhn9g0.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA4TxyZCbRvc5_uZfNT6DuCKGSJrIrfpwU"
+          "current_key": "AIzaSyAgnM0IG4ZVxprDLYH16GrqbPYm-l36s68"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "605590451889-s3paf1bjonqvefm6eitt48cuqbr194s2.apps.googleusercontent.com",
+              "client_id": "763443816299-35lat6r9ihkn0lu2cnt6dc7g9jjhn9g0.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "763443816299-6vr0aqs4ghrn2uddksbssqhtjfjgttpj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.spotifyClone"
+              }
             }
           ]
         }

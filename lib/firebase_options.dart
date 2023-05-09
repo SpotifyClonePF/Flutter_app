@@ -44,39 +44,39 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCSCECr3eK6uh0B7hhpTt9smAu22oRgGG4',
-    appId: '1:605590451889:web:571f1691af6522df46d490',
-    messagingSenderId: '605590451889',
-    projectId: 'dyzr-541db',
-    authDomain: 'dyzr-541db.firebaseapp.com',
-    storageBucket: 'dyzr-541db.appspot.com',
+    apiKey: 'AIzaSyCUjk54zBft-nkZkgG8O7urAi3zQPK9PI0',
+    appId: '1:763443816299:web:eee651274fcd95f5d64e2e',
+    messagingSenderId: '763443816299',
+    projectId: 'dyzr-proyect',
+    authDomain: 'dyzr-proyect.firebaseapp.com',
+    storageBucket: 'dyzr-proyect.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyA4TxyZCbRvc5_uZfNT6DuCKGSJrIrfpwU',
-    appId: '1:605590451889:android:9991291f2d6c91b446d490',
-    messagingSenderId: '605590451889',
-    projectId: 'dyzr-541db',
-    storageBucket: 'dyzr-541db.appspot.com',
+    apiKey: 'AIzaSyAgnM0IG4ZVxprDLYH16GrqbPYm-l36s68',
+    appId: '1:763443816299:android:9ce06f14a7f4f3efd64e2e',
+    messagingSenderId: '763443816299',
+    projectId: 'dyzr-proyect',
+    storageBucket: 'dyzr-proyect.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBUeOd3GsUwppGvrJiMVYLcaD8FatxTTm4',
-    appId: '1:605590451889:ios:289e6ee72a090c9246d490',
-    messagingSenderId: '605590451889',
-    projectId: 'dyzr-541db',
-    storageBucket: 'dyzr-541db.appspot.com',
-    iosClientId: '605590451889-rvbgdhvlnip739lt1njquigh7ktqd41u.apps.googleusercontent.com',
+    apiKey: 'AIzaSyCDW7WG5voeckTX4O7UnF4YOi0PSdyjLxc',
+    appId: '1:763443816299:ios:926b5a8d8d77c330d64e2e',
+    messagingSenderId: '763443816299',
+    projectId: 'dyzr-proyect',
+    storageBucket: 'dyzr-proyect.appspot.com',
+    iosClientId: '763443816299-6vr0aqs4ghrn2uddksbssqhtjfjgttpj.apps.googleusercontent.com',
     iosBundleId: 'com.example.spotifyClone',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBUeOd3GsUwppGvrJiMVYLcaD8FatxTTm4',
-    appId: '1:605590451889:ios:289e6ee72a090c9246d490',
-    messagingSenderId: '605590451889',
-    projectId: 'dyzr-541db',
-    storageBucket: 'dyzr-541db.appspot.com',
-    iosClientId: '605590451889-rvbgdhvlnip739lt1njquigh7ktqd41u.apps.googleusercontent.com',
+    apiKey: 'AIzaSyCDW7WG5voeckTX4O7UnF4YOi0PSdyjLxc',
+    appId: '1:763443816299:ios:926b5a8d8d77c330d64e2e',
+    messagingSenderId: '763443816299',
+    projectId: 'dyzr-proyect',
+    storageBucket: 'dyzr-proyect.appspot.com',
+    iosClientId: '763443816299-6vr0aqs4ghrn2uddksbssqhtjfjgttpj.apps.googleusercontent.com',
     iosBundleId: 'com.example.spotifyClone',
   );
 }
