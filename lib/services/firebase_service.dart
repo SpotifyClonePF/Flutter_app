@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
+import 'dart:typed_data';
 
 Future<void> myFunction() async {
   final response = await http.post(
@@ -148,7 +149,25 @@ Future<bool> existUser(String name, String email, String password) async {
     'email': email,
     'password': password,
   });
+
   return true;
+}
+
+Future<bool> playlistDefault(String email) async {
+  await FirebaseFirestore.instance.collection(email).doc('i like').set({});
+  await FirebaseFirestore.instance.collection(email).doc('Local').set({});
+  return true;
+}
+
+Future<void> createFolder(String email) async {
+  final FirebaseStorage storage = FirebaseStorage.instance;
+  final String folderName = 'haojie';
+  try {
+    final Reference ref = storage.ref().child('$folderName/');
+    await ref.putString('');
+  } catch (e) {
+    print(e);
+  }
 }
 
 Future<String> getInformationOfFile(String filename, String tipo) async {
