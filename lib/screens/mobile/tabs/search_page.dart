@@ -14,6 +14,34 @@ class _SearchState extends State<Search> {
   final controller = TextEditingController();
   List<Song> _songs = exx;
 
+  Future<void> _dialogFuture() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: MyColors.darkGray,
+          title: const Text('Coming soon', style: TextStyle(color: Colors.white),),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text('This feature is coming soon.', style: TextStyle(color: Colors.white),),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -58,6 +86,35 @@ class _SearchState extends State<Search> {
               ); // 70 sin el player y 160 si esta el player
             }
             final song = _songs[index];
+
+            /*Future<void> showMyDialog() async {
+              return showDialog<void>(
+                context: context,
+                barrierDismissible: true,
+                builder: (BuildContext context) {
+                  return Center(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: MyColors.darkGray,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      height: 400,
+                      width: 300,
+                      child: Container(
+                        alignment: Alignment.topLeft,
+                        padding: const EdgeInsets.all(40),
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                          color: MyColors.blue,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              );
+            }*/
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: InkWell(
@@ -77,26 +134,41 @@ class _SearchState extends State<Search> {
                     width: 55,
                     height: 55,
                   ),
-                  title: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        song.title,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w800,
-                        ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            song.title,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                          const SizedBox(height: 5),
+                          Text(
+                            song.artist,
+                            style: const TextStyle(
+                              color: MyColors.mainGreen,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
                       ),
-                      const SizedBox(height: 5),
-                      Text(
-                        song.artist,
-                        style: const TextStyle(
-                          color: MyColors.mainGreen,
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500,
+                      InkWell(
+                        onTap: () {
+                          _dialogFuture();
+                        },
+                        child: const Icon(
+                          Icons.more_vert,
+                          color: Colors.white,
+                          size: 30,
                         ),
-                        overflow: TextOverflow.ellipsis,
                       ),
                     ],
                   ),

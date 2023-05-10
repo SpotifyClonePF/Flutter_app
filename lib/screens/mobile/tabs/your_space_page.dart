@@ -39,6 +39,34 @@ class _YourSpaceState extends State<YourSpace> {
     }
   }
 
+  Future<void> _dialogFuture() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: MyColors.darkGray,
+          title: const Text('Coming soon', style: TextStyle(color: Colors.white),),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text('This feature is coming soon.', style: TextStyle(color: Colors.white),),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,7 +93,7 @@ class _YourSpaceState extends State<YourSpace> {
         actions: [
           InkWell(
             onTap: () {
-              createPlayList("AAAAAA");
+              _dialogFuture();
             },
             child: const Padding(
               padding: EdgeInsets.symmetric(horizontal: 22),
@@ -86,22 +114,27 @@ class _YourSpaceState extends State<YourSpace> {
             children: <Widget>[
 
               /// LIKED SONGS
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 300),
-                height: _isVisible ? 70 : 0,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: MyColors.white.withOpacity(0.9),
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(20),
+              InkWell(
+                onTap: () {
+                  _dialogFuture();
+                },
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  height: _isVisible ? 70 : 0,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: MyColors.white.withOpacity(0.9),
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(20),
+                    ),
                   ),
-                ),
-                child: const Center(
-                  child: Text(
-                    'Liked songs ♥',
-                    style: TextStyle(
-                      color: MyColors.black,
-                      fontSize: 18,
+                  child: const Center(
+                    child: Text(
+                      'Liked songs ♥',
+                      style: TextStyle(
+                        color: MyColors.black,
+                        fontSize: 18,
+                      ),
                     ),
                   ),
                 ),
@@ -141,48 +174,53 @@ class _YourSpaceState extends State<YourSpace> {
 
               /// PLAYLISTS
               Expanded(
-                child: GridView.builder(
-                  controller: _scrollController,
-                  physics: const BouncingScrollPhysics(
-                      decelerationRate: ScrollDecelerationRate.normal),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 25,
-                    mainAxisSpacing: 20,
-                    childAspectRatio: 1,
-                    mainAxisExtent: 175,
-                  ),
-                  itemCount: 12 + 1,
-                  itemBuilder: (context, index) {
-                    if (index == 12){
-                      return const SizedBox(height: 0); // 70 sin el player y 160 si esta el player
-                    }
-                    return Column(
-                      children: [
-                        Container(
-                          height: 140,
-                          width: 140,
-                          decoration: BoxDecoration(
-                            color: MyColors.white.withOpacity(0.2),
-                            borderRadius: BorderRadius.circular(20),
-                            image: const DecorationImage(
-                              image: AssetImage('assets/icons/lofi.png'),
-                              fit: BoxFit.cover,
+                child: InkWell(
+                  onTap: () {
+                    _dialogFuture();
+                  },
+                  child: GridView.builder(
+                    controller: _scrollController,
+                    physics: const BouncingScrollPhysics(
+                        decelerationRate: ScrollDecelerationRate.normal),
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 25,
+                      mainAxisSpacing: 20,
+                      childAspectRatio: 1,
+                      mainAxisExtent: 175,
+                    ),
+                    itemCount: 12 + 1,
+                    itemBuilder: (context, index) {
+                      if (index == 12){
+                        return const SizedBox(height: 0); // 70 sin el player y 160 si esta el player
+                      }
+                      return Column(
+                        children: [
+                          Container(
+                            height: 140,
+                            width: 140,
+                            decoration: BoxDecoration(
+                              color: MyColors.white.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(20),
+                              image: const DecorationImage(
+                                image: AssetImage('assets/icons/lofi.png'),
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          'Playlist ${index + 1}',
-                          style: const TextStyle(
-                            color: MyColors.white,
-                            fontSize: 20,
-                            overflow: TextOverflow.ellipsis,
+                          const SizedBox(height: 10),
+                          Text(
+                            'Playlist ${index + 1}',
+                            style: const TextStyle(
+                              color: MyColors.white,
+                              fontSize: 20,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
-                        ),
-                      ],
-                    );
-                  },
+                        ],
+                      );
+                    },
+                  ),
                 ),
               ),
             ],

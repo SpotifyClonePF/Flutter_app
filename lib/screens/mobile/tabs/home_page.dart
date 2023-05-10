@@ -103,6 +103,34 @@ class _HomeState extends State<Home> {
     );
   }
 
+  Future<void> _dialogFuture() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: MyColors.darkGray,
+          title: const Text('Coming soon', style: TextStyle(color: Colors.white),),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text('This feature is coming soon.', style: TextStyle(color: Colors.white),),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -202,9 +230,14 @@ class _HomeState extends State<Home> {
                                   ],
                                 ),
                               ),
-                              const Icon(
-                                Icons.more_vert,
-                                color: Colors.white,
+                              InkWell(
+                                onTap: () {
+                                  _dialogFuture();
+                                },
+                                child: const Icon(
+                                  Icons.more_vert,
+                                  color: Colors.white,
+                                ),
                               ),
                               Text(
                                 songs[index]['duration'],
@@ -248,7 +281,9 @@ class _HomeState extends State<Home> {
                       child: Row(
                         children: List.generate(songs.length, (index) {
                           return GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              _dialogFuture();
+                            },
                             child: SizedBox(
                               width: 170,
                               child: Column(

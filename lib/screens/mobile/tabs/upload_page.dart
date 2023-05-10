@@ -10,6 +10,35 @@ class Upload extends StatefulWidget {
 }
 
 class _UploadState extends State<Upload> {
+
+  Future<void> _dialogFuture() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: MyColors.darkGray,
+          title: const Text('Coming soon', style: TextStyle(color: Colors.white),),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text('This feature is coming soon.', style: TextStyle(color: Colors.white),),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   Future<void> _showMyDialog() async {
     return showDialog<void>(
       context: context,
@@ -45,22 +74,27 @@ class _UploadState extends State<Upload> {
                   padding: const EdgeInsets.symmetric(horizontal: 50),
                   child: Column(
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.rectangle,
-                          border: Border.all(
-                            color: Colors.white,
-                            width: 2,
+                      InkWell(
+                        onTap: () {
+                          _dialogFuture();
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.rectangle,
+                            border: Border.all(
+                              color: Colors.white,
+                              width: 2,
+                            ),
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(20),
                           ),
-                          color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: const Padding(
-                          padding: EdgeInsets.all(40),
-                          child: Icon(
-                            Icons.add_photo_alternate,
-                            color: Colors.white,
-                            size: 50,
+                          child: const Padding(
+                            padding: EdgeInsets.all(40),
+                            child: Icon(
+                              Icons.add_photo_alternate,
+                              color: Colors.white,
+                              size: 50,
+                            ),
                           ),
                         ),
                       ),
@@ -80,22 +114,27 @@ class _UploadState extends State<Upload> {
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      border: Border.all(
-                        color: Colors.white,
-                        width: 2,
+                  child: InkWell(
+                    onTap: () {
+                      _dialogFuture();
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.rectangle,
+                        border: Border.all(
+                          color: Colors.white,
+                          width: 2,
+                        ),
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(20),
                       ),
-                      color: Colors.transparent,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(7),
-                      child: Icon(
-                        Icons.add_box_outlined,
-                        color: Colors.white,
-                        size: 40,
+                      child: const Padding(
+                        padding: EdgeInsets.all(7),
+                        child: Icon(
+                          Icons.add_box_outlined,
+                          color: Colors.white,
+                          size: 40,
+                        ),
                       ),
                     ),
                   ),
@@ -189,7 +228,7 @@ class _UploadState extends State<Upload> {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    _dialogFuture();
                   },
                 ),
               ),
