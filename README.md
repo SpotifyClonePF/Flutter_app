@@ -1,16 +1,25 @@
 # Dyzr
 
-A new Flutter project.
+## How to install flutter
 
-## Getting Started
+1. Download flutter from [here](https://flutter.dev/docs/get-started/install)
+2. Extract the zip file to a folder
+3. Add the flutter bin folder to your path
+4. Run `flutter doctor` to check if everything is working
+5. Install the flutter and dart plugins in your IDE
+6. Create a new flutter project or run an existing one
+7. Run `flutter pub get` to install all dependencies
+8. Run `flutter run` to run the app
 
-This project is a starting point for a Flutter application.
+## How to install firebase
 
-A few resources to get you started if this is your first Flutter project:
+1. Create a new firebase project [here](https://console.firebase.google.com/)
+2. Add a new android app to your project
+3. Follow the instructions to add the google-services.json file to your project
+4. Add the firebase dependencies to your pubspec.yaml file
+5. Run `flutter pub get` to install the dependencies
+6. Run `flutter run` to run the app
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## If you want to have a guide on this installation process, you can watch this video
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+[!(https://img.youtube.com/vi/1gDhl4leEzA/0.jpg)](https://www.youtube.com/watch?v=hs04CWG4WXA)
