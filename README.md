@@ -22,4 +22,4 @@
 
 ## If you want to have a guide on this installation process, you can watch this video
 
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/1gDhl4leEzA/0.jpg)](https://www.youtube.com/watch?v=hs04CWG4WXA)
+[![IMAGE ALT TEXT HERE](https://i.ytimg.com/vi/hs04CWG4WXA/maxresdefault.jpg)](https://www.youtube.com/watch?v=hs04CWG4WXA)
