@@ -181,7 +181,7 @@ const lofihiphopPlaylist = Playlist(
   name: 'lofi hip hop music - beats to relax/study to',
   imageURL: 'assets/icons/lofi.png',
   description:
-  'A daily selection of chill beats - perfect to help you relax & study 📚',
+      'A daily selection of chill beats - perfect to help you relax & study 📚',
   creator: 'Lofi Girl',
   duration: '28 min',
   followers: '5,351,685',
@@ -400,33 +400,15 @@ class Playlists {
 
 List playlist = [
   {
-    'name': 'playlist',
+    'name': 'local',
     'imageURL':
-    'https://firebasestorage.googleapis.com/v0/b/dyzr-proyect.appspot.com/o/haojie20011116%40gmail.com%2Fplaylist1.jpg?alt=media&token=2d528494-816f-4e90-9eb0-b30e2bc2aed4',
+        'https://firebasestorage.googleapis.com/v0/b/dyzr-proyect.appspot.com/o/haojie20011116%40gmail.com%2Fplaylist1.jpg?alt=media&token=2d528494-816f-4e90-9eb0-b30e2bc2aed4',
     'artist': 'aa',
   },
   {
-    'name': 'playlist',
+    'name': 'i like',
     'imageURL':
-    'https://firebasestorage.googleapis.com/v0/b/dyzr-proyect.appspot.com/o/haojie20011116%40gmail.com%2Fplaylist1.jpg?alt=media&token=2d528494-816f-4e90-9eb0-b30e2bc2aed4',
-    'artist': 'aa',
-  },
-  {
-    'name': 'playlist',
-    'imageURL':
-    'https://firebasestorage.googleapis.com/v0/b/dyzr-proyect.appspot.com/o/haojie20011116%40gmail.com%2Fplaylist1.jpg?alt=media&token=2d528494-816f-4e90-9eb0-b30e2bc2aed4',
-    'artist': 'aa',
-  },
-  {
-    'name': 'playlist',
-    'imageURL':
-    'https://firebasestorage.googleapis.com/v0/b/dyzr-proyect.appspot.com/o/haojie20011116%40gmail.com%2Fplaylist1.jpg?alt=media&token=2d528494-816f-4e90-9eb0-b30e2bc2aed4',
-    'artist': 'aa',
-  },
-  {
-    'name': 'playlist',
-    'imageURL':
-    'https://firebasestorage.googleapis.com/v0/b/dyzr-proyect.appspot.com/o/haojie20011116%40gmail.com%2Fplaylist1.jpg?alt=media&token=2d528494-816f-4e90-9eb0-b30e2bc2aed4',
+        'https://firebasestorage.googleapis.com/v0/b/dyzr-proyect.appspot.com/o/haojie20011116%40gmail.com%2Fplaylist1.jpg?alt=media&token=2d528494-816f-4e90-9eb0-b30e2bc2aed4',
     'artist': 'aa',
   },
 ];
