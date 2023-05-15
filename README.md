@@ -1,7 +1,26 @@
 # Dyzr
 
-This is Dyzr, a music app made with flutter and firebase. 
-This app is made for the final project of the second year course DAM. 
+This is Dyzr, an innovative music app developed using Flutter and Firebase.
+
+Dyzr has been created as the culmination of our second-year course in Development of Multiplatform 
+Applications (DAM).
+
+Through this project, we aimed to showcase our skills in building a robust and user-friendly 
+application that caters to the needs of music enthusiasts. By combining the power of Flutter's 
+cross-platform development capabilities with Firebase's backend services, we have created a 
+cutting-edge app that offers a seamless music experience.
+
+Dyzr stands out from traditional music apps by providing a platform for both established and 
+emerging artists to showcase their talent. We believe in promoting musical diversity and giving
+a voice to artists who often struggle to gain recognition in the mainstream industry. With Dyzr,
+users can discover and explore a wide range of genres, uncover hidden gems, and support 
+up-and-coming musicians.
+
+Our app's intuitive user interface makes it easy for users to navigate and customize their music 
+preferences. Whether it's creating personalized playlists, sharing favorite tracks with friends, 
+or engaging in lively discussions about music, Dyzr provides a vibrant and inclusive community 
+for music lovers.
+
 
 ## How to install flutter
 
