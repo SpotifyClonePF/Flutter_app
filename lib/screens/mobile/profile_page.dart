@@ -13,7 +13,6 @@ class ProfileMobile extends StatefulWidget {
 }
 
 class _ProfileMobileState extends State<ProfileMobile> {
-
   Future<void> showMyDialog() async {
     return showDialog<void>(
       context: context,
@@ -42,9 +41,7 @@ class _ProfileMobileState extends State<ProfileMobile> {
 
               /// Check button
               IconButton(
-                onPressed: (){
-
-                },
+                onPressed: () {},
                 icon: const Icon(
                   Icons.check,
                   color: Colors.white,
@@ -58,7 +55,6 @@ class _ProfileMobileState extends State<ProfileMobile> {
                 decelerationRate: ScrollDecelerationRate.normal),
             child: ListBody(
               children: <Widget>[
-
                 /// Information text
                 Container(
                   alignment: Alignment.center,
@@ -433,7 +429,7 @@ class _ProfileMobileState extends State<ProfileMobile> {
                               padding: const EdgeInsets.symmetric(vertical: 20),
                               child: Row(
                                 children:
-                                List.generate(playlist.length, (index) {
+                                    List.generate(playlist.length, (index) {
                                   return GestureDetector(
                                     onTap: () {},
                                     child: SizedBox(
@@ -447,12 +443,12 @@ class _ProfileMobileState extends State<ProfileMobile> {
                                               image: DecorationImage(
                                                 image: NetworkImage(
                                                     playlist[index]
-                                                    ['imageURL']),
+                                                        ['imageURL']),
                                                 fit: BoxFit.cover,
                                               ),
                                               color: Colors.green,
                                               borderRadius:
-                                              BorderRadius.circular(15),
+                                                  BorderRadius.circular(15),
                                             ),
                                           ),
                                           const SizedBox(height: 10),
@@ -523,7 +519,7 @@ class _ProfileMobileState extends State<ProfileMobile> {
                         padding: const EdgeInsets.symmetric(horizontal: 25),
                         child: Table(
                             defaultVerticalAlignment:
-                            TableCellVerticalAlignment.middle,
+                                TableCellVerticalAlignment.middle,
                             columnWidths: const {
                               0: FixedColumnWidth(45),
                               1: FlexColumnWidth(),
@@ -532,7 +528,7 @@ class _ProfileMobileState extends State<ProfileMobile> {
                             },
                             children: List.generate(
                               5,
-                                  (index) {
+                              (index) {
                                 return TableRow(
                                   children: [
                                     Text(
@@ -587,8 +583,14 @@ class _ProfileMobileState extends State<ProfileMobile> {
                           builder: (context) {
                             return AlertDialog(
                               backgroundColor: MyColors.darkGray,
-                              title: const Text('Cerrar sesión', style: TextStyle(color: Colors.white),),
-                              content: const Text('¿Está seguro que desea cerrar la sesión?', style: TextStyle(color: Colors.white),),
+                              title: const Text(
+                                'Cerrar sesión',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              content: const Text(
+                                '¿Está seguro que desea cerrar la sesión?',
+                                style: TextStyle(color: Colors.white),
+                              ),
                               actions: <Widget>[
                                 TextButton(
                                   onPressed: () {
