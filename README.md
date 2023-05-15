@@ -1,5 +1,8 @@
 # Dyzr
 
+This is Dyzr, a music app made with flutter and firebase. 
+This app is made for the final project of the second year course DAM. 
+
 ## How to install flutter
 
 1. Download flutter from [here](https://flutter.dev/docs/get-started/install)
