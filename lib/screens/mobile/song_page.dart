@@ -57,209 +57,212 @@ class _SongPageState extends State<SongPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: Padding(
-        padding: const EdgeInsets.all(25),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Padding(
+          padding: const EdgeInsets.all(25),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
 
-            /// Close button
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 40),
-              child: InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: const Icon(
-                  Icons.keyboard_arrow_down,
-                  color: Colors.white,
-                  size: 40,
+              /// Close button
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 40),
+                child: InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Icon(
+                    Icons.keyboard_arrow_down,
+                    color: Colors.white,
+                    size: 40,
+                  ),
                 ),
               ),
-            ),
 
-            /// Song image
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Image.network(
-                  widget.song.imageURL,
-                  height: 250,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
+              /// Song image
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 40),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.network(
+                    widget.song.imageURL,
+                    height: 250,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 32),
+              const SizedBox(height: 32),
 
-            /// Song title
-            Text(
-              widget.song.title,
-              style: const TextStyle(
-                fontSize: 24,
-                color: MyColors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 4),
-
-            /// Song artist
-            Text(
-              widget.song.artist,
-              style: const TextStyle(
-                fontSize: 20,
-                color: MyColors.mainGreen,
-              ),
-            ),
-            const SizedBox(height: 20),
-
-            /// Song slider
-            SliderTheme(
-              data: const SliderThemeData(
-                trackHeight: 4,
-                thumbShape: RoundSliderThumbShape(
-                  enabledThumbRadius: 5,
-                ),
-                overlayShape: RoundSliderOverlayShape(
-                  overlayRadius: 15,
+              /// Song title
+              Text(
+                widget.song.title,
+                style: const TextStyle(
+                  fontSize: 24,
+                  color: MyColors.white,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              child: Slider(
-                activeColor: MyColors.mainGreen,
-                min: 0,
-                max: duration.inSeconds.toDouble(),
-                value: position.inSeconds.toDouble(),
-                onChanged: (value) async {
-                  final position = Duration(seconds: value.toInt());
-                  await audioPlayer.seek(position);
-                  await audioPlayer.resume();
-                },
-              ),
-            ),
+              const SizedBox(height: 4),
 
-            /// Song time
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
+              /// Song artist
+              Text(
+                widget.song.artist,
+                style: const TextStyle(
+                  fontSize: 20,
+                  color: MyColors.mainGreen,
+                ),
+              ),
+              const SizedBox(height: 20),
+
+              /// Song slider
+              SliderTheme(
+                data: const SliderThemeData(
+                  trackHeight: 4,
+                  thumbShape: RoundSliderThumbShape(
+                    enabledThumbRadius: 5,
+                  ),
+                  overlayShape: RoundSliderOverlayShape(
+                    overlayRadius: 15,
+                  ),
+                ),
+                child: Slider(
+                  activeColor: MyColors.mainGreen,
+                  min: 0,
+                  max: duration.inSeconds.toDouble(),
+                  value: position.inSeconds.toDouble(),
+                  onChanged: (value) async {
+                    final position = Duration(seconds: value.toInt());
+                    await audioPlayer.seek(position);
+                    await audioPlayer.resume();
+                  },
+                ),
+              ),
+
+              /// Song time
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      formatTime(position),
+                      style: const TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text(
+                      formatTime(duration),
+                      style: const TextStyle(
+                        color: MyColors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 30),
+
+              /// Song controls
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    formatTime(position),
-                    style: const TextStyle(
-                      color: Colors.white,
+                  IconButton(
+                    icon: const Icon(
+                      Icons.repeat,
+                    ),
+                    color: Colors.white,
+                    iconSize: 35,
+                    onPressed: () async {},
+                  ),
+                  IconButton(
+                    icon: const Icon(
+                      Icons.skip_previous,
+                    ),
+                    color: Colors.white,
+                    iconSize: 40,
+                    onPressed: () async {},
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white24,
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: MyColors.mainGreen,
+                        width: 2,
+                      ),
+                    ),
+                    child: CircleAvatar(
+                      radius: 30,
+                      backgroundColor: Colors.transparent,
+                      child: IconButton(
+                        icon: Icon(
+                          isPlaying ? Icons.pause : Icons.play_arrow,
+                        ),
+                        iconSize: 40,
+                        color: Colors.white,
+                        onPressed: () async {
+                          if (isPlaying) {
+                            await audioPlayer.pause();
+                          } else {
+                            await audioPlayer.play(widget.song.id);
+                          }
+                        },
+                      ),
                     ),
                   ),
-                  Text(
-                    formatTime(duration),
-                    style: const TextStyle(
-                      color: MyColors.white,
+                  IconButton(
+                    icon: const Icon(
+                      Icons.skip_next,
                     ),
+                    color: Colors.white,
+                    iconSize: 40,
+                    onPressed: () async {},
+                  ),
+                  IconButton(
+                    icon: const Icon(
+                      Icons.shuffle_outlined,
+                    ),
+                    color: Colors.white,
+                    iconSize: 35,
+                    onPressed: () async {},
                   ),
                 ],
               ),
-            ),
-            const SizedBox(height: 30),
+              const SizedBox(height: 30),
 
-            /// Song controls
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                  icon: const Icon(
-                    Icons.repeat,
-                  ),
-                  color: Colors.white,
-                  iconSize: 35,
-                  onPressed: () async {},
-                ),
-                IconButton(
-                  icon: const Icon(
-                    Icons.skip_previous,
-                  ),
-                  color: Colors.white,
-                  iconSize: 40,
-                  onPressed: () async {},
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white24,
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: MyColors.mainGreen,
-                      width: 2,
+              /// Song options
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    icon: const Icon(
+                      Icons.cloud_download_outlined,
                     ),
+                    color: Colors.white,
+                    iconSize: 35,
+                    onPressed: () async {},
                   ),
-                  child: CircleAvatar(
-                    radius: 30,
-                    backgroundColor: Colors.transparent,
-                    child: IconButton(
-                      icon: Icon(
-                        isPlaying ? Icons.pause : Icons.play_arrow,
-                      ),
-                      iconSize: 40,
-                      color: Colors.white,
-                      onPressed: () async {
-                        if (isPlaying) {
-                          await audioPlayer.pause();
-                        } else {
-                          await audioPlayer.play(widget.song.id);
-                        }
-                      },
+                  IconButton(
+                    icon: const Icon(
+                      Icons.favorite_border_outlined,
                     ),
+                    color: Colors.white,
+                    iconSize: 35,
+                    onPressed: () async {},
                   ),
-                ),
-                IconButton(
-                  icon: const Icon(
-                    Icons.skip_next,
+                  IconButton(
+                    icon: const Icon(
+                      Icons.playlist_add_sharp,
+                    ),
+                    color: Colors.white,
+                    iconSize: 35,
+                    onPressed: () async {},
                   ),
-                  color: Colors.white,
-                  iconSize: 40,
-                  onPressed: () async {},
-                ),
-                IconButton(
-                  icon: const Icon(
-                    Icons.shuffle_outlined,
-                  ),
-                  color: Colors.white,
-                  iconSize: 35,
-                  onPressed: () async {},
-                ),
-              ],
-            ),
-            const SizedBox(height: 30),
-
-            /// Song options
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                  icon: const Icon(
-                    Icons.cloud_download_outlined,
-                  ),
-                  color: Colors.white,
-                  iconSize: 35,
-                  onPressed: () async {},
-                ),
-                IconButton(
-                  icon: const Icon(
-                    Icons.favorite_border_outlined,
-                  ),
-                  color: Colors.white,
-                  iconSize: 35,
-                  onPressed: () async {},
-                ),
-                IconButton(
-                  icon: const Icon(
-                    Icons.playlist_add_sharp,
-                  ),
-                  color: Colors.white,
-                  iconSize: 35,
-                  onPressed: () async {},
-                ),
-              ],
-            )
-          ],
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
