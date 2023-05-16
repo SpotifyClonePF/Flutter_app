@@ -36,11 +36,13 @@ for music lovers.
 ## How to install firebase
 
 1. Create a new firebase project [here](https://console.firebase.google.com/)
-2. Add a new android app to your project
-3. Follow the instructions to add the google-services.json file to your project
-4. Add the firebase dependencies to your pubspec.yaml file
-5. Run `flutter pub get` to install the dependencies
-6. Run `flutter run` to run the app
+3. Run 'sudo npm install -g firebase-tools' to check tools for firebase
+4. Run 'firebase login' to login your firebase user
+5. Run 'dart pub global activate flutterfire_cli'
+6. Run 'flutterfire configure' to select a Firebase project and platforms
+8. Add the firebase dependencies to your pubspec.yaml file
+9. Run `flutter pub get` to install the dependencies
+10. Run `flutter run` to run the app
 
 ## If you want to have a guide on this installation process, you can watch this video
 
