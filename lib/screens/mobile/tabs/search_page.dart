@@ -141,7 +141,7 @@ class _SearchState extends State<Search> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
+                            SizedBox(
                               width: 190,
                               child: Text(
                                 song.title,

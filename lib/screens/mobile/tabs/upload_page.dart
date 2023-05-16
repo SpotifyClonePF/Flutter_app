@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:Sound2U/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Upload extends StatefulWidget {
   const Upload({Key? key}) : super(key: key);
@@ -10,6 +14,17 @@ class Upload extends StatefulWidget {
 }
 
 class _UploadState extends State<Upload> {
+  File? image;
+  Future _pickImageFromGallery() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (image == null) return;
+      final imageTemporary = File(image.path);
+      setState(() => this.image = imageTemporary);
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+  }
 
   Future<void> _dialogFuture() async {
     return showDialog<void>(
@@ -18,11 +33,17 @@ class _UploadState extends State<Upload> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: MyColors.darkGray,
-          title: const Text('Coming soon', style: TextStyle(color: Colors.white),),
+          title: const Text(
+            'Coming soon',
+            style: TextStyle(color: Colors.white),
+          ),
           content: SingleChildScrollView(
             child: ListBody(
               children: const <Widget>[
-                Text('This feature is coming soon.', style: TextStyle(color: Colors.white),),
+                Text(
+                  'This feature is coming soon.',
+                  style: TextStyle(color: Colors.white),
+                ),
               ],
             ),
           ),
@@ -55,6 +76,7 @@ class _UploadState extends State<Upload> {
             alignment: Alignment.topLeft,
             child: GestureDetector(
               onTap: () {
+                image = null;
                 Navigator.of(context).pop();
               },
               child: const Icon(
@@ -74,28 +96,40 @@ class _UploadState extends State<Upload> {
                   padding: const EdgeInsets.symmetric(horizontal: 50),
                   child: Column(
                     children: [
-                      InkWell(
-                        onTap: () {
-                          _dialogFuture();
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.rectangle,
-                            border: Border.all(
-                              color: Colors.white,
-                              width: 2,
-                            ),
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(20),
+                      Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          border: Border.all(
+                            color: Colors.white,
+                            width: 2,
                           ),
-                          child: const Padding(
-                            padding: EdgeInsets.all(40),
-                            child: Icon(
-                              Icons.add_photo_alternate,
-                              color: Colors.white,
-                              size: 50,
-                            ),
-                          ),
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _pickImageFromGallery();
+                            });
+                          },
+                          child: image != null
+                              ? ClipRRect(
+                                  borderRadius: BorderRadius.circular(20),
+                                  child: Image.file(
+                                    image!,
+                                    fit: BoxFit.cover,
+                                    width: 90,
+                                    height: 150,
+                                  ),
+                                )
+                              : const Padding(
+                                  padding: EdgeInsets.all(40),
+                                  child: Icon(
+                                    Icons.add_photo_alternate,
+                                    color: Colors.white,
+                                    size: 50,
+                                  ),
+                                ),
                         ),
                       ),
                       const Padding(
