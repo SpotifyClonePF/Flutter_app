@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:Sound2U/models/data.dart';
+import 'package:Sound2U/privacy_police_page.dart';
 import 'package:Sound2U/screens/mobile/playlists_page.dart';
 import 'package:Sound2U/screens/mobile/song_page.dart';
 import 'package:Sound2U/services/firebase_service.dart';
@@ -109,6 +110,7 @@ class _MyAppState extends State<MyApp> {
         ),
     '/appearance': (context) => const Appearance(),
     '/playlists_page': (context) => const PlaylistsPage(),
+    '/privacy': (context) => const PrivacyPolicyPage(),
   };
 
   @override

@@ -7,3 +7,4 @@ export 'package:Sound2U/screens/main_desktop/home_desk_page.dart';
 export 'package:Sound2U/screens/mobile/profile_page.dart';
 export 'package:Sound2U/screens/mobile/appearance_page.dart';
 export 'package:Sound2U/screens/mobile/playlists_page.dart';
+export 'package:Sound2U/privacy_police_page.dart';

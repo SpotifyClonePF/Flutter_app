@@ -25,7 +25,7 @@ class PrivacyPolicyPage extends StatelessWidget {
               SizedBox(height: 16.0),
               Text(
                 '''
-Fecha de entrada en vigencia: [Fecha de entrada en vigencia]
+Fecha de entrada en vigencia: 17/05/2023
 
 En Dyzr, nos tomamos la privacidad de nuestros usuarios muy en serio. Esta Política de Privacidad describe cómo recopilamos, utilizamos, compartimos y protegemos la información personal de los usuarios de nuestra aplicación. Al utilizar Dyzr, aceptas los términos y condiciones establecidos en esta Política de Privacidad.
 
@@ -57,9 +57,9 @@ Nos reservamos el derecho de actualizar y modificar esta Política de Privacidad
 
 Contacto
 
-Si tienes preguntas, inquietudes o comentarios sobre nuestra Política de Privacidad, o si deseas acceder, corregir o eliminar tu información personal, puedes contactarnos a través de [dirección de contacto] y nos pondremos en contacto contigo lo antes posible.
+Si tienes preguntas, inquietudes o comentarios sobre nuestra Política de Privacidad, o si deseas acceder, corregir o eliminar tu información personal, puedes contactarnos a través de dyzr_contacto@gmail.com y nos pondremos en contacto contigo lo antes posible.
 
-Esta Política de Privacidad se rige por las leyes del país [país] y cualquier disputa relacionada con esta Política estará sujeta a la jurisdicción exclusiva de los tribunales de [ciudad].
+Esta Política de Privacidad se rige por las leyes del país España y cualquier disputa relacionada con esta Política estará sujeta a la jurisdicción exclusiva de los tribunales de España.
 
 Gracias por confiar en Dyzr y por utilizar nuestra aplicación.
                 ''',

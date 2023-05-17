@@ -163,15 +163,20 @@ class WelcomePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                Column(
-                  children: const [
-                    Divider(color: Colors.transparent, height: 30),
-                    Text(
-                      'Terms of use    |    Privacy policy',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    SizedBox(height: 30),
-                  ],
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/privacy');
+                  },
+                  child: Column(
+                    children: const [
+                      Divider(color: Colors.transparent, height: 30),
+                      Text(
+                        'Terms of use    |    Privacy policy',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      SizedBox(height: 30),
+                    ],
+                  ),
                 ),
               ],
             ),

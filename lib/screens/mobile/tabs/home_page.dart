@@ -17,6 +17,10 @@ class _HomeState extends State<Home> {
 
   bool _showIcons = true;
 
+  void goToPrivacy() {
+    Navigator.pushNamed(context, '/privacy');
+  }
+
   Future<void> showMyDialog() async {
     return showDialog<void>(
       context: context,
@@ -75,28 +79,38 @@ class _HomeState extends State<Home> {
                 ),
                 /// Terms and Conditions
                 const SizedBox(height: 40),
-                const Center(
-                  child: Text(
-                    'Terms and Conditions',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    goToPrivacy();
+                  },
+                  child: Column(
+                    children: const [
+                      Center(
+                        child: Text(
+                          'Terms and Conditions',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      /// Privacy Policy
+                      Center(
+                        child: Text(
+                          'Privacy Policy',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                const SizedBox(height: 10),
-                /// Privacy Policy
-                const Center(
-                  child: Text(
-                    'Privacy Policy',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
+                )
               ],
             ),
           ),
