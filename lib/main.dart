@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:Sound2U/models/data.dart';
+import 'package:Sound2U/screens/mobile/playlists_page.dart';
 import 'package:Sound2U/screens/mobile/song_page.dart';
 import 'package:Sound2U/services/firebase_service.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -42,7 +43,9 @@ void main() async {
     material.MaterialApp(
       debugShowCheckedModeBanner: false,
       home: ChangeNotifierProvider(
-          create: (context) => CurrentTrackModel(), child: const MyApp()),
+        create: (context) => CurrentTrackModel(),
+        child: const MyApp(),
+      ),
     ),
   );
 
@@ -84,6 +87,7 @@ class _MyAppState extends State<MyApp> {
           song: ModalRoute.of(context)?.settings.arguments as Song,
         ),
     '/appearance': (context) => const Appearance(),
+    '/playlists_page': (context) => const PlaylistsPage(),
   };
 
   @override
