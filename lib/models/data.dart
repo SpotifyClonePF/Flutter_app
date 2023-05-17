@@ -402,13 +402,13 @@ List playlist = [
   {
     'name': 'local',
     'imageURL':
-        'https://firebasestorage.googleapis.com/v0/b/dyzr-proyect.appspot.com/o/haojie20011116%40gmail.com%2Fplaylist1.jpg?alt=media&token=2d528494-816f-4e90-9eb0-b30e2bc2aed4',
-    'artist': 'aa',
+        'https://firebasestorage.googleapis.com/v0/b/dyzr-proyect.appspot.com/o/user%2Frock.jpg?alt=media&token=a0ea19c9-267d-4ea6-9f2d-45e79f537793',
+    'artist': 'root',
   },
   {
     'name': 'i like',
     'imageURL':
-        'https://firebasestorage.googleapis.com/v0/b/dyzr-proyect.appspot.com/o/haojie20011116%40gmail.com%2Fplaylist1.jpg?alt=media&token=2d528494-816f-4e90-9eb0-b30e2bc2aed4',
-    'artist': 'aa',
+        'https://firebasestorage.googleapis.com/v0/b/dyzr-proyect.appspot.com/o/user%2Frock.jpg?alt=media&token=a0ea19c9-267d-4ea6-9f2d-45e79f537793',
+    'artist': 'root',
   },
 ];

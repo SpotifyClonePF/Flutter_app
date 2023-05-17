@@ -42,6 +42,40 @@ class LoginState extends State<Login> {
     super.dispose();
   }
 
+  Future<void> _dialogFuture() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: MyColors.darkGray,
+          title: const Text(
+            'Coming soon',
+            style: TextStyle(color: Colors.white),
+          ),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text(
+                  'This feature is coming soon.',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   Future<void> passwordReset() async {
     final email = _emailController.text.trim();
 
@@ -485,21 +519,11 @@ class LoginState extends State<Login> {
                                 Column(
                                   children: [
                                     InkWell(
-                                      onTap: () => _submitForm(context),
+                                      onTap: () => signInWithGoogle(context),
                                       child: Container(
                                         padding: const EdgeInsets.all(13),
                                         decoration: const BoxDecoration(
                                           color: Colors.deepOrange,
-                                          /*border: Border(
-                                            top: BorderSide(
-                                                width: 3.0, color: Colors.black45),
-                                            left: BorderSide(
-                                                width: 3.0, color: Colors.black45),
-                                            right: BorderSide(
-                                                width: 3.0, color: Colors.black45),
-                                            bottom: BorderSide(
-                                                width: 3.0, color: Colors.black45),
-                                          ),*/
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(10)),
                                         ),
@@ -523,25 +547,11 @@ class LoginState extends State<Login> {
                                         Expanded(
                                           flex: 7,
                                           child: InkWell(
-                                            onTap: () => _submitForm(context),
+                                            onTap: () => _dialogFuture(),
                                             child: Container(
                                               padding: const EdgeInsets.all(13),
                                               decoration: const BoxDecoration(
                                                 color: Colors.blue,
-                                                /*border: Border(
-                                                  top: BorderSide(
-                                                      width: 1.0,
-                                                      color: Colors.black),
-                                                  left: BorderSide(
-                                                      width: 1.0,
-                                                      color: Colors.black),
-                                                  right: BorderSide(
-                                                      width: 1.0,
-                                                      color: Colors.black),
-                                                  bottom: BorderSide(
-                                                      width: 1.0,
-                                                      color: Colors.black),
-                                                ),*/
                                                 borderRadius: BorderRadius.all(
                                                     Radius.circular(10)),
                                               ),
@@ -565,25 +575,11 @@ class LoginState extends State<Login> {
                                         Expanded(
                                           flex: 7,
                                           child: InkWell(
-                                            onTap: () => _submitForm(context),
+                                            onTap: () => _dialogFuture(),
                                             child: Container(
                                               padding: const EdgeInsets.all(13),
                                               decoration: const BoxDecoration(
                                                 color: MyColors.facebook,
-                                                /*border: Border(
-                                                  top: BorderSide(
-                                                      width: 1.0,
-                                                      color: Colors.black),
-                                                  left: BorderSide(
-                                                      width: 1.0,
-                                                      color: Colors.black),
-                                                  right: BorderSide(
-                                                      width: 1.0,
-                                                      color: Colors.black),
-                                                  bottom: BorderSide(
-                                                      width: 1.0,
-                                                      color: Colors.black),
-                                                ),*/
                                                 borderRadius: BorderRadius.all(
                                                     Radius.circular(10)),
                                               ),

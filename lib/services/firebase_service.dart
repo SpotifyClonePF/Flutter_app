@@ -2,9 +2,11 @@ import 'package:Sound2U/models/data.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
+import 'package:google_sign_in/google_sign_in.dart';
 
 Future<void> myFunction() async {
   final response = await http.post(
@@ -260,7 +262,7 @@ Future<void> playlistOfUser() async {
 
 Future<String> getAudioDuration(String filePath) async {
   AudioPlayer player = AudioPlayer();
-  Duration duration = Duration();
+  Duration duration = const Duration();
   await player.setUrl(filePath);
   int durationInMilliseconds = await player.getDuration();
   duration = Duration(milliseconds: durationInMilliseconds);
@@ -335,6 +337,29 @@ Future<List<String>> getPlaylistName() async {
     return [];
   }
   return playlists;
+}
+
+Future<void> signInWithGoogle(BuildContext context) async {
+  try {
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    final GoogleSignInAuthentication googleAuth =
+    await googleUser!.authentication;
+    final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
+    await FirebaseAuth.instance.signInWithCredential(credential);
+
+    // Mostrar SnackBar de éxito
+    const snackBar = SnackBar(content: Text('Sesión iniciada correctamente'));
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+    Navigator.pushReplacementNamed(context, '/home');
+  } catch (e) {
+    print('Error signing in with Google: $e');
+
+    // Mostrar SnackBar de error
+    const snackBar = SnackBar(content: Text('Error al iniciar sesión con Google'));
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
 }
 
 // obtener url descargar de music
