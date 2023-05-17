@@ -46,4 +46,16 @@ for music lovers.
 
 ## If you want to have a guide on this installation process, you can watch this video
 
+Track: At First Sight
+Music by https://www.fiftysounds.com 
+Track: Make It Happen
+Music by https://www.fiftysounds.com
+Track: In Your Hands
+Music by https://www.fiftysounds.com
+Track: Neon Lights
+Music by https://www.fiftysounds.com
+Track: They Say
+Music by https://www.fiftysounds.com
+Track: A Little Bit of Rhythm
+Music by https://www.fiftysounds.com
 [![IMAGE ALT TEXT HERE](https://i.ytimg.com/vi/hs04CWG4WXA/maxresdefault.jpg)](https://www.youtube.com/watch?v=hs04CWG4WXA)
