@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:ui';
+import 'package:Sound2U/bean/User.dart';
 import 'package:Sound2U/services/firebase_service.dart';
 import 'package:Sound2U/styles/colors.dart';
 import 'package:Sound2U/widgets/input_text.dart';

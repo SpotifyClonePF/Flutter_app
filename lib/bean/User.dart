@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:path_provider/path_provider.dart';
 
 class User {
@@ -25,14 +24,14 @@ class FileStorage {
       final directory = await getDownloadsDirectory();
       print(directory);
       if (directory == null) {
-        throw FileSystemException('External storage directory not available');
+        throw const FileSystemException('External storage directory not available');
       }
       return File('${directory.path}/user.json');
     } else {
       final directory = await getExternalStorageDirectory();
       print(directory);
       if (directory == null) {
-        throw FileSystemException('External storage directory not available');
+        throw const FileSystemException('External storage directory not available');
       }
       return File('${directory.path}/user.json');
     }

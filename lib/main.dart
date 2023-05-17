@@ -9,6 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'bean/User.dart';
 import 'firebase_options.dart';
 import 'package:firedart/firedart.dart';
 import 'models/current_track_model.dart';
@@ -19,6 +20,7 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:provider/provider.dart';
 
 const projectId = 'dyzr-541db';
+bool recordUser = false;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -60,7 +62,26 @@ void main() async {
     });
   }
 
+  recordUser = await save();
+
   await getFilesList();
+}
+
+Future<bool> save() async {
+  final storage = FileStorage();
+  final loadedUser = await storage.loadUser();
+  if (loadedUser != null) {
+    if (Platform.isWindows) {
+      if (await signIn(loadedUser.username, loadedUser.password)) {
+        return true;
+      }
+    } else {
+      if (await signIn(loadedUser.username, loadedUser.password)) {
+        return true;
+      }
+    }
+  }
+  return false;
 }
 
 Future<void> requestPermission() async {
@@ -98,21 +119,30 @@ class _MyAppState extends State<MyApp> {
       statusBarColor: MyColors.lightBlack,
     ));
 
-    return material.MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Sound2U',
-      theme: material.ThemeData(
-        scrollbarTheme: material.ScrollbarThemeData(
-          thumbColor: material.MaterialStateProperty.all(MyColors.lightBlack),
-        ),
-      ),
-      initialRoute: isMobile ? '/' : '/login',
-      routes: _routes,
-      onGenerateRoute: (settings) {
-        return material.MaterialPageRoute(
-          builder: (context) => const Page404(),
-        );
-      },
-    );
+    if (recordUser) {
+      return material.MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Sound2U',
+        initialRoute: isMobile ? '/home' : '/home_desk',
+        routes: _routes,
+        onGenerateRoute: (settings) {
+          return material.MaterialPageRoute(
+            builder: (context) => const Page404(),
+          );
+        },
+      );
+    } else {
+      return material.MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Sound2U',
+        initialRoute: isMobile ? '/' : '/login',
+        routes: _routes,
+        onGenerateRoute: (settings) {
+          return material.MaterialPageRoute(
+            builder: (context) => const Page404(),
+          );
+        },
+      );
+    }
   }
 }
