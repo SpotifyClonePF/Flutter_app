@@ -13,22 +13,30 @@ class WelcomePage extends StatelessWidget {
         bool exit = await showDialog(
           context: context,
           builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text('¿Está seguro de que desea salir?'),
-              actions: <Widget>[
-                ElevatedButton(
-                  child: const Text('Cancelar'),
-                  onPressed: () {
-                    Navigator.of(context).pop(false);
-                  },
+            return BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+              child: AlertDialog(
+                backgroundColor: MyColors.darkGray.withOpacity(0.9),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
                 ),
-                ElevatedButton(
-                  child: const Text('Salir'),
-                  onPressed: () {
-                    Navigator.of(context).pop(true);
-                  },
-                ),
-              ],
+                title: const Text('¿Está seguro de que desea salir?', style: TextStyle(color: Colors.white),),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop(false);
+
+                    },
+                    child: const Text('Cancelar'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop(true);
+                    },
+                    child: const Text('Salir'),
+                  ),
+                ],
+              ),
             );
           },
         );
