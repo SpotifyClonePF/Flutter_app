@@ -224,7 +224,7 @@ class LoginState extends State<Login> {
 
       if (kIsWeb ||
           !(Platform.isWindows || Platform.isLinux || Platform.isMacOS)) {
-        if (!await signIn(email, password)) {
+        if (await signIn(email, password)) {
           if (_isChecked) {
             saveData(email, password);
           }
