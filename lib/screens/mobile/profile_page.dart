@@ -919,10 +919,8 @@ builder: (context) => const ProfileMobile(),
                                   child: const Text('Cancelar'),
                                 ),
                                 TextButton(
-                                  onPressed: () async {
-                                    // Cierra la sesión
-                                    await FirebaseAuth.instance.signOut();
-
+                                  onPressed: () {
+                                    Navigator.pop(context);
                                     goToWelcome();
                                   },
                                   child: const Text('Cerrar sesión'),
