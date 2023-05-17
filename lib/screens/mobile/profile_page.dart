@@ -14,6 +14,11 @@ class ProfileMobile extends StatefulWidget {
 
 class _ProfileMobileState extends State<ProfileMobile> {
 
+  void goToWelcome() {
+    Navigator.pushReplacementNamed(
+        context, '/');
+  }
+
   Future<void> showMyDialog() async {
     return showDialog<void>(
       context: context,
@@ -305,15 +310,7 @@ builder: (context) => const ProfileMobile(),
 
                   /// View album
                   InkWell(
-                    onTap: () {
-/*Navigator.push(
-context,
-
-MaterialPageRoute(
-builder: (context) => const ProfileMobile(),
-),
-);*/
-                    },
+                    onTap: () { },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
@@ -926,9 +923,7 @@ builder: (context) => const ProfileMobile(),
                                     // Cierra la sesión
                                     await FirebaseAuth.instance.signOut();
 
-                                    // Navega al inicio y reemplaza la pila de rutas
-                                    Navigator.pushReplacementNamed(
-                                        context, '/');
+                                    goToWelcome();
                                   },
                                   child: const Text('Cerrar sesión'),
                                 ),
