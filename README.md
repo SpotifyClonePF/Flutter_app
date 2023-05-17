@@ -38,7 +38,7 @@ for music lovers.
 1. Create a new firebase project [here](https://console.firebase.google.com/)
 3. Run 'sudo npm install -g firebase-tools' to check tools for firebase
 4. Run 'firebase login' to login your firebase user
-5. Run 'dart pub global activate flutterfire_cli'
+5. Run 'dart pub global activate flutterfire_cli' to activate flutterfire cliente
 6. Run 'flutterfire configure' to select a Firebase project and platforms
 8. Add the firebase dependencies to your pubspec.yaml file
 9. Run `flutter pub get` to install the dependencies
