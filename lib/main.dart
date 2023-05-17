@@ -41,6 +41,8 @@ void main() async {
     }
   }
 
+  recordUser = await save();
+
   runApp(
     material.MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -61,8 +63,6 @@ void main() async {
       win.show();
     });
   }
-
-  recordUser = await save();
 
   await getFilesList();
 }

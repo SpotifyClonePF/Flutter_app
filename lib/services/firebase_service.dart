@@ -3,10 +3,11 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
-import 'package:google_sign_in/google_sign_in.dart';
+import 'dart:typed_data';
 
 Future<void> myFunction() async {
   final response = await http.post(
@@ -76,6 +77,7 @@ Future<bool> signUp(String email, String password) async {
 
 Future<bool> signIn(String email, String password) async {
   try {
+    await FirebaseAuth.instance.signOut();
     User? user = FirebaseAuth.instance.currentUser;
     print("/////");
     print(user);
@@ -88,7 +90,7 @@ Future<bool> signIn(String email, String password) async {
     user = await FirebaseAuth.instance.currentUser;
     print("/////");
     print(user);
-    if (user == null) {
+    if (user == null || !user.emailVerified) {
       print("user hasn't verified email");
       return false;
     } else {
@@ -97,7 +99,6 @@ Future<bool> signIn(String email, String password) async {
       emailUser = email;
       await getPlayList();
       await getImageProfile(emailUser);
-
       return true;
     }
   } on FirebaseAuthException catch (e) {
@@ -128,7 +129,7 @@ Future<void> getImageProfile(String username) async {
   print(username + "*********************************************************");
   try {
     String imageUrl =
-        await FirebaseStorage.instance.ref().child(ImgData).getDownloadURL();
+    await FirebaseStorage.instance.ref().child(ImgData).getDownloadURL();
     userimg = imageUrl;
   } catch (e) {}
 }
@@ -138,7 +139,7 @@ Future<bool> existUser(String name, String email, String password) async {
   CollectionReference collectionReferenceUser = db.collection('user');
   try {
     QuerySnapshot queryEmail =
-        await collectionReferenceUser.where('email', isEqualTo: email).get();
+    await collectionReferenceUser.where('email', isEqualTo: email).get();
     if (queryEmail.docs.isNotEmpty == true) {
       return false;
     }
@@ -150,7 +151,25 @@ Future<bool> existUser(String name, String email, String password) async {
     'email': email,
     'password': password,
   });
+
   return true;
+}
+
+Future<bool> playlistDefault(String email) async {
+  await FirebaseFirestore.instance.collection(email).doc('i like').set({});
+  await FirebaseFirestore.instance.collection(email).doc('Local').set({});
+  return true;
+}
+
+Future<void> createFolder(String email) async {
+  final FirebaseStorage storage = FirebaseStorage.instance;
+  final String folderName = 'haojie';
+  try {
+    final Reference ref = storage.ref().child('$folderName/');
+    await ref.putString('');
+  } catch (e) {
+    print(e);
+  }
 }
 
 Future<String> getInformationOfFile(String filename, String tipo) async {
@@ -171,11 +190,11 @@ Future<String> getInformationOfFile(String filename, String tipo) async {
 }
 
 Future<String> getImageOfFile(String filename) async {
-  String ImgData = "img/" + filename + ".PNG";
+  String ImgData = "img/" + filename + ".jpg";
   print(ImgData);
   print(filename + "*********************************************************");
   String imageUrl =
-      await FirebaseStorage.instance.ref().child(ImgData).getDownloadURL();
+  await FirebaseStorage.instance.ref().child(ImgData).getDownloadURL();
 
   return imageUrl;
 }
@@ -183,7 +202,7 @@ Future<String> getImageOfFile(String filename) async {
 // obetener lista de storage
 Future<List<Song>> getFilesList() async {
   ListResult result =
-      await FirebaseStorage.instance.ref().child('music').listAll();
+  await FirebaseStorage.instance.ref().child('music').listAll();
 
   List<Song> list = [];
   for (var prefix in result.prefixes) {
@@ -198,13 +217,12 @@ Future<List<Song>> getFilesList() async {
     //final duration = await getDuration(Url);
     String titles = await getInformationOfFile(name, "title");
     final player = AudioPlayer();
-    print("//////////////////////////" + titles);
     try {
       Song song = Song(
         id: Url,
         title: await getInformationOfFile(name, "title"),
         imageURL:
-            await getImageOfFile(await getInformationOfFile(name, "title")),
+        await getImageOfFile(await getInformationOfFile(name, "title")),
         artist: await getInformationOfFile(name, "artist"),
         album: await getInformationOfFile(name, "album"),
         duration: await getAudioDuration(Url),
@@ -215,7 +233,7 @@ Future<List<Song>> getFilesList() async {
         id: Url,
         title: "lol",
         imageURL:
-            "https://firebasestorage.googleapis.com/v0/b/dyzr-proyect.appspot.com/o/img%2FAnimals.png?alt=media&token=e085b8cc-36bf-4b2b-889e-9fff1d7aac35",
+        "https://firebasestorage.googleapis.com/v0/b/dyzr-proyect.appspot.com/o/img%2FAnimals.png?alt=media&token=e085b8cc-36bf-4b2b-889e-9fff1d7aac35",
         artist: "lol",
         album: "lol",
         duration: "lol",
@@ -235,7 +253,7 @@ Future<String> getImageOfPlayList(String listname) async {
   print(ImgData);
   print(listname + "*********************************************************");
   String imageUrl =
-      await FirebaseStorage.instance.ref().child(ImgData).getDownloadURL();
+  await FirebaseStorage.instance.ref().child(ImgData).getDownloadURL();
 
   return imageUrl;
 }
@@ -262,7 +280,7 @@ Future<void> playlistOfUser() async {
 
 Future<String> getAudioDuration(String filePath) async {
   AudioPlayer player = AudioPlayer();
-  Duration duration = const Duration();
+  Duration duration = Duration();
   await player.setUrl(filePath);
   int durationInMilliseconds = await player.getDuration();
   duration = Duration(milliseconds: durationInMilliseconds);
@@ -282,7 +300,7 @@ Future<bool> createPlayList(String name) async {
   CollectionReference collectionReferenceUser = db.collection(emailUser);
   try {
     DocumentSnapshot documentSnapshot =
-        await collectionReferenceUser.doc(name).get();
+    await collectionReferenceUser.doc(name).get();
     if (documentSnapshot.exists) {
       return false;
     }
@@ -297,7 +315,7 @@ Future<bool> playListAddSong(String name, String nameSong) async {
   CollectionReference collectionReferenceUser = db.collection(emailUser);
   try {
     DocumentSnapshot<Object?> querySnapshot =
-        await collectionReferenceUser.doc(name).get();
+    await collectionReferenceUser.doc(name).get();
     Map<String, dynamic>? data = querySnapshot.data() as Map<String, dynamic>?;
     if (data!.containsKey(nameSong)) {
       return false;
@@ -316,7 +334,7 @@ Future<List<String>> getFieldKeysByName(String playlistName) async {
   List<String> fieldKeys = [];
   try {
     DocumentSnapshot documentSnapshot =
-        await collectionReferenceUser.doc(playlistName).get();
+    await collectionReferenceUser.doc(playlistName).get();
     Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
     fieldKeys = data.keys.toList();
   } catch (e) {
@@ -357,7 +375,8 @@ Future<void> signInWithGoogle(BuildContext context) async {
     print('Error signing in with Google: $e');
 
     // Mostrar SnackBar de error
-    const snackBar = SnackBar(content: Text('Error al iniciar sesión con Google'));
+    const snackBar =
+    SnackBar(content: Text('Error al iniciar sesión con Google'));
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }

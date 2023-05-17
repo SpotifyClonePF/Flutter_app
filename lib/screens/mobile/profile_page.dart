@@ -927,11 +927,8 @@ builder: (context) => const ProfileMobile(),
                                     await FirebaseAuth.instance.signOut();
 
                                     // Navega al inicio y reemplaza la pila de rutas
-                                    Navigator.pushNamedAndRemoveUntil(
-                                      context,
-                                      '/',
-                                      ModalRoute.withName('/'),
-                                    );
+                                    Navigator.pushReplacementNamed(
+                                        context, '/');
                                   },
                                   child: const Text('Cerrar sesión'),
                                 ),
