@@ -83,14 +83,20 @@ msix_config:
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
+
 flutter_native_splash:
-  #color: "#f7f6f1"
-  color: "#FFA500"
-  color_dark: "#FFA500"
-  image: assets/icons/logo_prueba.png
-  image_dark: assets/icons/logo_prueba.png
-  scale: 100
-  alignment: center
+  color: "#000000"
+  color_dark: "#000000"
+  image: assets/icons/logo_no_fondo.png
+  image_dark: assets/icons/logo_no_fondo.png
+
+  android_12:
+    image: assets/icons/logo_no_fondo.png
+    icon_background_color: "#000000"
+    image_dark: assets/icons/logo_no_fondo.png
+    icon_background_color_dark: "#000000"
+
+  web: false
 
 # The following section is specific to Flutter packages.
 flutter:
