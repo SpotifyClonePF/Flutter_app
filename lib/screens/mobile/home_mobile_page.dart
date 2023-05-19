@@ -1,7 +1,7 @@
-import 'package:Sound2U/models/data.dart';
-import 'package:Sound2U/models/play_mobile.dart';
-import 'package:Sound2U/screens/mobile/tabs/search_page.dart';
-import 'package:Sound2U/styles/colors.dart';
+import 'package:Dyzr/models/data.dart';
+import 'package:Dyzr/models/play_mobile.dart';
+import 'package:Dyzr/screens/mobile/tabs/search_page.dart';
+import 'package:Dyzr/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'tabs/home_page.dart';
 import 'tabs/your_space_page.dart';

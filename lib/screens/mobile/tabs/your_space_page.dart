@@ -1,12 +1,12 @@
 import 'dart:io';
 import 'dart:ui';
-import 'package:Sound2U/services/firebase_service.dart';
-import 'package:Sound2U/styles/colors.dart';
+import 'package:Dyzr/services/firebase_service.dart';
+import 'package:Dyzr/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:Sound2U/screens/routes.dart';
+import 'package:Dyzr/screens/routes.dart';
 
 class YourSpace extends StatefulWidget {
   const YourSpace({Key? key}) : super(key: key);

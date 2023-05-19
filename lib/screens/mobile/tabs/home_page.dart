@@ -1,10 +1,9 @@
 import 'dart:ui';
-
-import 'package:Sound2U/models/data.dart';
-import 'package:Sound2U/styles/colors.dart';
-import 'package:Sound2U/utils/MyAppBar.dart';
+import 'package:Dyzr/models/data.dart';
+import 'package:Dyzr/styles/colors.dart';
+import 'package:Dyzr/utils/MyAppBar.dart';
 import 'package:flutter/material.dart';
-import 'package:Sound2U/services/firebase_service.dart' as firebaseservice;
+import 'package:Dyzr/services/firebase_service.dart' as firebaseservice;
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);

@@ -1,18 +1,18 @@
 import 'dart:io';
 import 'dart:ui';
-import 'package:Sound2U/bean/User.dart';
-import 'package:Sound2U/services/firebase_service.dart';
-import 'package:Sound2U/styles/colors.dart';
-import 'package:Sound2U/widgets/input_text.dart';
+import 'package:Dyzr/bean/User.dart';
+import 'package:Dyzr/services/firebase_service.dart';
+import 'package:Dyzr/styles/colors.dart';
+import 'package:Dyzr/widgets/input_text.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:Sound2U/responsive.dart';
-import 'package:Sound2U/services/firebase_service_changes.dart';
+import 'package:Dyzr/responsive.dart';
+import 'package:Dyzr/services/firebase_service_changes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:email_validator/email_validator.dart';
 import '../main_desktop/my_window.dart';
-import 'package:Sound2U/bean/User.dart';
+import 'package:Dyzr/bean/User.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);

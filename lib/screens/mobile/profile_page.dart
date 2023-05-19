@@ -1,9 +1,8 @@
 import 'dart:ui';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../models/data.dart';
 import '../../styles/colors.dart';
-import 'package:Sound2U/services/firebase_service.dart' as firebaseservice;
+import 'package:Dyzr/services/firebase_service.dart' as firebaseservice;
 
 class ProfileMobile extends StatefulWidget {
   const ProfileMobile({Key? key}) : super(key: key);

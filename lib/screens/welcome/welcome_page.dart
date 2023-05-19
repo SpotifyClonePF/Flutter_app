@@ -1,6 +1,5 @@
 import 'dart:ui';
-
-import 'package:Sound2U/styles/colors.dart';
+import 'package:Dyzr/styles/colors.dart';
 import 'package:flutter/material.dart';
 
 class WelcomePage extends StatelessWidget {

@@ -1,9 +1,9 @@
 import 'dart:io';
-import 'package:Sound2U/models/data.dart';
-import 'package:Sound2U/privacy_police_page.dart';
-import 'package:Sound2U/screens/mobile/playlists_page.dart';
-import 'package:Sound2U/screens/mobile/song_page.dart';
-import 'package:Sound2U/services/firebase_service.dart';
+import 'package:Dyzr/models/data.dart';
+import 'package:Dyzr/privacy_police_page.dart';
+import 'package:Dyzr/screens/mobile/playlists_page.dart';
+import 'package:Dyzr/screens/mobile/song_page.dart';
+import 'package:Dyzr/services/firebase_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart' as material;
 import 'package:flutter/foundation.dart';
@@ -124,7 +124,7 @@ class _MyAppState extends State<MyApp> {
     if (recordUser) {
       return material.MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Sound2U',
+        title: 'Dyzr',
         initialRoute: isMobile ? '/home' : '/home_desk',
         routes: _routes,
         onGenerateRoute: (settings) {
@@ -136,7 +136,7 @@ class _MyAppState extends State<MyApp> {
     } else {
       return material.MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Sound2U',
+        title: 'Dyzr',
         initialRoute: isMobile ? '/' : '/login',
         routes: _routes,
         onGenerateRoute: (settings) {

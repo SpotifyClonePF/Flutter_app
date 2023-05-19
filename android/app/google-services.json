@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:763443816299:android:9ce06f14a7f4f3efd64e2e",
         "android_client_info": {
-          "package_name": "com.example.spotify_clone"
+          "package_name": "com.example.dyzr_app"
         }
       },
       "oauth_client": [
@@ -34,7 +34,7 @@
               "client_id": "763443816299-6vr0aqs4ghrn2uddksbssqhtjfjgttpj.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.spotifyClone"
+                "bundle_id": "com.example.dyzrApp"
               }
             }
           ]

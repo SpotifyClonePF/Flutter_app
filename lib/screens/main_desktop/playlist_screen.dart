@@ -1,6 +1,6 @@
-import 'package:Sound2U/models/current_track_model.dart';
-import 'package:Sound2U/models/data.dart';
-import 'package:Sound2U/styles/colors.dart';
+import 'package:Dyzr/models/current_track_model.dart';
+import 'package:Dyzr/models/data.dart';
+import 'package:Dyzr/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

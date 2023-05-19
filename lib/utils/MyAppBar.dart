@@ -1,6 +1,6 @@
-import 'package:Sound2U/styles/colors.dart';
+import 'package:Dyzr/styles/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:Sound2U/services/firebase_service.dart' as firebaseservice;
+import 'package:Dyzr/services/firebase_service.dart' as firebaseservice;
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final IconData leadingIcon;

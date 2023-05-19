@@ -1,4 +1,4 @@
-import 'package:Sound2U/models/data.dart';
+import 'package:Dyzr/models/data.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -7,7 +7,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
-import 'dart:typed_data';
 
 Future<void> myFunction() async {
   final response = await http.post(

@@ -67,7 +67,7 @@ class DefaultFirebaseOptions {
     projectId: 'dyzr-proyect',
     storageBucket: 'dyzr-proyect.appspot.com',
     iosClientId: '763443816299-6vr0aqs4ghrn2uddksbssqhtjfjgttpj.apps.googleusercontent.com',
-    iosBundleId: 'com.example.spotifyClone',
+    iosBundleId: 'com.example.dyzrApp',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -77,6 +77,6 @@ class DefaultFirebaseOptions {
     projectId: 'dyzr-proyect',
     storageBucket: 'dyzr-proyect.appspot.com',
     iosClientId: '763443816299-6vr0aqs4ghrn2uddksbssqhtjfjgttpj.apps.googleusercontent.com',
-    iosBundleId: 'com.example.spotifyClone',
+    iosBundleId: 'com.example.dyzrApp',
   );
 }

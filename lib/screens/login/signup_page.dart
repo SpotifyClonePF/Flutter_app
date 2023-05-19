@@ -1,13 +1,13 @@
 import 'dart:io';
 import 'dart:ui';
-import 'package:Sound2U/screens/main_desktop/my_window.dart';
-import 'package:Sound2U/services/firebase_service.dart';
+import 'package:Dyzr/screens/main_desktop/my_window.dart';
+import 'package:Dyzr/services/firebase_service.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../../styles/colors.dart';
 import '../../widgets/input_text.dart';
-import 'package:Sound2U/services/firebase_service_changes.dart';
+import 'package:Dyzr/services/firebase_service_changes.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);

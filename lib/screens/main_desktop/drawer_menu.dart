@@ -1,6 +1,6 @@
-import 'package:Sound2U/models/data.dart';
-import 'package:Sound2U/screens/main_desktop/drawer_tiles.dart';
-import 'package:Sound2U/styles/colors.dart';
+import 'package:Dyzr/models/data.dart';
+import 'package:Dyzr/screens/main_desktop/drawer_tiles.dart';
+import 'package:Dyzr/styles/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
