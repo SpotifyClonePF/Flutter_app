@@ -1,5 +1,8 @@
+import 'dart:io';
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../models/data.dart';
 import '../../styles/colors.dart';
 import 'package:Dyzr/services/firebase_service.dart' as firebaseservice;
@@ -13,9 +16,275 @@ class ProfileMobile extends StatefulWidget {
 
 class _ProfileMobileState extends State<ProfileMobile> {
 
+  File? image;
+  String playlistName = '';
+  String searchText = '';
+
   void goToWelcome() {
     Navigator.pushReplacementNamed(
         context, '/');
+  }
+
+  Future _pickImageFromGallery() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (image == null) return;
+      final imageTemporary = File(image.path);
+      setState(() => this.image = imageTemporary);
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+  }
+  Future<void> addSongToPlaylist() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      barrierColor: Colors.black.withOpacity(0.7),
+      builder: (BuildContext context) {
+        return BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+          child: AlertDialog(
+            insetPadding: const EdgeInsets.all(0),
+            backgroundColor: MyColors.darkGray.withOpacity(0.9),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            content: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(
+                  decelerationRate: ScrollDecelerationRate.normal),
+              child: ListBody(
+                children: <Widget>[
+                  /// Title Playlist
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: const Text(
+                        'Playlists',
+                        style: TextStyle(
+                          color: MyColors.white,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 30,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+                  /// Playlists
+                  SizedBox(
+                    height: 350,
+                    width: 300,
+                    child: Expanded(
+                      child: GridView.builder(
+                        physics: const BouncingScrollPhysics(
+                            decelerationRate: ScrollDecelerationRate.normal),
+                        gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                          childAspectRatio: 1,
+                          mainAxisExtent: 175,
+                        ),
+                        itemCount: 12 + 1,
+                        itemBuilder: (context, index) {
+                          if (index == 12) {
+                            return const SizedBox(
+                                height:
+                                0); // 70 sin el player y 160 si esta el player
+                          }
+                          return Column(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+//Añadir a la playlist
+                                  print("Playlist ${index + 1}");
+                                },
+                                child: Container(
+                                  height: 130,
+                                  width: 130,
+                                  decoration: BoxDecoration(
+                                    color: MyColors.white.withOpacity(0.2),
+                                    borderRadius: BorderRadius.circular(20),
+                                    image: const DecorationImage(
+                                      image: AssetImage('assets/icons/lofi.png'),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                'Playlist ${index + 1}',
+                                style: const TextStyle(
+                                  color: MyColors.white,
+                                  fontSize: 20,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> createPlaylistPage() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: true,
+      barrierColor: Colors.black.withOpacity(0.7),
+      builder: (BuildContext context) {
+        return StatefulBuilder(builder: (context, setState) {
+          return BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+            child: AlertDialog(
+              insetPadding: const EdgeInsets.all(0),
+              backgroundColor: MyColors.darkGray.withOpacity(0.8),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              title: Align(
+                alignment: Alignment.topLeft,
+                child: GestureDetector(
+                  onTap: () {
+                    image = null;
+                    playlistName = '';
+                    Navigator.of(context).pop();
+                  },
+                  child: const Icon(
+                    Icons.close,
+                    color: Colors.white,
+                    size: 30,
+                  ),
+                ),
+              ),
+              content: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(
+                    decelerationRate: ScrollDecelerationRate.normal),
+                child: ListBody(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 40),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          border: Border.all(
+                            color: Colors.white,
+                            width: 2,
+                          ),
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _pickImageFromGallery();
+                            });
+                          },
+                          child: image != null
+                              ? ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: Image.file(
+                              image!,
+                              fit: BoxFit.cover,
+                              width: 90,
+                              height: 150,
+                            ),
+                          )
+                              : const Padding(
+                            padding: EdgeInsets.all(40),
+                            child: Icon(
+                              Icons.add_photo_alternate,
+                              color: Colors.white,
+                              size: 50,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    /// Playlist name
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.rectangle,
+                          border: Border.all(
+                            color: Colors.white,
+                            width: 2,
+                          ),
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: TextField(
+                          decoration: const InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Playlist\'s name',
+                            contentPadding: EdgeInsets.only(left: 20),
+                            hintStyle: TextStyle(
+                              color: Colors.white70,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                          ),
+                          onChanged: (value) {
+                            setState(() {
+                              playlistName = value;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              actions: <Widget>[
+                Padding(
+                  padding:
+                  const EdgeInsets.only(bottom: 20, left: 20, right: 20),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.9),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    width: double.infinity,
+                    child: TextButton(
+                      child: const Padding(
+                        padding: EdgeInsets.all(5),
+                        child: Text(
+                          'Create Playlist',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        });
+      },
+    );
   }
 
   Future<void> showMyDialog() async {
@@ -383,108 +652,6 @@ builder: (context) => const ProfileMobile(),
     );
   }
 
-  Future<void> addSongToPlaylist() async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: true,
-      barrierColor: Colors.black.withOpacity(0.7),
-      builder: (BuildContext context) {
-        return BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-          child: AlertDialog(
-            insetPadding: const EdgeInsets.all(0),
-            backgroundColor: MyColors.darkGray.withOpacity(0.9),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            content: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(
-                  decelerationRate: ScrollDecelerationRate.normal),
-              child: ListBody(
-                children: <Widget>[
-                  /// Title Playlist
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30),
-                    child: Container(
-                      alignment: Alignment.center,
-                      child: const Text(
-                        'Playlists',
-                        style: TextStyle(
-                          color: MyColors.white,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 30,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 30),
-                  /// Playlists
-                  SizedBox(
-                    height: 350,
-                    width: 300,
-                    child: Expanded(
-                      child: GridView.builder(
-                        physics: const BouncingScrollPhysics(
-                            decelerationRate: ScrollDecelerationRate.normal),
-                        gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 10,
-                          childAspectRatio: 1,
-                          mainAxisExtent: 175,
-                        ),
-                        itemCount: 12 + 1,
-                        itemBuilder: (context, index) {
-                          if (index == 12) {
-                            return const SizedBox(
-                                height:
-                                0); // 70 sin el player y 160 si esta el player
-                          }
-                          return Column(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-//Añadir a la playlist
-                                  print("Playlist ${index + 1}");
-                                },
-                                child: Container(
-                                  height: 130,
-                                  width: 130,
-                                  decoration: BoxDecoration(
-                                    color: MyColors.white.withOpacity(0.2),
-                                    borderRadius: BorderRadius.circular(20),
-                                    image: const DecorationImage(
-                                      image: AssetImage('assets/icons/lofi.png'),
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 10),
-                              Text(
-                                'Playlist ${index + 1}',
-                                style: const TextStyle(
-                                  color: MyColors.white,
-                                  fontSize: 20,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                            ],
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -736,65 +903,101 @@ builder: (context) => const ProfileMobile(),
                       Column(
                         children: [
                           SingleChildScrollView(
-                            physics: const BouncingScrollPhysics(
-                                decelerationRate: ScrollDecelerationRate.fast),
+                            physics: const BouncingScrollPhysics(decelerationRate: ScrollDecelerationRate.fast),
                             scrollDirection: Axis.horizontal,
                             child: Padding(
                               padding: const EdgeInsets.symmetric(vertical: 20),
                               child: Row(
-                                children:
-                                    List.generate(playlist.length, (index) {
-                                  return GestureDetector(
-                                    onTap: () {},
-                                    child: SizedBox(
-                                      width: 140,
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            width: 100,
-                                            height: 100,
-                                            decoration: BoxDecoration(
-                                              image: DecorationImage(
-                                                image: NetworkImage(
-                                                    playlist[index]
-                                                        ['imageURL']),
-                                                fit: BoxFit.cover,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      createPlaylistPage();
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(bottom: 20),
+                                      child: SizedBox(
+                                        width: 140,
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              width: 100,
+                                              height: 100,
+                                              decoration: BoxDecoration(
+                                                color: Colors.grey, // Color del contenedor "Add Playlist"
+                                                borderRadius: BorderRadius.circular(15),
                                               ),
-                                              color: Colors.green,
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
+                                              child: const Icon(
+                                                Icons.add, // Ícono para "Add Playlist"
+                                                size: 50,
+                                                color: Colors.white, // Color del ícono
+                                              ),
                                             ),
-                                          ),
-                                          const SizedBox(height: 10),
-                                          Text(
-                                            playlist[index]['name'],
-                                            style: const TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                            maxLines: 1,
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          const SizedBox(height: 5),
-                                          SizedBox(
-                                            width: 180,
-                                            child: Text(
-                                              playlist[index]['artist'],
-                                              maxLines: 1,
-                                              textAlign: TextAlign.center,
-                                              style: const TextStyle(
-                                                color: MyColors.mainGreen,
-                                                fontSize: 12,
+                                            const SizedBox(height: 10),
+                                            const Text(
+                                              'Add Playlist', // Texto debajo del contenedor "Add Playlist"
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16,
                                                 fontWeight: FontWeight.w600,
                                               ),
+                                              maxLines: 1,
+                                              textAlign: TextAlign.center,
                                             ),
-                                          )
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  );
-                                }),
+                                  ),
+                                  ...List.generate(playlist.length, (index) {
+                                    return GestureDetector(
+                                      onTap: () {},
+                                      child: SizedBox(
+                                        width: 140,
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              width: 100,
+                                              height: 100,
+                                              decoration: BoxDecoration(
+                                                image: DecorationImage(
+                                                  image: NetworkImage(playlist[index]['imageURL']),
+                                                  fit: BoxFit.cover,
+                                                ),
+                                                color: Colors.green,
+                                                borderRadius: BorderRadius.circular(15),
+                                              ),
+                                            ),
+                                            const SizedBox(height: 10),
+                                            Text(
+                                              playlist[index]['name'],
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                              maxLines: 1,
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            const SizedBox(height: 5),
+                                            SizedBox(
+                                              width: 180,
+                                              child: Text(
+                                                playlist[index]['artist'],
+                                                maxLines: 1,
+                                                textAlign: TextAlign.center,
+                                                style: const TextStyle(
+                                                  color: MyColors.mainGreen,
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  }),
+                                ],
                               ),
                             ),
                           ),

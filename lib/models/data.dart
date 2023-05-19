@@ -400,15 +400,15 @@ class Playlists {
 
 List playlist = [
   {
-    'name': 'local',
+    'name': 'Liked Songs',
     'imageURL':
         'https://firebasestorage.googleapis.com/v0/b/dyzr-proyect.appspot.com/o/user%2Frock.jpg?alt=media&token=a0ea19c9-267d-4ea6-9f2d-45e79f537793',
-    'artist': 'root',
+    'artist': '',
   },
   {
-    'name': 'i like',
+    'name': 'Uploads',
     'imageURL':
         'https://firebasestorage.googleapis.com/v0/b/dyzr-proyect.appspot.com/o/user%2Frock.jpg?alt=media&token=a0ea19c9-267d-4ea6-9f2d-45e79f537793',
-    'artist': 'root',
+    'artist': '',
   },
 ];
