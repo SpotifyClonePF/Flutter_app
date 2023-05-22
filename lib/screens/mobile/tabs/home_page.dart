@@ -20,6 +20,10 @@ class _HomeState extends State<Home> {
     Navigator.pushNamed(context, '/privacy');
   }
 
+  void goToVoice(){
+    Navigator.pushNamed(context, '/voice');
+  }
+
   Future<void> showMyDialog() async {
     return showDialog<void>(
       context: context,
@@ -423,7 +427,6 @@ builder: (context) => const ProfileMobile(),
                             children: [
                               GestureDetector(
                                 onTap: () {
-//Añadir a la playlist
                                   print("Playlist ${index + 1}");
                                 },
                                 child: Container(

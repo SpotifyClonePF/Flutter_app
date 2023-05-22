@@ -40,6 +40,8 @@ class _SongPageState extends State<SongPage> {
         position = newPosition;
       });
     });
+
+    audioPlayer.play(widget.song.id);
   }
 
   Future setAudio() async {

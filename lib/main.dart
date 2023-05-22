@@ -111,6 +111,7 @@ class _MyAppState extends State<MyApp> {
     '/appearance': (context) => const Appearance(),
     '/playlists_page': (context) => const PlaylistsPage(),
     '/privacy': (context) => const PrivacyPolicyPage(),
+    //'/voice' : (context) => const VoicePage(),
   };
 
   @override

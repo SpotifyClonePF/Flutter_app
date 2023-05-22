@@ -1,14 +1,16 @@
 import 'package:Dyzr/models/data.dart';
 import 'package:Dyzr/models/play_mobile.dart';
 import 'package:Dyzr/screens/mobile/tabs/search_page.dart';
+import 'package:Dyzr/screens/routes.dart';
 import 'package:Dyzr/styles/colors.dart';
+import 'package:Dyzr/voice.dart';
 import 'package:flutter/material.dart';
 import 'tabs/home_page.dart';
 import 'tabs/your_space_page.dart';
 import 'tabs/upload_page.dart';
 
 class HomeMobilePage extends StatefulWidget {
-  const HomeMobilePage({super.key});
+  const HomeMobilePage({Key? key}) : super(key: key);
 
   @override
   State<HomeMobilePage> createState() => _HomeMobilePageState();
@@ -16,6 +18,7 @@ class HomeMobilePage extends StatefulWidget {
 
 class _HomeMobilePageState extends State<HomeMobilePage> {
   int selectedIndex = 0;
+  bool variableColor = true;
 
   final List<Widget> pages = [
     const Home(),
@@ -62,7 +65,8 @@ class _HomeMobilePageState extends State<HomeMobilePage> {
                   ),
                   Container(
                     padding: const EdgeInsets.all(12),
-                    margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10, top: 5),
+                    margin: const EdgeInsets.only(
+                        left: 10, right: 10, bottom: 10, top: 5),
                     decoration: BoxDecoration(
                       color: MyColors.lightBlack.withAlpha(505),
                       borderRadius: const BorderRadius.all(Radius.circular(20)),
@@ -71,7 +75,7 @@ class _HomeMobilePageState extends State<HomeMobilePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         ...List.generate(
-                          icons.length,
+                          2, // Primeros dos elementos del menú
                           (index) => GestureDetector(
                             onTap: () {
                               if (index != selectedIndex) {
@@ -94,6 +98,40 @@ class _HomeMobilePageState extends State<HomeMobilePage> {
                                       icons[index],
                                       size: 30,
                                       color: index == selectedIndex
+                                          ? MyColors.white
+                                          : Colors.grey,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SpeechToTextWidget(),
+                        ...List.generate(
+                          2, // Últimos dos elementos del menú
+                          (index) => GestureDetector(
+                            onTap: () {
+                              if (index + 2 != selectedIndex) {
+                                setState(() {
+                                  selectedIndex = index + 2;
+                                });
+                              }
+                            },
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                AnimatedBar(
+                                  isActive: index + 2 == selectedIndex,
+                                ),
+                                Flexible(
+                                  child: SizedBox(
+                                    height: 36,
+                                    width: 50,
+                                    child: Icon(
+                                      icons[index + 2],
+                                      size: 30,
+                                      color: index + 2 == selectedIndex
                                           ? MyColors.white
                                           : Colors.grey,
                                     ),
