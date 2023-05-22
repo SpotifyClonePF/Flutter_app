@@ -3,7 +3,7 @@ import 'package:Dyzr/models/play_mobile.dart';
 import 'package:Dyzr/screens/mobile/tabs/search_page.dart';
 import 'package:Dyzr/screens/routes.dart';
 import 'package:Dyzr/styles/colors.dart';
-import 'package:Dyzr/voice.dart';
+import 'package:Dyzr/widgets/voice_widget.dart';
 import 'package:flutter/material.dart';
 import 'tabs/home_page.dart';
 import 'tabs/your_space_page.dart';

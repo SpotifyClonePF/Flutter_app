@@ -8,4 +8,4 @@ export 'package:Dyzr/screens/mobile/profile_page.dart';
 export 'package:Dyzr/screens/mobile/appearance_page.dart';
 export 'package:Dyzr/screens/mobile/playlists_page.dart';
 export 'package:Dyzr/privacy_police_page.dart';
-//export 'package:Dyzr/voice.dart';
+//export 'package:Dyzr/voice_widget.dart';
