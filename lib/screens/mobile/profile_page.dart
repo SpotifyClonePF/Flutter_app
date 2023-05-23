@@ -927,10 +927,12 @@ builder: (context) => const ProfileMobile(),
                           children: [
                             SingleChildScrollView(
                               physics: const BouncingScrollPhysics(
-                                  decelerationRate: ScrollDecelerationRate.fast),
+                                  decelerationRate:
+                                      ScrollDecelerationRate.fast),
                               scrollDirection: Axis.horizontal,
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 20),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 20),
                                 child: Row(
                                   children: [
                                     GestureDetector(

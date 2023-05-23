@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:file_picker/file_picker.dart';
 
 class Upload extends StatefulWidget {
   const Upload({Key? key}) : super(key: key);
@@ -15,6 +16,7 @@ class Upload extends StatefulWidget {
 
 class _UploadState extends State<Upload> {
   File? image;
+  File? music;
   Future _pickImageFromGallery() async {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -23,6 +25,23 @@ class _UploadState extends State<Upload> {
       setState(() => this.image = imageTemporary);
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
+    }
+  }
+
+  void getMusicFile() async {
+    try {
+      final result = await FilePicker.platform.pickFiles(
+        type: FileType.audio,
+        allowMultiple: false,
+      );
+
+      if (result != null && result.files.isNotEmpty) {
+        PlatformFile file = result.files.first;
+        final audioTemporary = File(file.path!);
+        setState(() => this.music = audioTemporary);
+      }
+    } catch (e) {
+      print('Failed to pick and save music file: $e');
     }
   }
 
@@ -112,7 +131,7 @@ class _UploadState extends State<Upload> {
                           ),
                           child: GestureDetector(
                             onTap: () {
-                              setState(() async{
+                              setState(() async {
                                 await _pickImageFromGallery();
                                 Navigator.of(context).pop();
                                 _showMyDialog();
@@ -152,11 +171,11 @@ class _UploadState extends State<Upload> {
 
                   /// Upload song button
                   Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 50, vertical: 10),
                     child: InkWell(
                       onTap: () {
-                        _dialogFuture();
+                        getMusicFile();
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -268,7 +287,7 @@ class _UploadState extends State<Upload> {
                       ),
                     ),
                     onPressed: () {
-                      _dialogFuture();
+                      getMusicFile();
                     },
                   ),
                 ),
