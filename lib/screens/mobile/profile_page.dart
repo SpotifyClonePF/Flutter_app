@@ -23,14 +23,19 @@ class _ProfileMobileState extends State<ProfileMobile> {
     Navigator.pushReplacementNamed(context, '/');
   }
 
+  Future gotoPagina() async {
+    await firebaseservice.deleteImage();
+    await firebaseservice.insertImage(this.image);
+    Navigator.of(context).pop();
+    await Navigator.pushReplacementNamed(context, '/profileMobile');
+  }
+
   Future _pickImageFromGallery() async {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (image == null) return;
       final imageTemporary = File(image.path);
       setState(() => this.image = imageTemporary);
-      firebaseservice.deleteImage();
-      firebaseservice.insertImage(this.image);
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
     }
@@ -318,7 +323,9 @@ class _ProfileMobileState extends State<ProfileMobile> {
 
               /// Check button
               IconButton(
-                onPressed: () {},
+                onPressed: () async {
+                  await gotoPagina();
+                },
                 icon: const Icon(
                   Icons.check,
                   color: Colors.white,
@@ -353,7 +360,9 @@ class _ProfileMobileState extends State<ProfileMobile> {
                         color: MyColors.white.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(50),
                         image: DecorationImage(
-                          image: NetworkImage(firebaseservice.userimg),
+                          image: image != null
+                              ? Image.file(image!).image
+                              : Image.network(firebaseservice.userimg).image,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -374,7 +383,13 @@ class _ProfileMobileState extends State<ProfileMobile> {
                       ),
                     ),
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          _pickImageFromGallery();
+                        });
+                        Navigator.of(context).pop();
+                        showMyDialog();
+                      },
                       child: const Text(
                         'Change Image',
                         style: TextStyle(

@@ -403,7 +403,7 @@ Future<String> _getsavepath(String nombre) async {
 
 Future deleteImage() async {
   final storage = FirebaseStorage.instance;
-  final reference = storage.ref().child('haojie/' + emailUser + ".png");
+  final reference = storage.ref().child('user/' + emailUser + ".png");
   try {
     await reference.delete();
     print('deleted');
@@ -414,9 +414,12 @@ Future deleteImage() async {
 
 Future insertImage(File? image) async {
   final storage = FirebaseStorage.instance;
-  final reference = storage.ref().child('haojie/' + emailUser + ".png");
+  final reference = storage.ref().child('user/' + emailUser + ".png");
   try {
     await reference.putFile(image!);
+    nameUser = await getPeople(emailUser);
+    await getPlayList();
+    await getImageProfile(emailUser);
     print('updated');
   } catch (e) {
     print('no updated$e');
