@@ -30,91 +30,94 @@ class _HomeState extends State<Home> {
       barrierDismissible: true,
       barrierColor: Colors.black.withOpacity(0.7),
       builder: (BuildContext context) {
-        return AlertDialog(
-          insetPadding: const EdgeInsets.all(0),
-          backgroundColor: MyColors.darkGray,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          content: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(
-                decelerationRate: ScrollDecelerationRate.normal),
-            child: ListBody(
-              children: <Widget>[
-                /// Information text
-                const Center(
-                  child: Text(
-                    'Information',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 26,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                /// Logo
-                const Image(
-                  image: AssetImage('assets/icons/logo_no_fondo.png'),
-                  width: 110,
-                  height: 110,
-                ),
-                /// Version
-                Center(
-                  child: RichText(
-                    text: const TextSpan(
+        return BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+          child: AlertDialog(
+            insetPadding: const EdgeInsets.all(0),
+            backgroundColor: MyColors.darkGray.withOpacity(0.8),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            content: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(
+                  decelerationRate: ScrollDecelerationRate.normal),
+              child: ListBody(
+                children: <Widget>[
+                  /// Information text
+                  const Center(
+                    child: Text(
+                      'Information',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 16,
+                        fontSize: 26,
                         fontWeight: FontWeight.w600,
                       ),
-                      children: [
-                        TextSpan(text: 'Version '),
-                        TextSpan(
-                          text: '1.0.0',
-                          style: TextStyle(
-                            color: MyColors.mainGreen,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  /// Logo
+                  const Image(
+                    image: AssetImage('assets/icons/logo_no_fondo.png'),
+                    width: 110,
+                    height: 110,
+                  ),
+                  /// Version
+                  Center(
+                    child: RichText(
+                      text: const TextSpan(
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        children: [
+                          TextSpan(text: 'Version '),
+                          TextSpan(
+                            text: '1.0.0',
+                            style: TextStyle(
+                              color: MyColors.mainGreen,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  /// Terms and Conditions
+                  const SizedBox(height: 40),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      goToPrivacy();
+                    },
+                    child: Column(
+                      children: const [
+                        Center(
+                          child: Text(
+                            'Terms and Conditions',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        /// Privacy Policy
+                        Center(
+                          child: Text(
+                            'Privacy Policy',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
                       ],
                     ),
-                  ),
-                ),
-                /// Terms and Conditions
-                const SizedBox(height: 40),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    goToPrivacy();
-                  },
-                  child: Column(
-                    children: const [
-                      Center(
-                        child: Text(
-                          'Terms and Conditions',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      /// Privacy Policy
-                      Center(
-                        child: Text(
-                          'Privacy Policy',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
+                  )
+                ],
+              ),
             ),
           ),
         );
