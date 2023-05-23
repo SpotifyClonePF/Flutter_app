@@ -26,7 +26,6 @@ class _ProfileMobileState extends State<ProfileMobile> {
   Future gotoPagina() async {
     await firebaseservice.deleteImage();
     await firebaseservice.insertImage(this.image);
-    Navigator.of(context).pop();
     await Navigator.pushReplacementNamed(context, '/profileMobile');
   }
 
@@ -324,6 +323,7 @@ class _ProfileMobileState extends State<ProfileMobile> {
               /// Check button
               IconButton(
                 onPressed: () async {
+                  Navigator.of(context).pop();
                   await gotoPagina();
                 },
                 icon: const Icon(
@@ -384,11 +384,11 @@ class _ProfileMobileState extends State<ProfileMobile> {
                     ),
                     child: TextButton(
                       onPressed: () {
-                        setState(() {
-                          _pickImageFromGallery();
+                        setState(() async {
+                          await _pickImageFromGallery();
+                          Navigator.of(context).pop();
+                          showMyDialog();
                         });
-                        Navigator.of(context).pop();
-                        showMyDialog();
                       },
                       child: const Text(
                         'Change Image',
