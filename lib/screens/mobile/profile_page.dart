@@ -15,14 +15,12 @@ class ProfileMobile extends StatefulWidget {
 }
 
 class _ProfileMobileState extends State<ProfileMobile> {
-
   File? image;
   String playlistName = '';
   String searchText = '';
 
   void goToWelcome() {
-    Navigator.pushReplacementNamed(
-        context, '/');
+    Navigator.pushReplacementNamed(context, '/');
   }
 
   Future _pickImageFromGallery() async {
@@ -31,10 +29,13 @@ class _ProfileMobileState extends State<ProfileMobile> {
       if (image == null) return;
       final imageTemporary = File(image.path);
       setState(() => this.image = imageTemporary);
+      firebaseservice.deleteImage();
+      firebaseservice.insertImage(this.image);
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
     }
   }
+
   Future<void> addSongToPlaylist() async {
     return showDialog<void>(
       context: context,
@@ -70,6 +71,7 @@ class _ProfileMobileState extends State<ProfileMobile> {
                     ),
                   ),
                   const SizedBox(height: 30),
+
                   /// Playlists
                   SizedBox(
                     height: 350,
@@ -79,7 +81,7 @@ class _ProfileMobileState extends State<ProfileMobile> {
                         physics: const BouncingScrollPhysics(
                             decelerationRate: ScrollDecelerationRate.normal),
                         gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           crossAxisSpacing: 10,
                           mainAxisSpacing: 10,
@@ -91,7 +93,7 @@ class _ProfileMobileState extends State<ProfileMobile> {
                           if (index == 12) {
                             return const SizedBox(
                                 height:
-                                0); // 70 sin el player y 160 si esta el player
+                                    0); // 70 sin el player y 160 si esta el player
                           }
                           return Column(
                             children: [
@@ -107,7 +109,8 @@ class _ProfileMobileState extends State<ProfileMobile> {
                                     color: MyColors.white.withOpacity(0.2),
                                     borderRadius: BorderRadius.circular(20),
                                     image: const DecorationImage(
-                                      image: AssetImage('assets/icons/lofi.png'),
+                                      image:
+                                          AssetImage('assets/icons/lofi.png'),
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -192,22 +195,22 @@ class _ProfileMobileState extends State<ProfileMobile> {
                           },
                           child: image != null
                               ? ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Image.file(
-                              image!,
-                              fit: BoxFit.cover,
-                              width: 90,
-                              height: 150,
-                            ),
-                          )
+                                  borderRadius: BorderRadius.circular(20),
+                                  child: Image.file(
+                                    image!,
+                                    fit: BoxFit.cover,
+                                    width: 90,
+                                    height: 150,
+                                  ),
+                                )
                               : const Padding(
-                            padding: EdgeInsets.all(40),
-                            child: Icon(
-                              Icons.add_photo_alternate,
-                              color: Colors.white,
-                              size: 50,
-                            ),
-                          ),
+                                  padding: EdgeInsets.all(40),
+                                  child: Icon(
+                                    Icons.add_photo_alternate,
+                                    color: Colors.white,
+                                    size: 50,
+                                  ),
+                                ),
                         ),
                       ),
                     ),
@@ -254,7 +257,7 @@ class _ProfileMobileState extends State<ProfileMobile> {
               actions: <Widget>[
                 Padding(
                   padding:
-                  const EdgeInsets.only(bottom: 20, left: 20, right: 20),
+                      const EdgeInsets.only(bottom: 20, left: 20, right: 20),
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.9),
@@ -578,7 +581,7 @@ builder: (context) => const ProfileMobile(),
 
                   /// View album
                   InkWell(
-                    onTap: () { },
+                    onTap: () {},
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
@@ -903,7 +906,8 @@ builder: (context) => const ProfileMobile(),
                       Column(
                         children: [
                           SingleChildScrollView(
-                            physics: const BouncingScrollPhysics(decelerationRate: ScrollDecelerationRate.fast),
+                            physics: const BouncingScrollPhysics(
+                                decelerationRate: ScrollDecelerationRate.fast),
                             scrollDirection: Axis.horizontal,
                             child: Padding(
                               padding: const EdgeInsets.symmetric(vertical: 20),
@@ -914,7 +918,8 @@ builder: (context) => const ProfileMobile(),
                                       createPlaylistPage();
                                     },
                                     child: Padding(
-                                      padding: const EdgeInsets.only(bottom: 20),
+                                      padding:
+                                          const EdgeInsets.only(bottom: 20),
                                       child: SizedBox(
                                         width: 140,
                                         child: Column(
@@ -923,13 +928,17 @@ builder: (context) => const ProfileMobile(),
                                               width: 100,
                                               height: 100,
                                               decoration: BoxDecoration(
-                                                color: Colors.grey, // Color del contenedor "Add Playlist"
-                                                borderRadius: BorderRadius.circular(15),
+                                                color: Colors
+                                                    .grey, // Color del contenedor "Add Playlist"
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
                                               ),
                                               child: const Icon(
-                                                Icons.add, // Ícono para "Add Playlist"
+                                                Icons
+                                                    .add, // Ícono para "Add Playlist"
                                                 size: 50,
-                                                color: Colors.white, // Color del ícono
+                                                color: Colors
+                                                    .white, // Color del ícono
                                               ),
                                             ),
                                             const SizedBox(height: 10),
@@ -960,11 +969,14 @@ builder: (context) => const ProfileMobile(),
                                               height: 100,
                                               decoration: BoxDecoration(
                                                 image: DecorationImage(
-                                                  image: NetworkImage(playlist[index]['imageURL']),
+                                                  image: NetworkImage(
+                                                      playlist[index]
+                                                          ['imageURL']),
                                                   fit: BoxFit.cover,
                                                 ),
                                                 color: Colors.green,
-                                                borderRadius: BorderRadius.circular(15),
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
                                               ),
                                             ),
                                             const SizedBox(height: 10),

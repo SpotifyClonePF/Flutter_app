@@ -7,6 +7,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
+import 'dart:io';
 
 Future<void> myFunction() async {
   final response = await http.post(
@@ -398,4 +399,26 @@ Future<String> _getsavepath(String nombre) async {
     return '${appDocumentsDirectory.path}/$nombre';
   }
   return "";
+}
+
+Future deleteImage() async {
+  final storage = FirebaseStorage.instance;
+  final reference = storage.ref().child('haojie/' + emailUser + ".png");
+  try {
+    await reference.delete();
+    print('deleted');
+  } catch (e) {
+    print('no deleted：$e');
+  }
+}
+
+Future insertImage(File? image) async {
+  final storage = FirebaseStorage.instance;
+  final reference = storage.ref().child('haojie/' + emailUser + ".png");
+  try {
+    await reference.putFile(image!);
+    print('updated');
+  } catch (e) {
+    print('no updated$e');
+  }
 }
