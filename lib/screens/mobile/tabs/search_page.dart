@@ -448,10 +448,8 @@ builder: (context) => const ProfileMobile(),
                               }
                             }
                             return Offstage(
-                              offstage: showPlaceholder,
-                              child: Image.asset(
-                                'assets/images/playlist1.jpg',
-                                fit: BoxFit.cover,
+                              offstage: !showPlaceholder,
+                              child: const SizedBox(
                                 width: 55,
                                 height: 55,
                               ),
