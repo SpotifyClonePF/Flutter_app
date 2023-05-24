@@ -520,7 +520,12 @@ class LoginState extends State<Login> {
                                 Column(
                                   children: [
                                     InkWell(
-                                      onTap: () => signInWithGoogle(context),
+                                      onTap: () async {
+                                        if (await signInWithGoogle()) {
+                                          Navigator.pushReplacementNamed(
+                                              context, '/home');
+                                        }
+                                      },
                                       child: Container(
                                         padding: const EdgeInsets.all(13),
                                         decoration: const BoxDecoration(

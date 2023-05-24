@@ -358,28 +358,21 @@ Future<List<String>> getPlaylistName() async {
   return playlists;
 }
 
-Future<void> signInWithGoogle(BuildContext context) async {
+Future<bool> signInWithGoogle() async {
   try {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
     final GoogleSignInAuthentication googleAuth =
         await googleUser!.authentication;
     final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
-    await FirebaseAuth.instance.signInWithCredential(credential);
-
-    // Mostrar SnackBar de éxito
-    const snackBar = SnackBar(content: Text('Sesión iniciada correctamente'));
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
-    Navigator.pushReplacementNamed(context, '/home');
+    UserCredential userCrendential =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+    print(userCrendential.user);
+    return true;
   } catch (e) {
     print('Error signing in with Google: $e');
-
-    // Mostrar SnackBar de error
-    const snackBar =
-        SnackBar(content: Text('Error al iniciar sesión con Google'));
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
+  return false;
 }
 
 // obtener url descargar de music
