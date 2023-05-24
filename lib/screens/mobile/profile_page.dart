@@ -18,12 +18,16 @@ class _ProfileMobileState extends State<ProfileMobile> {
   File? image;
   String playlistName = '';
   String searchText = '';
-
+  final TextEditingController _usernameController = TextEditingController();
   void goToWelcome() {
     Navigator.pushReplacementNamed(context, '/');
   }
 
   Future gotoPagina() async {
+    String newusername = _usernameController.text;
+    if (!newusername.isEmpty) {
+      await firebaseservice.updateName(newusername);
+    }
     await firebaseservice.deleteImage();
     await firebaseservice.insertImage(this.image);
     await Navigator.pushReplacementNamed(context, '/profileMobile');
@@ -405,6 +409,7 @@ class _ProfileMobileState extends State<ProfileMobile> {
 
                 /// Name textfield
                 TextField(
+                  controller: _usernameController,
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,
@@ -444,7 +449,19 @@ class _ProfileMobileState extends State<ProfileMobile> {
                     color: MyColors.mainGreen,
                   ),
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      if (await firebaseservice.passwordReset()) {
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return const AlertDialog(
+                              content: Text('ok'),
+                            );
+                          },
+                        );
+                        Navigator.of(context).pop();
+                      }
+                    },
                     child: const Text(
                       'Change Password',
                       style: TextStyle(
@@ -927,10 +944,12 @@ builder: (context) => const ProfileMobile(),
                           children: [
                             SingleChildScrollView(
                               physics: const BouncingScrollPhysics(
-                                  decelerationRate: ScrollDecelerationRate.fast),
+                                  decelerationRate:
+                                      ScrollDecelerationRate.fast),
                               scrollDirection: Axis.horizontal,
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 20),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 20),
                                 child: Row(
                                   children: [
                                     GestureDetector(

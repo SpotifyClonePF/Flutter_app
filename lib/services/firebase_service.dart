@@ -401,6 +401,18 @@ Future<String> _getsavepath(String nombre) async {
   return "";
 }
 
+Future updateName(String newName) async {
+  try {
+    DocumentReference documentRef =
+        FirebaseFirestore.instance.collection('user').doc(emailUser);
+    await documentRef.update({'name': newName});
+    nameUser = await getPeople(emailUser);
+    print('update');
+  } catch (e) {
+    print('no update: $e');
+  }
+}
+
 Future deleteImage() async {
   final storage = FirebaseStorage.instance;
   final reference = storage.ref().child('user/' + emailUser + ".png");
@@ -417,11 +429,31 @@ Future insertImage(File? image) async {
   final reference = storage.ref().child('user/' + emailUser + ".png");
   try {
     await reference.putFile(image!);
-    nameUser = await getPeople(emailUser);
-    await getPlayList();
+    //await getPlayList();
     await getImageProfile(emailUser);
     print('updated');
   } catch (e) {
     print('no updated$e');
+  }
+}
+
+Future<bool> passwordReset() async {
+  try {
+    await FirebaseAuth.instance.sendPasswordResetEmail(email: emailUser);
+    return true;
+  } on FirebaseAuthException catch (e) {
+    print(e);
+  }
+  return false;
+}
+
+Future uploardMusic(File? music, String musicName, String artist) async {
+  final storage = FirebaseStorage.instance;
+  final reference = storage.ref().child('music/' + musicName + ".mp3");
+  try {
+    await reference.putFile(music!);
+    print('upload');
+  } catch (e) {
+    print('no upload$e');
   }
 }
