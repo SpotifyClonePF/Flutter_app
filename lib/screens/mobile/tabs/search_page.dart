@@ -3,6 +3,7 @@ import 'package:Dyzr/models/data.dart';
 import 'package:Dyzr/screens/mobile/song_page.dart';
 import 'package:Dyzr/styles/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class Search extends StatefulWidget {
   const Search({Key? key}) : super(key: key);
@@ -146,7 +147,10 @@ class _SearchState extends State<Search> {
                             bottomRight: Radius.circular(20.0),
                           ),
                           image: DecorationImage(
-                            image: NetworkImage(song.imageURL),
+                            image: song.imageURL.isNotEmpty
+                                ? Image.network(song.imageURL).image
+                                : Image.asset('assets/images/playlist1.jpg')
+                                    .image,
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -337,6 +341,8 @@ builder: (context) => const ProfileMobile(),
 
   @override
   Widget build(BuildContext context) {
+    bool showPlaceholder = true;
+
     return Padding(
       padding: const EdgeInsets.all(15),
       child: Scaffold(
@@ -421,12 +427,46 @@ builder: (context) => const ProfileMobile(),
                 },
                 child: ListTile(
                   dense: true,
-                  leading: Image.network(
-                    song.imageURL,
-                    fit: BoxFit.cover,
-                    width: 55,
-                    height: 55,
-                  ),
+                  leading: song.imageURL.isNotEmpty
+                      ? FutureBuilder<http.Response>(
+                          future: http.head(Uri.parse(song.imageURL)),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<http.Response> snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.done) {
+                              if (snapshot.hasData &&
+                                  snapshot.data?.statusCode == 200) {
+                                showPlaceholder = false;
+                                return Image.network(
+                                  song.imageURL,
+                                  fit: BoxFit.cover,
+                                  width: 55,
+                                  height: 55,
+                                );
+                              } else {
+                                showPlaceholder = true;
+                              }
+                            }
+                            return Offstage(
+                              offstage: showPlaceholder,
+                              child: Image.asset(
+                                'assets/images/playlist1.jpg',
+                                fit: BoxFit.cover,
+                                width: 55,
+                                height: 55,
+                              ),
+                            );
+                          },
+                        )
+                      : Offstage(
+                          offstage: showPlaceholder,
+                          child: Image.asset(
+                            'assets/images/playlist1.jpg',
+                            fit: BoxFit.cover,
+                            width: 55,
+                            height: 55,
+                          ),
+                        ),
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
