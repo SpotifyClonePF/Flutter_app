@@ -129,7 +129,7 @@ Future<void> getImageProfile(String username) async {
   print(username + "*********************************************************");
   try {
     String imageUrl =
-    await FirebaseStorage.instance.ref().child(ImgData).getDownloadURL();
+        await FirebaseStorage.instance.ref().child(ImgData).getDownloadURL();
     userimg = imageUrl;
   } catch (e) {}
 }
@@ -139,7 +139,7 @@ Future<bool> existUser(String name, String email, String password) async {
   CollectionReference collectionReferenceUser = db.collection('user');
   try {
     QuerySnapshot queryEmail =
-    await collectionReferenceUser.where('email', isEqualTo: email).get();
+        await collectionReferenceUser.where('email', isEqualTo: email).get();
     if (queryEmail.docs.isNotEmpty == true) {
       return false;
     }
@@ -194,7 +194,7 @@ Future<String> getImageOfFile(String filename) async {
   print(ImgData);
   print(filename + "*********************************************************");
   String imageUrl =
-  await FirebaseStorage.instance.ref().child(ImgData).getDownloadURL();
+      await FirebaseStorage.instance.ref().child(ImgData).getDownloadURL();
 
   return imageUrl;
 }
@@ -202,7 +202,7 @@ Future<String> getImageOfFile(String filename) async {
 // obetener lista de storage
 Future<List<Song>> getFilesList() async {
   ListResult result =
-  await FirebaseStorage.instance.ref().child('music').listAll();
+      await FirebaseStorage.instance.ref().child('music').listAll();
 
   List<Song> list = [];
   for (var prefix in result.prefixes) {
@@ -222,7 +222,7 @@ Future<List<Song>> getFilesList() async {
         id: Url,
         title: await getInformationOfFile(name, "title"),
         imageURL:
-        await getImageOfFile(await getInformationOfFile(name, "title")),
+            await getImageOfFile(await getInformationOfFile(name, "title")),
         artist: await getInformationOfFile(name, "artist"),
         album: await getInformationOfFile(name, "album"),
         duration: await getAudioDuration(Url),
@@ -233,7 +233,7 @@ Future<List<Song>> getFilesList() async {
         id: Url,
         title: "lol",
         imageURL:
-        "https://firebasestorage.googleapis.com/v0/b/dyzr-proyect.appspot.com/o/user%2Frock.jpg?alt=media&token=a0ea19c9-267d-4ea6-9f2d-45e79f537793",
+            "https://firebasestorage.googleapis.com/v0/b/dyzr-proyect.appspot.com/o/user%2Frock.jpg?alt=media&token=a0ea19c9-267d-4ea6-9f2d-45e79f537793",
         artist: "lol",
         album: "lol",
         duration: "lol",
@@ -253,7 +253,7 @@ Future<String> getImageOfPlayList(String listname) async {
   print(ImgData);
   print(listname + "*********************************************************");
   String imageUrl =
-  await FirebaseStorage.instance.ref().child(ImgData).getDownloadURL();
+      await FirebaseStorage.instance.ref().child(ImgData).getDownloadURL();
 
   return imageUrl;
 }
@@ -301,7 +301,7 @@ Future<bool> createPlayList(String name) async {
   CollectionReference collectionReferenceUser = db.collection(emailUser);
   try {
     DocumentSnapshot documentSnapshot =
-    await collectionReferenceUser.doc(name).get();
+        await collectionReferenceUser.doc(name).get();
     if (documentSnapshot.exists) {
       return false;
     }
@@ -316,7 +316,7 @@ Future<bool> playListAddSong(String name, String nameSong) async {
   CollectionReference collectionReferenceUser = db.collection(emailUser);
   try {
     DocumentSnapshot<Object?> querySnapshot =
-    await collectionReferenceUser.doc(name).get();
+        await collectionReferenceUser.doc(name).get();
     Map<String, dynamic>? data = querySnapshot.data() as Map<String, dynamic>?;
     if (data!.containsKey(nameSong)) {
       return false;
@@ -335,7 +335,7 @@ Future<List<String>> getFieldKeysByName(String playlistName) async {
   List<String> fieldKeys = [];
   try {
     DocumentSnapshot documentSnapshot =
-    await collectionReferenceUser.doc(playlistName).get();
+        await collectionReferenceUser.doc(playlistName).get();
     Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
     fieldKeys = data.keys.toList();
   } catch (e) {
@@ -362,7 +362,7 @@ Future<void> signInWithGoogle(BuildContext context) async {
   try {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
     final GoogleSignInAuthentication googleAuth =
-    await googleUser!.authentication;
+        await googleUser!.authentication;
     final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
     await FirebaseAuth.instance.signInWithCredential(credential);
@@ -377,7 +377,7 @@ Future<void> signInWithGoogle(BuildContext context) async {
 
     // Mostrar SnackBar de error
     const snackBar =
-    SnackBar(content: Text('Error al iniciar sesión con Google'));
+        SnackBar(content: Text('Error al iniciar sesión con Google'));
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
@@ -404,7 +404,7 @@ Future<String> _getsavepath(String nombre) async {
 Future updateName(String newName) async {
   try {
     DocumentReference documentRef =
-    FirebaseFirestore.instance.collection('user').doc(emailUser);
+        FirebaseFirestore.instance.collection('user').doc(emailUser);
     await documentRef.update({'name': newName});
     nameUser = await getPeople(emailUser);
     print('update');
@@ -470,7 +470,7 @@ Future uploadMusic(File? music, String musicName, String artist) async {
   String nameCompleta = musicName + ".mp3";
   try {
     CollectionReference collectionRef =
-    FirebaseFirestore.instance.collection('music');
+        FirebaseFirestore.instance.collection('music');
 
     await collectionRef.doc(nameCompleta).set({
       'title': musicName,
@@ -502,13 +502,12 @@ Future uploadMusic(File? music, String musicName, String artist) async {
     exx.add(song);
   } catch (e) {
     Song song = Song(
-      id: "lol",
-      title: "lol",
-      imageURL:
-      "https://firebasestorage.googleapis.com/v0/b/dyzr-proyect.appspot.com/o/user%2Frock.jpg?alt=media&token=a0ea19c9-267d-4ea6-9f2d-45e79f537793",
-      artist: "lol",
-      album: "lol",
-      duration: "lol",
+      id: "none",
+      title: "Title unknown",
+      imageURL: "",
+      artist: "Artist unknown",
+      album: "Album unknown",
+      duration: "00:00",
     );
     exx.add(song);
   }

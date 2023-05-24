@@ -50,6 +50,7 @@ class _SearchState extends State<Search> {
                     ),
                   ),
                   const SizedBox(height: 30),
+
                   /// Playlists
                   SizedBox(
                     height: 350,
@@ -59,7 +60,7 @@ class _SearchState extends State<Search> {
                         physics: const BouncingScrollPhysics(
                             decelerationRate: ScrollDecelerationRate.normal),
                         gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           crossAxisSpacing: 10,
                           mainAxisSpacing: 10,
@@ -71,12 +72,12 @@ class _SearchState extends State<Search> {
                           if (index == 12) {
                             return const SizedBox(
                                 height:
-                                0); // 70 sin el player y 160 si esta el player
+                                    0); // 70 sin el player y 160 si esta el player
                           }
                           return Column(
                             children: [
                               GestureDetector(
-                                onTap: () { },
+                                onTap: () {},
                                 child: Container(
                                   height: 130,
                                   width: 130,
@@ -84,7 +85,8 @@ class _SearchState extends State<Search> {
                                     color: MyColors.white.withOpacity(0.2),
                                     borderRadius: BorderRadius.circular(20),
                                     image: const DecorationImage(
-                                      image: AssetImage('assets/icons/lofi.png'),
+                                      image:
+                                          AssetImage('assets/icons/lofi.png'),
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -144,7 +146,10 @@ class _SearchState extends State<Search> {
                             bottomRight: Radius.circular(20.0),
                           ),
                           image: DecorationImage(
-                            image: NetworkImage(song.imageURL),
+                            image: song.imageURL != null
+                                ? Image.asset('assets/images/playlist1.jpg')
+                                    .image
+                                : Image.network(song.imageURL).image,
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -373,7 +378,7 @@ builder: (context) => const ProfileMobile(),
           itemBuilder: (context, index) {
             if (index == _songs.length) {
               return const SizedBox(
-                  height: 160,
+                height: 160,
               ); // 70 sin el player y 160 si esta el player
             }
             final song = _songs[index];
