@@ -447,7 +447,7 @@ Future<bool> passwordReset() async {
   return false;
 }
 
-Future uploardMusicImage(File? image, String nameSong) async {
+Future uploadMusicImage(File? image, String nameSong) async {
   final storage = FirebaseStorage.instance;
   final reference = storage.ref().child('img/' + nameSong + ".PNG");
   try {
@@ -458,7 +458,7 @@ Future uploardMusicImage(File? image, String nameSong) async {
   }
 }
 
-Future uploardMusic(File? music, String musicName, String artist) async {
+Future uploadMusic(File? music, String musicName, String artist) async {
   final storage = FirebaseStorage.instance;
   final reference = storage.ref().child('music/' + musicName + ".mp3");
   try {

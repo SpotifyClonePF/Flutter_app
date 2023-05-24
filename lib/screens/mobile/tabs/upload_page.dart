@@ -152,6 +152,8 @@ class _UploadState extends State<Upload> {
                     child: InkWell(
                       onTap: () async {
                         await getMusicFile();
+                        Navigator.of(context).pop();
+                        _showMyDialog();
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -273,7 +275,7 @@ class _UploadState extends State<Upload> {
                     child: const Padding(
                       padding: EdgeInsets.all(5),
                       child: Text(
-                        'Uploade',
+                        'Upload',
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 20,
@@ -286,9 +288,21 @@ class _UploadState extends State<Upload> {
                           !nameSong.isEmpty &&
                           !nameArtist.isEmpty) {
                         if (image != null) {
-                          await uploardMusicImage(image, nameSong);
+                          await uploadMusicImage(image, nameSong);
                         }
-                        await uploardMusic(music, nameSong, nameArtist);
+                        await uploadMusic(music, nameSong, nameArtist);
+                        Navigator.of(context).pop();
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              'Please fill all the fields',
+                              style: TextStyle(
+                                fontSize: 20,
+                              ),
+                            ),
+                          ),
+                        );
                       }
                     },
                   ),
