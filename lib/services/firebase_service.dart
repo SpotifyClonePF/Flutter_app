@@ -233,7 +233,7 @@ Future<List<Song>> getFilesList() async {
         id: Url,
         title: "lol",
         imageURL:
-            "https://firebasestorage.googleapis.com/v0/b/dyzr-proyect.appspot.com/o/img%2FAnimals.png?alt=media&token=e085b8cc-36bf-4b2b-889e-9fff1d7aac35",
+            "https://firebasestorage.googleapis.com/v0/b/dyzr-proyect.appspot.com/o/user%2Frock.jpg?alt=media&token=a0ea19c9-267d-4ea6-9f2d-45e79f537793",
         artist: "lol",
         album: "lol",
         duration: "lol",
@@ -473,7 +473,7 @@ Future uploadMusic(File? music, String musicName, String artist) async {
         FirebaseFirestore.instance.collection('music');
 
     await collectionRef.doc(nameCompleta).set({
-      'name': musicName,
+      'title': musicName,
       'artist': artist,
       'album': 'pop',
       'duration': '04:30',
@@ -505,7 +505,7 @@ Future uploadMusic(File? music, String musicName, String artist) async {
       id: "lol",
       title: "lol",
       imageURL:
-          "https://firebasestorage.googleapis.com/v0/b/dyzr-proyect.appspot.com/o/img%2FAnimals.png?alt=media&token=e085b8cc-36bf-4b2b-889e-9fff1d7aac35",
+          "https://firebasestorage.googleapis.com/v0/b/dyzr-proyect.appspot.com/o/user%2Frock.jpg?alt=media&token=a0ea19c9-267d-4ea6-9f2d-45e79f537793",
       artist: "lol",
       album: "lol",
       duration: "lol",

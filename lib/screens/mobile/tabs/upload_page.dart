@@ -287,11 +287,11 @@ class _UploadState extends State<Upload> {
                       if (music != null &&
                           !nameSong.isEmpty &&
                           !nameArtist.isEmpty) {
+                        Navigator.of(context).pop();
                         if (image != null) {
                           await uploadMusicImage(image, nameSong);
                         }
                         await uploadMusic(music, nameSong, nameArtist);
-                        Navigator.of(context).pop();
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
