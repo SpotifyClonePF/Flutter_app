@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:Dyzr/models/data.dart';
 import 'package:Dyzr/models/play_mobile.dart';
 import 'package:Dyzr/screens/mobile/tabs/search_page.dart';
@@ -44,110 +46,122 @@ class _HomeMobilePageState extends State<HomeMobilePage> {
         onWillPop: () async {
           return false;
         },
-        child: Stack(
-          children: [
-            IndexedStack(
-              index: selectedIndex,
-              children: pages,
+        child: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/icons/fondo_dyzr.png"),
+              fit: BoxFit.cover,
+              opacity: 0.1,
             ),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Column(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: MusicWidget(
-                      imageUrl: "assets/icons/lofi.png",
-                      song: lofihiphopMusic[0],
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(12),
-                    margin: const EdgeInsets.only(
-                        left: 10, right: 10, bottom: 10, top: 5),
-                    decoration: BoxDecoration(
-                      color: MyColors.lightBlack.withAlpha(505),
-                      borderRadius: const BorderRadius.all(Radius.circular(20)),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        ...List.generate(
-                          2, // Primeros dos elementos del menú
-                          (index) => GestureDetector(
-                            onTap: () {
-                              if (index != selectedIndex) {
-                                setState(() {
-                                  selectedIndex = index;
-                                });
-                              }
-                            },
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                AnimatedBar(
-                                  isActive: index == selectedIndex,
-                                ),
-                                Flexible(
-                                  child: SizedBox(
-                                    height: 36,
-                                    width: 50,
-                                    child: Icon(
-                                      icons[index],
-                                      size: 30,
-                                      color: index == selectedIndex
-                                          ? MyColors.white
-                                          : Colors.grey,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+          ),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 40, sigmaY: 40),
+            child: Stack(
+              children: [
+                IndexedStack(
+                  index: selectedIndex,
+                  children: pages,
+                ),
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: MusicWidget(
+                          imageUrl: "assets/icons/lofi.png",
+                          song: lofihiphopMusic[0],
                         ),
-                        const SpeechToTextWidget(),
-                        ...List.generate(
-                          2, // Últimos dos elementos del menú
-                          (index) => GestureDetector(
-                            onTap: () {
-                              if (index + 2 != selectedIndex) {
-                                setState(() {
-                                  selectedIndex = index + 2;
-                                });
-                              }
-                            },
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                AnimatedBar(
-                                  isActive: index + 2 == selectedIndex,
-                                ),
-                                Flexible(
-                                  child: SizedBox(
-                                    height: 36,
-                                    width: 50,
-                                    child: Icon(
-                                      icons[index + 2],
-                                      size: 30,
-                                      color: index + 2 == selectedIndex
-                                          ? MyColors.white
-                                          : Colors.grey,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(12),
+                        margin: const EdgeInsets.only(
+                            left: 10, right: 10, bottom: 10, top: 5),
+                        decoration: BoxDecoration(
+                          color: MyColors.lightBlack.withAlpha(505),
+                          borderRadius: const BorderRadius.all(Radius.circular(20)),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            ...List.generate(
+                              2, // Primeros dos elementos del menú
+                              (index) => GestureDetector(
+                                onTap: () {
+                                  if (index != selectedIndex) {
+                                    setState(() {
+                                      selectedIndex = index;
+                                    });
+                                  }
+                                },
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    AnimatedBar(
+                                      isActive: index == selectedIndex,
                                     ),
-                                  ),
+                                    Flexible(
+                                      child: SizedBox(
+                                        height: 36,
+                                        width: 50,
+                                        child: Icon(
+                                          icons[index],
+                                          size: 30,
+                                          color: index == selectedIndex
+                                              ? MyColors.white
+                                              : Colors.grey,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ],
+                              ),
                             ),
-                          ),
-                        )
-                      ],
-                    ),
+                            const SpeechToTextWidget(),
+                            ...List.generate(
+                              2, // Últimos dos elementos del menú
+                              (index) => GestureDetector(
+                                onTap: () {
+                                  if (index + 2 != selectedIndex) {
+                                    setState(() {
+                                      selectedIndex = index + 2;
+                                    });
+                                  }
+                                },
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    AnimatedBar(
+                                      isActive: index + 2 == selectedIndex,
+                                    ),
+                                    Flexible(
+                                      child: SizedBox(
+                                        height: 36,
+                                        width: 50,
+                                        child: Icon(
+                                          icons[index + 2],
+                                          size: 30,
+                                          color: index + 2 == selectedIndex
+                                              ? MyColors.white
+                                              : Colors.grey,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

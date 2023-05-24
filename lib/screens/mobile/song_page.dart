@@ -8,10 +8,10 @@ class SongPage extends StatefulWidget {
   const SongPage({Key? key, required this.song}) : super(key: key);
 
   @override
-  State<SongPage> createState() => _SongPageState();
+  State<SongPage> createState() => SongPageState();
 }
 
-class _SongPageState extends State<SongPage> {
+class SongPageState extends State<SongPage> {
   final AudioPlayer audioPlayer = AudioPlayer();
   bool isPlaying = false;
   Duration duration = Duration.zero;

@@ -1,4 +1,4 @@
-import 'package:Dyzr/styles/colors.dart';
+import 'package:Dyzr/services/firebase_service.dart' as firebaseservice;
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
@@ -83,6 +83,14 @@ class SpeechToTextWidgetState extends State<SpeechToTextWidget> {
           print("No song found");
           flutterTts.speak("Sorry, I couldn't find the requested song.");
         }
+      } else if (_lastWords.contains("hola") || (_lastWords.contains("hi"))) {
+        print("Hi!!");
+        flutterTts.speak("Hi ${firebaseservice.nameUser}, how can I help you?");
+
+      } else if (_lastWords.contains("help") || (_lastWords.contains("ayuda") || (_lastWords.contains("commands")) || (_lastWords.contains("comandos")))) {
+        print("Commands");
+        flutterTts.speak("Available commands on version 1.0.0 are: play, hi and help.");
+
       } else {
         print("Invalid command");
         flutterTts.speak("Sorry, I don't understand you. Can you repeat?");
