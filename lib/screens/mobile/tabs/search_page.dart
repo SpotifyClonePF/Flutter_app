@@ -114,7 +114,7 @@ class _SearchState extends State<Search> {
     );
   }
 
-  Future<void> optionSongs() async {
+  Future<void> optionSongs(Song song) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: true,
@@ -138,49 +138,53 @@ class _SearchState extends State<Search> {
                       Container(
                         width: 90,
                         height: 90,
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.only(
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(20.0),
                             bottomRight: Radius.circular(20.0),
                           ),
                           image: DecorationImage(
-                            image: AssetImage('assets/images/img_1.jpg'),
+                            image: NetworkImage(song.imageURL),
                             fit: BoxFit.cover,
                           ),
                         ),
                       ),
                       Positioned(
                         bottom: 40,
-                        right: 25,
+                        right: 5,
                         child: Container(
+                          width: 80,
+                          height: 40,
                           padding: const EdgeInsets.symmetric(
                             vertical: 4,
-                            horizontal: 8,
+                            horizontal: 0,
                           ),
-                          child: const Text(
-                            'Battle Cry',
-                            style: TextStyle(
+                          child: Text(
+                            song.title,
+                            style: const TextStyle(
                               color: Colors.white,
                               fontSize: 20,
                               fontWeight: FontWeight.w600,
+                              overflow: TextOverflow.visible,
                             ),
                           ),
                         ),
                       ),
                       Positioned(
-                        bottom: 20,
+                        bottom: 5,
                         right: 5,
                         child: Container(
                           padding: const EdgeInsets.symmetric(
                             vertical: 4,
                             horizontal: 8,
                           ),
-                          child: const Text(
-                            'IMAGINE DRAGONS',
-                            style: TextStyle(
+                          child: Text(
+                            song.artist.toUpperCase(),
+                            style: const TextStyle(
                               color: MyColors.mainGreen,
                               fontSize: 12,
                               fontWeight: FontWeight.w800,
+                              overflow: TextOverflow.ellipsis,
                             ),
                           ),
                         ),
@@ -455,7 +459,7 @@ builder: (context) => const ProfileMobile(),
                       ),
                       InkWell(
                         onTap: () {
-                          optionSongs();
+                          optionSongs(song);
                         },
                         child: const Icon(
                           Icons.more_vert,
