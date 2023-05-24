@@ -282,7 +282,14 @@ class _UploadState extends State<Upload> {
                       ),
                     ),
                     onPressed: () async {
-                      await uploardMusic(music, nameSong, nameArtist);
+                      if (music != null &&
+                          !nameSong.isEmpty &&
+                          !nameArtist.isEmpty) {
+                        if (image != null) {
+                          await uploardMusicImage(image, nameSong);
+                        }
+                        await uploardMusic(music, nameSong, nameArtist);
+                      }
                     },
                   ),
                 ),

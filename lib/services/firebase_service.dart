@@ -447,6 +447,17 @@ Future<bool> passwordReset() async {
   return false;
 }
 
+Future uploardMusicImage(File? image, String nameSong) async {
+  final storage = FirebaseStorage.instance;
+  final reference = storage.ref().child('img/' + nameSong + ".PNG");
+  try {
+    await reference.putFile(image!);
+    print('upload');
+  } catch (e) {
+    print('no upload$e');
+  }
+}
+
 Future uploardMusic(File? music, String musicName, String artist) async {
   final storage = FirebaseStorage.instance;
   final reference = storage.ref().child('music/' + musicName + ".mp3");
@@ -455,5 +466,50 @@ Future uploardMusic(File? music, String musicName, String artist) async {
     print('upload');
   } catch (e) {
     print('no upload$e');
+  }
+  String nameCompleta = musicName + ".mp3";
+  try {
+    CollectionReference collectionRef =
+        FirebaseFirestore.instance.collection('music');
+
+    await collectionRef.doc(nameCompleta).set({
+      'name': musicName,
+      'artist': artist,
+      'album': 'pop',
+      'duration': '04:30',
+    });
+    print('add');
+  } catch (e) {
+    print('add error: $e');
+  }
+  String downloadURL = "";
+  try {
+    final ref = storage.ref().child('music').child(nameCompleta);
+
+    downloadURL = await ref.getDownloadURL();
+  } catch (e) {
+    print('error $e');
+  }
+  try {
+    Song song = Song(
+      id: downloadURL,
+      title: musicName,
+      imageURL: await getImageOfFile(musicName),
+      artist: artist,
+      album: "lol",
+      duration: "lol",
+    );
+    exx.add(song);
+  } catch (e) {
+    Song song = Song(
+      id: "lol",
+      title: "lol",
+      imageURL:
+          "https://firebasestorage.googleapis.com/v0/b/dyzr-proyect.appspot.com/o/img%2FAnimals.png?alt=media&token=e085b8cc-36bf-4b2b-889e-9fff1d7aac35",
+      artist: "lol",
+      album: "lol",
+      duration: "lol",
+    );
+    exx.add(song);
   }
 }
