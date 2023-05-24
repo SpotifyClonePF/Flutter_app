@@ -367,7 +367,8 @@ Future<bool> signInWithGoogle() async {
         accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
     UserCredential userCrendential =
         await FirebaseAuth.instance.signInWithCredential(credential);
-    print(userCrendential.user);
+    print("ssssssssssssssssssssssssssssssss");
+    print(userCrendential.user?.email);
     return true;
   } catch (e) {
     print('Error signing in with Google: $e');
