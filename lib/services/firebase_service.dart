@@ -281,7 +281,7 @@ Future<void> playlistOfUser() async {
 
 Future<String> getAudioDuration(String filePath) async {
   AudioPlayer player = AudioPlayer();
-  Duration duration = Duration();
+  Duration duration = const Duration();
   await player.setUrl(filePath);
   int durationInMilliseconds = await player.getDuration();
   duration = Duration(milliseconds: durationInMilliseconds);
@@ -501,7 +501,7 @@ Future uploadMusic(File? music, String musicName, String artist) async {
     );
     exx.add(song);
   } catch (e) {
-    Song song = Song(
+    Song song = const Song(
       id: "none",
       title: "Title unknown",
       imageURL: "",

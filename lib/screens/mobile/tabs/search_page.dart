@@ -146,10 +146,7 @@ class _SearchState extends State<Search> {
                             bottomRight: Radius.circular(20.0),
                           ),
                           image: DecorationImage(
-                            image: song.imageURL != null
-                                ? Image.asset('assets/images/playlist1.jpg')
-                                    .image
-                                : Image.network(song.imageURL).image,
+                            image: NetworkImage(song.imageURL),
                             fit: BoxFit.cover,
                           ),
                         ),
