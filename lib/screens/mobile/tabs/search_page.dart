@@ -4,6 +4,7 @@ import 'package:Dyzr/screens/mobile/song_page.dart';
 import 'package:Dyzr/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:Dyzr/services/firebase_service.dart';
 
 class Search extends StatefulWidget {
   const Search({Key? key}) : super(key: key);
@@ -287,14 +288,17 @@ builder: (context) => const ProfileMobile(),
 
                   /// View album
                   InkWell(
-                    onTap: () {
-/*Navigator.push(
-context,
-
-MaterialPageRoute(
-builder: (context) => const ProfileMobile(),
-),
-);*/
+                    onTap: () async {
+                      await downloadMusic(song.id, song.title);
+                      Navigator.of(context).pop();
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return const AlertDialog(
+                            content: Text('ok'),
+                          );
+                        },
+                      );
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,

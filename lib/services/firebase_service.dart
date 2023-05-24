@@ -394,11 +394,22 @@ Future<String> _loadAudioUrl(String nombre) async {
 
 // obtener direccion(encaso solo android) par guardar la music.
 Future<String> _getsavepath(String nombre) async {
+  nombre = nombre + ".mp3";
   final appDocumentsDirectory = await getExternalStorageDirectory();
   if (appDocumentsDirectory != null) {
     return '${appDocumentsDirectory.path}/$nombre';
   }
   return "";
+}
+
+Future<void> downloadMusic(String url, String fileName) async {
+  try {
+    final response = await http.get(Uri.parse(url));
+    if (response.statusCode == 200) {
+      final file = File(await _getsavepath(fileName));
+      await file.writeAsBytes(response.bodyBytes);
+    } else {}
+  } catch (e) {}
 }
 
 Future updateName(String newName) async {
