@@ -361,15 +361,22 @@ Future<List<String>> getPlaylistName() async {
 Future<bool> signInWithGoogle() async {
   try {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
     final GoogleSignInAuthentication googleAuth =
         await googleUser!.authentication;
+
     final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
+
     UserCredential userCrendential =
         await FirebaseAuth.instance.signInWithCredential(credential);
-    print("ssssssssssssssssssssssssssssssss");
-    print(userCrendential.user?.email);
-    return true;
+
+    final user = FirebaseAuth.instance.currentUser;
+
+    String ee = user!.email.toString();
+    if (ee.isNotEmpty) {
+      return true;
+    }
   } catch (e) {
     print('Error signing in with Google: $e');
   }
