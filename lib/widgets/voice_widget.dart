@@ -82,6 +82,12 @@ class SpeechToTextWidgetState extends State<SpeechToTextWidget> {
         } else {
           print("No song found");
           flutterTts.speak("Sorry, I couldn't find the requested song.");
+          flutterTts.setCompletionHandler(() {
+            _lastWords = "";
+            suggestions.clear();
+          });
+          _lastWords = "";
+          suggestions.clear();
         }
       } else if (_lastWords.contains("hola") || (_lastWords.contains("hi"))) {
         print("Hi!!");
