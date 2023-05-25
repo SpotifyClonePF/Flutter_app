@@ -522,12 +522,12 @@ class LoginState extends State<Login> {
                                   children: [
                                     InkWell(
                                       onTap: () async {
+                                        await GoogleSignInApi.logout();
                                         final user =
                                             await GoogleSignInApi.login();
                                         if (user == null) {
                                         } else {
                                           setnameUser(
-                                              user.displayName.toString(),
                                               user.email);
                                           Navigator.pushReplacementNamed(
                                               context, '/home');

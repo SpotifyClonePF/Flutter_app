@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../models/data.dart';
+import '../../services/google_sign_in.dart';
 import '../../styles/colors.dart';
 import 'package:Dyzr/services/firebase_service.dart' as firebaseservice;
 
@@ -1172,10 +1173,11 @@ builder: (context) => const ProfileMobile(),
                                     child: const Text('Cancelar'),
                                   ),
                                   TextButton(
-                                    onPressed: () {
+                                    onPressed: () async{
                                       Navigator.pop(context);
                                       goToWelcome();
                                       image = null;
+                                      await GoogleSignInApi.logout();
                                     },
                                     child: const Text('Cerrar sesión'),
                                   ),
