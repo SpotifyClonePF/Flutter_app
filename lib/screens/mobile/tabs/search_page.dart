@@ -156,46 +156,48 @@ class _SearchState extends State<Search> {
                           ),
                         ),
                       ),
-                      Positioned(
-                        bottom: 40,
-                        right: 5,
-                        child: Container(
-                          width: 80,
-                          height: 40,
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 4,
-                            horizontal: 0,
-                          ),
-                          child: Text(
-                            song.title,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600,
-                              overflow: TextOverflow.visible,
-                            ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: Align(
+                          alignment: Alignment.topRight,
+                          child: Column(
+                            children: [
+                              Container(
+                                width: 100,
+                                height: 70,
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 4,
+                                ),
+                                child: Text(
+                                  song.title,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  maxLines: 2,
+                                ),
+                              ),
+                              Container(
+                                width: 100,
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 4,
+                                ),
+                                child: Text(
+                                  song.artist.toUpperCase(),
+                                  style: const TextStyle(
+                                    color: MyColors.mainGreen,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w800,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ),
-                      Positioned(
-                        bottom: 5,
-                        right: 5,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 4,
-                            horizontal: 8,
-                          ),
-                          child: Text(
-                            song.artist.toUpperCase(),
-                            style: const TextStyle(
-                              color: MyColors.mainGreen,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w800,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ),
-                      ),
+                      )
                     ],
                   ),
 
@@ -290,22 +292,22 @@ builder: (context) => const ProfileMobile(),
                   InkWell(
                     onTap: () async {
                       if (await downloadMusic(song.id, song.title)) {
-                        Navigator.of(context).pop();
+                        Navigator.of(this.context).pop();
                         showDialog(
-                          context: context,
+                          context: this.context,
                           builder: (context) {
                             return const AlertDialog(
-                              content: Text('ok'),
+                              content: Text('Downloaded'),
                             );
                           },
                         );
                       } else {
-                        Navigator.of(context).pop();
+                        Navigator.of(this.context).pop();
                         showDialog(
-                          context: context,
+                          context: this.context,
                           builder: (context) {
                             return const AlertDialog(
-                              content: Text('error'),
+                              content: Text('Download failed'),
                             );
                           },
                         );
@@ -396,7 +398,7 @@ builder: (context) => const ProfileMobile(),
           itemBuilder: (context, index) {
             if (index == _songs.length) {
               return const SizedBox(
-                height: 160,
+                height: 180,
               ); // 70 sin el player y 160 si esta el player
             }
             final song = _songs[index];

@@ -51,6 +51,32 @@ class _UploadState extends State<Upload> {
     }
   }
 
+  void uploadedFunc() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(
+          'Upload successfully',
+          style: TextStyle(
+            fontSize: 20,
+          ),
+        ),
+      ),
+    );
+  }
+
+  void uploadedFailed() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(
+          'Please fill all the fields',
+          style: TextStyle(
+            fontSize: 20,
+          ),
+        ),
+      ),
+    );
+  }
+
   Future<void> _showMyDialog() async {
     return showDialog<void>(
       context: context,
@@ -292,17 +318,9 @@ class _UploadState extends State<Upload> {
                         }
                         await uploadMusic(music, nameSong, nameArtist);
                         Navigator.of(context).pop();
+                        uploadedFunc();
                       } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text(
-                              'Please fill all the fields',
-                              style: TextStyle(
-                                fontSize: 20,
-                              ),
-                            ),
-                          ),
-                        );
+                        uploadedFailed();
                       }
                     },
                   ),
