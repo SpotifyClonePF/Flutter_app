@@ -289,16 +289,27 @@ builder: (context) => const ProfileMobile(),
                   /// View album
                   InkWell(
                     onTap: () async {
-                      await downloadMusic(song.id, song.title);
-                      Navigator.of(context).pop();
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return const AlertDialog(
-                            content: Text('ok'),
-                          );
-                        },
-                      );
+                      if (await downloadMusic(song.id, song.title)) {
+                        Navigator.of(context).pop();
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return const AlertDialog(
+                              content: Text('ok'),
+                            );
+                          },
+                        );
+                      } else {
+                        Navigator.of(context).pop();
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            return const AlertDialog(
+                              content: Text('error'),
+                            );
+                          },
+                        );
+                      }
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,

@@ -391,19 +391,24 @@ Future<String> _getsavepath(String nombre) async {
   nombre = nombre + ".mp3";
   final appDocumentsDirectory = await getExternalStorageDirectory();
   if (appDocumentsDirectory != null) {
-    return '${appDocumentsDirectory.path}/Download/$nombre';
+    return '/storage/emulated/0/Download/$nombre';
   }
   return "";
 }
 
-Future<void> downloadMusic(String url, String fileName) async {
+Future<bool> downloadMusic(String url, String fileName) async {
   try {
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
       final file = File(await _getsavepath(fileName));
       await file.writeAsBytes(response.bodyBytes);
+      return true;
     } else {}
-  } catch (e) {}
+  } catch (e) {
+    print(
+        "ssssjgksbdgkhaghalkfhalhfjslajsflkjasflhagkljhwdlgjkhasgbhasdjbgnklsjndgkjsbdglshnaglkahnjgkljaklghaghashflkashnjflhjaol");
+  }
+  return false;
 }
 
 Future updateName(String newName) async {
