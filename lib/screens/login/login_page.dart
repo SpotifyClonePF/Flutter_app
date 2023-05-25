@@ -11,6 +11,7 @@ import 'package:Dyzr/responsive.dart';
 import 'package:Dyzr/services/firebase_service_changes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:email_validator/email_validator.dart';
+import '../../services/google_sign_in.dart';
 import '../main_desktop/my_window.dart';
 import 'package:Dyzr/bean/User.dart';
 
@@ -521,7 +522,13 @@ class LoginState extends State<Login> {
                                   children: [
                                     InkWell(
                                       onTap: () async {
-                                        if (await signInWithGoogle()) {
+                                        final user =
+                                            await GoogleSignInApi.login();
+                                        if (user == null) {
+                                        } else {
+                                          setnameUser(
+                                              user.displayName.toString(),
+                                              user.email);
                                           Navigator.pushReplacementNamed(
                                               context, '/home');
                                         }

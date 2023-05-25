@@ -26,6 +26,11 @@ String emailUser = "root";
 String userimg =
     "https://firebasestorage.googleapis.com/v0/b/dyzr-proyect.appspot.com/o/user%2Fdefault.png?alt=media&token=b8f316e2-8bee-4f10-8957-eb9e2c7325b8";
 
+Future<void> setnameUser(String name, String email) async {
+  nameUser = name;
+  emailUser = email;
+}
+
 Future<String> getPeople(String email) async {
   String name = "";
   CollectionReference collectionReferenceUser = db.collection('user');
