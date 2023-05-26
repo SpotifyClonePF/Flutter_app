@@ -1,5 +1,6 @@
 import 'package:Dyzr/styles/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Appearance extends StatefulWidget {
   const Appearance({Key? key}) : super(key: key);
@@ -14,6 +15,23 @@ class _AppearanceState extends State<Appearance> {
   bool _darkMode = true;
   int _selectedIndex = 0;
 
+  late SharedPreferences _preferences;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPreferences();
+  }
+  Future<void> _loadPreferences() async {
+    _preferences = await SharedPreferences.getInstance();
+    setState(() {
+      _selectedIndex = _preferences.getInt('selectedColorIndex') ?? 0;
+    });
+  }
+
+  Future<void> _saveSelectedColor() async {
+    await _preferences.setInt('selectedColorIndex', _selectedIndex);
+  }
   List<Map<String, dynamic>> colorList = [
     {'name': 'Dyzr', 'color': MyColors.mainGreen},
     {'name': 'Amber', 'color': const Color(0xFFEDAB00)},
@@ -35,6 +53,7 @@ class _AppearanceState extends State<Appearance> {
               setState(() {
                 _selectedIndex = colorList.indexOf(color);
               });
+              _saveSelectedColor();
             },
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
